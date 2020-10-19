@@ -3,6 +3,7 @@ package vip.epss.service.impl;
 import org.springframework.stereotype.Service;
 import vip.epss.domain.User;
 import vip.epss.service.UserService;
+import vip.epss.utils.MD5Util;
 
 /**
  * @创建人 epss[wangzhanf]
