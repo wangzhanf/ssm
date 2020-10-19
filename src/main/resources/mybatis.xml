@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE configuration
+        PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-config.dtd">
+
+<configuration>
+    <!--    全局配置-->
+    <settings>
+        <!--    全局开启二级缓存,也可以在具体的sql片段中关闭二级缓存-->
+        <setting name="cacheEnabled" value="true"/>
+        <!--        开启懒加载模式-->
+        <setting name="lazyLoadingEnabled" value="true"/>
+        <!--        关闭实时加载-->
+        <setting name="aggressiveLazyLoading" value="false"/>
+        <!--        配置驼峰映射-->
+        <setting name="mapUnderscoreToCamelCase" value="true"/>
+    </settings>
+    <!--    别名设置,默认情况下别名是类名的小写开头-->
+    <typeAliases>
+        <package name="vip.epss.domain"/>
+    </typeAliases>
+</configuration>

@@ -1,0 +1,97 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xmlns:mvc="http://www.springframework.org/schema/mvc"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+       http://www.springframework.org/schema/beans/spring-beans.xsd
+       http://www.springframework.org/schema/context
+       https://www.springframework.org/schema/context/spring-context.xsd
+       http://www.springframework.org/schema/mvc
+       https://www.springframework.org/schema/mvc/spring-mvc.xsd">
+    <!--    1 组件的自动扫描-->
+    <context:component-scan base-package="vip.epss">
+        <context:include-filter type="annotation" expression="org.springframework.stereotype.Controller"/>
+        <context:exclude-filter type="annotation" expression="org.springframework.stereotype.Service"/>
+        <context:exclude-filter type="annotation" expression="org.springframework.stereotype.Repository"/>
+    </context:component-scan>
+    <!--    2 视图解析器-->
+    <bean id="internalResourceViewResolver" class="org.springframework.web.servlet.view.InternalResourceViewResolver">
+        <property name="prefix" value="/WEB-INF/pages/"></property>
+        <property name="suffix" value=".jsp"></property>
+    </bean>
+
+    <!--    4 配置静态资源过滤-->
+    <!--    <mvc:default-servlet-handler />-->
+
+    <mvc:resources mapping="/static/**" location="/static/"/>
+
+    <!--    5 配置拦截器-->
+    <mvc:interceptors>
+        <!--        配置登录拦截器-->
+        <mvc:interceptor>
+            <mvc:mapping path="/**"/>
+            <!--            添加排除的选项(静态资源和登录页)-->
+            <mvc:exclude-mapping path="/user/login"/>
+            <mvc:exclude-mapping path="/static/**"/>
+            <bean class="vip.epss.interceptor.LoginInterceptor"/>
+        </mvc:interceptor>
+    </mvc:interceptors>
+
+    <!--    上传文件的组件,目前已经转移到spring中进行管理-->
+    <bean id="multipartResolver" class="org.springframework.web.multipart.commons.CommonsMultipartResolver">
+        <property name="defaultEncoding" value="utf-8"></property>
+        <property name="maxUploadSize" value="10000000"></property>
+    </bean>
+
+    <!--    5 解决$.get从控制器返回的中文乱码问题-->
+    <mvc:annotation-driven>
+        <mvc:message-converters>
+            <bean class="org.springframework.http.converter.StringHttpMessageConverter">
+                <property name="supportedMediaTypes">
+                    <list>
+                        <value>text/plain;charset=UTF-8</value>
+                        <value>text/html;charset=UTF-8;</value>
+                        <value>application/json;charset=UTF-8</value>
+                    </list>
+                </property>
+            </bean>
+        </mvc:message-converters>
+    </mvc:annotation-driven>
+
+    <!--    3 自定义的日期类型转换器-->
+    <bean id="conversionServiceFactoryBean"
+          class="org.springframework.format.support.FormattingConversionServiceFactoryBean">
+        <property name="converters">
+            <list>
+                <bean id="stringToDateConvert" class="vip.epss.utils.StringToDateConvert"></bean>
+            </list>
+        </property>
+    </bean>
+    <!--    4 后端数据校验-->
+    <!--    4.1 后端数据校验的错误信息配置文件-->
+    <bean class="org.springframework.context.support.ReloadableResourceBundleMessageSource" id="messageSource">
+        <property name="basenames">
+            <list>
+                <value>classpath:customValidationMessages</value>
+            </list>
+        </property>
+        <!--        资源文件编码-->
+        <property name="defaultEncoding" value="UTF-8"></property>
+        <!--        资源文件内容缓存时间-->
+        <property name="cacheSeconds" value="120"></property>
+    </bean>
+    <bean class="org.springframework.validation.beanvalidation.LocalValidatorFactoryBean"
+          id="localValidatorFactoryBean">
+        <property name="providerClass" value="org.hibernate.validator.HibernateValidator"></property>
+        <property name="validationMessageSource" ref="messageSource"></property>
+    </bean>
+    <!--    5 开启注解驱动支持-->
+    <!--    5.1 开启自定义的类型转换器-->
+    <!--    5.2 开启自定义的数据校验-->
+    <mvc:annotation-driven conversion-service="conversionServiceFactoryBean"
+                           validator="localValidatorFactoryBean"></mvc:annotation-driven>
+
+    <!--    6 全局异常处理器-->
+    <bean class="vip.epss.exception.CustomExceptionResolver" id="customExceptionResolver"></bean>
+</beans>

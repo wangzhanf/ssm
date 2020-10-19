@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE configuration
+        PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-config.dtd">
+<configuration>
+    <!--    1 引入外部的数据连接配置文件-->
+    <properties resource="db.properties"></properties>
+    <!--    2 全局配置-->
+    <settings>
+        <!--    全局开启二级缓存,也可以在具体的sql片段中关闭二级缓存-->
+        <setting name="cacheEnabled" value="true"/>
+
+        <!--        开启懒加载模式-->
+        <setting name="lazyLoadingEnabled" value="true"/>
+        <!--        关闭实时加载-->
+        <setting name="aggressiveLazyLoading" value="false"/>
+        <!--        配置驼峰映射-->
+        <setting name="mapUnderscoreToCamelCase" value="true"/>
+    </settings>
+
+    <!--    3 定义别名映射,一般都是封装为实体类对象-->
+    <typeAliases>
+        <package name="vip.epss.domain"/>
+    </typeAliases>
+
+    <!--    4 环境配置-->
+    <!--    通过default切换默认的配置环境-->
+    <environments default="development">
+        <!--        开发过程中的环境-->
+        <environment id="development">
+            <!--            事务管理使用的方式  ,当前为JDBC-->
+            <transactionManager type="JDBC"/>
+            <!--            数据连接池的方式    POOLED连接池  UNPOOLED不使用连接池-->
+            <dataSource type="POOLED">
+                <!--                访问数据库的基本四要素,驱动,连接地址,用户,密码-->
+                <!--                如果直接写在配置文件中,& 需要转义  &amp;-->
+                <property name="driver" value="${jdbc.driverClass}"/>
+                <property name="url" value="${jdbc.jdbcUrl}"/>
+                <property name="username" value="${jdbc.user}"/>
+                <property name="password" value="${jdbc.password}"/>
+            </dataSource>
+        </environment>
+        <!--        正式发布时的数据连接环境-->
+        <environment id="release">
+            <transactionManager type="JDBC"/>
+            <dataSource type="POOLED">
+                <property name="driver" value="${jdbc.driverClass}"/>
+                <property name="url" value="${jdbc.jdbcUrl}"/>
+                <property name="username" value="${jdbc.user}"/>
+                <property name="password" value="${jdbc.password}"/>
+            </dataSource>
+        </environment>
+    </environments>
+    <!--    5 mapper文件的加载,MyBatis框架通过mapper配置文件和接口动态代理生成实现类-->
+    <!--    所以使用MyBatis时,一般不需要自己编写实现类-->
+    <mappers>
+        <!--        一个单独文件的映射-->
+        <!--        <mapper class="vip.epss.dao.UserMapper.xml" />-->
+        <!--        包内所有mapper文件的映射-->
+        <package name="vip.epss.dao"/>
+    </mappers>
+</configuration>

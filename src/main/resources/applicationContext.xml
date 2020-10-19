@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xmlns:tx="http://www.springframework.org/schema/tx"
+       xmlns:aop="http://www.springframework.org/schema/aop"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+       http://www.springframework.org/schema/beans/spring-beans.xsd
+       http://www.springframework.org/schema/context
+       https://www.springframework.org/schema/context/spring-context.xsd
+       http://www.springframework.org/schema/tx
+       http://www.springframework.org/schema/tx/spring-tx.xsd
+       http://www.springframework.org/schema/aop
+       https://www.springframework.org/schema/aop/spring-aop.xsd">
+
+    <!--    1 组件扫描的范围,扫描Service和Repository,将Controller交由springmvc处理  -->
+    <context:component-scan base-package="vip.epss">
+        <context:include-filter type="annotation" expression="org.springframework.stereotype.Service"/>
+        <context:include-filter type="annotation" expression="org.springframework.stereotype.Repository"/>
+        <context:exclude-filter type="annotation" expression="org.springframework.stereotype.Controller"/>
+    </context:component-scan>
+
+    <!--    2 引入外部的数据连接信息-->
+    <context:property-placeholder location="classpath:db.properties"></context:property-placeholder>
+    <!--    3 spring去接管mybatis的连接数据库的能力-->
+    <bean id="comboPooledDataSource" class="com.mchange.v2.c3p0.ComboPooledDataSource">
+        <property name="driverClass" value="${jdbc.driverClass}"></property>
+        <property name="jdbcUrl"
+                  value="${jdbc.jdbcUrl}"></property>
+        <property name="user" value="${jdbc.user}"></property>
+        <property name="password" value="${jdbc.password}"></property>
+
+        <property name="maxPoolSize" value="8"></property>
+    </bean>
+    <!--    3.1 由Spring去管理SqlSessionFactory的创建-->
+    <bean id="sessionFactoryBean" class="org.mybatis.spring.SqlSessionFactoryBean">
+        <property name="dataSource" ref="comboPooledDataSource"></property>
+        <!--加载mybatis的主配置文件,将此处不方便配置的选项在独立的文件中配置-->
+        <property name="configLocation" value="classpath:mybatis.xml"></property>
+
+        <!--        配置pageHelper-->
+        <property name="plugins">
+            <!--            配置pagehelper的拦截器-->
+            <bean class="com.github.pagehelper.PageInterceptor">
+                <property name="properties">
+                    <props>
+                        <!--                        数据库方言-->
+                        <prop key="helperDialect">mysql</prop>
+                        <!--                        页码合理化,负页则为1,无限大值为最大页码数-->
+                        <prop key="reasonable">true</prop>
+                        <prop key="offsetAsPageNum">true</prop>
+                        <prop key="pageSizeZero">true</prop>
+                    </props>
+                </property>
+            </bean>
+        </property>
+    </bean>
+    <!--    3.2 让Spring配置可以扫描到的mapper文件,让MyBties可以扫描并匹配-->
+    <bean id="mapperScannerConfigurer" class="org.mybatis.spring.mapper.MapperScannerConfigurer">
+        <property name="basePackage" value="vip.epss.dao"></property>
+    </bean>
+    <!--    4 事务配置-->
+    <!--    4.1 事务管理器的Bean-->
+    <bean id="transactionManager" class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
+        <property name="dataSource" ref="comboPooledDataSource"></property>
+    </bean>
+    <!--    4.2 配置事务的增强-->
+    <tx:advice id="advice" transaction-manager="transactionManager">
+        <tx:attributes>
+            <!--            针对不同的方法使用不同的事务级别-->
+            <tx:method name="*" propagation="REQUIRED" read-only="false" isolation="DEFAULT"/>
+            <!--            对于查询的方法仅只读-->
+            <tx:method name="select*" propagation="REQUIRED" read-only="true"/>
+        </tx:attributes>
+    </tx:advice>
+    <!--    4.3 配置AOP,事务如何切入(可以是注解的方式,本案例使用配置文件)-->
+    <aop:config>
+        <!--    *   所有的返回值    不管什么方法,返回值任意-->
+
+        <!--        表达式的写法:   访问权限[可省略] 返回值类型(*表示所有的返回值) 包.子包.方法(参数)-->
+        <aop:pointcut id="cudService" expression="execution (* vip.epss.service.impl.*Impl.*(..))"/>
+        <aop:advisor advice-ref="advice" pointcut-ref="cudService"/>
+    </aop:config>
+</beans>
