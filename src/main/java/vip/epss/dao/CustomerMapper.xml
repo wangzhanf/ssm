@@ -1,0 +1,290 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="vip.epss.dao.CustomerMapper">
+  <resultMap id="BaseResultMap" type="vip.epss.domain.Customer">
+    <id column="cid" jdbcType="INTEGER" property="cid" />
+    <result column="cname" jdbcType="VARCHAR" property="cname" />
+    <result column="cphone" jdbcType="VARCHAR" property="cphone" />
+    <result column="cemail" jdbcType="VARCHAR" property="cemail" />
+    <result column="cpass" jdbcType="VARCHAR" property="cpass" />
+    <result column="cbirth" jdbcType="DATE" property="cbirth" />
+    <result column="cavatar" jdbcType="VARCHAR" property="cavatar" />
+    <result column="cgender" jdbcType="BIT" property="cgender" />
+    <result column="cstatus" jdbcType="BIT" property="cstatus" />
+    <result column="add_time" jdbcType="TIMESTAMP" property="addTime" />
+  </resultMap>
+  <sql id="Example_Where_Clause">
+    <where>
+      <foreach collection="oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause">
+    <where>
+      <foreach collection="example.oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List">
+    cid, cname, cphone, cemail, cpass, cbirth, cavatar, cgender, cstatus, add_time
+  </sql>
+  <select id="selectByExample" parameterType="vip.epss.domain.CustomerExample" resultMap="BaseResultMap">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from customer
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from customer
+    where cid = #{cid,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from customer
+    where cid = #{cid,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByExample" parameterType="vip.epss.domain.CustomerExample">
+    delete from customer
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="vip.epss.domain.Customer">
+    insert into customer (cid, cname, cphone, 
+      cemail, cpass, cbirth, 
+      cavatar, cgender, cstatus, 
+      add_time)
+    values (#{cid,jdbcType=INTEGER}, #{cname,jdbcType=VARCHAR}, #{cphone,jdbcType=VARCHAR}, 
+      #{cemail,jdbcType=VARCHAR}, #{cpass,jdbcType=VARCHAR}, #{cbirth,jdbcType=DATE}, 
+      #{cavatar,jdbcType=VARCHAR}, #{cgender,jdbcType=BIT}, #{cstatus,jdbcType=BIT}, 
+      #{addTime,jdbcType=TIMESTAMP})
+  </insert>
+  <insert id="insertSelective" parameterType="vip.epss.domain.Customer">
+    insert into customer
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="cid != null">
+        cid,
+      </if>
+      <if test="cname != null">
+        cname,
+      </if>
+      <if test="cphone != null">
+        cphone,
+      </if>
+      <if test="cemail != null">
+        cemail,
+      </if>
+      <if test="cpass != null">
+        cpass,
+      </if>
+      <if test="cbirth != null">
+        cbirth,
+      </if>
+      <if test="cavatar != null">
+        cavatar,
+      </if>
+      <if test="cgender != null">
+        cgender,
+      </if>
+      <if test="cstatus != null">
+        cstatus,
+      </if>
+      <if test="addTime != null">
+        add_time,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="cid != null">
+        #{cid,jdbcType=INTEGER},
+      </if>
+      <if test="cname != null">
+        #{cname,jdbcType=VARCHAR},
+      </if>
+      <if test="cphone != null">
+        #{cphone,jdbcType=VARCHAR},
+      </if>
+      <if test="cemail != null">
+        #{cemail,jdbcType=VARCHAR},
+      </if>
+      <if test="cpass != null">
+        #{cpass,jdbcType=VARCHAR},
+      </if>
+      <if test="cbirth != null">
+        #{cbirth,jdbcType=DATE},
+      </if>
+      <if test="cavatar != null">
+        #{cavatar,jdbcType=VARCHAR},
+      </if>
+      <if test="cgender != null">
+        #{cgender,jdbcType=BIT},
+      </if>
+      <if test="cstatus != null">
+        #{cstatus,jdbcType=BIT},
+      </if>
+      <if test="addTime != null">
+        #{addTime,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="vip.epss.domain.CustomerExample" resultType="java.lang.Long">
+    select count(*) from customer
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map">
+    update customer
+    <set>
+      <if test="record.cid != null">
+        cid = #{record.cid,jdbcType=INTEGER},
+      </if>
+      <if test="record.cname != null">
+        cname = #{record.cname,jdbcType=VARCHAR},
+      </if>
+      <if test="record.cphone != null">
+        cphone = #{record.cphone,jdbcType=VARCHAR},
+      </if>
+      <if test="record.cemail != null">
+        cemail = #{record.cemail,jdbcType=VARCHAR},
+      </if>
+      <if test="record.cpass != null">
+        cpass = #{record.cpass,jdbcType=VARCHAR},
+      </if>
+      <if test="record.cbirth != null">
+        cbirth = #{record.cbirth,jdbcType=DATE},
+      </if>
+      <if test="record.cavatar != null">
+        cavatar = #{record.cavatar,jdbcType=VARCHAR},
+      </if>
+      <if test="record.cgender != null">
+        cgender = #{record.cgender,jdbcType=BIT},
+      </if>
+      <if test="record.cstatus != null">
+        cstatus = #{record.cstatus,jdbcType=BIT},
+      </if>
+      <if test="record.addTime != null">
+        add_time = #{record.addTime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map">
+    update customer
+    set cid = #{record.cid,jdbcType=INTEGER},
+      cname = #{record.cname,jdbcType=VARCHAR},
+      cphone = #{record.cphone,jdbcType=VARCHAR},
+      cemail = #{record.cemail,jdbcType=VARCHAR},
+      cpass = #{record.cpass,jdbcType=VARCHAR},
+      cbirth = #{record.cbirth,jdbcType=DATE},
+      cavatar = #{record.cavatar,jdbcType=VARCHAR},
+      cgender = #{record.cgender,jdbcType=BIT},
+      cstatus = #{record.cstatus,jdbcType=BIT},
+      add_time = #{record.addTime,jdbcType=TIMESTAMP}
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="vip.epss.domain.Customer">
+    update customer
+    <set>
+      <if test="cname != null">
+        cname = #{cname,jdbcType=VARCHAR},
+      </if>
+      <if test="cphone != null">
+        cphone = #{cphone,jdbcType=VARCHAR},
+      </if>
+      <if test="cemail != null">
+        cemail = #{cemail,jdbcType=VARCHAR},
+      </if>
+      <if test="cpass != null">
+        cpass = #{cpass,jdbcType=VARCHAR},
+      </if>
+      <if test="cbirth != null">
+        cbirth = #{cbirth,jdbcType=DATE},
+      </if>
+      <if test="cavatar != null">
+        cavatar = #{cavatar,jdbcType=VARCHAR},
+      </if>
+      <if test="cgender != null">
+        cgender = #{cgender,jdbcType=BIT},
+      </if>
+      <if test="cstatus != null">
+        cstatus = #{cstatus,jdbcType=BIT},
+      </if>
+      <if test="addTime != null">
+        add_time = #{addTime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where cid = #{cid,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="vip.epss.domain.Customer">
+    update customer
+    set cname = #{cname,jdbcType=VARCHAR},
+      cphone = #{cphone,jdbcType=VARCHAR},
+      cemail = #{cemail,jdbcType=VARCHAR},
+      cpass = #{cpass,jdbcType=VARCHAR},
+      cbirth = #{cbirth,jdbcType=DATE},
+      cavatar = #{cavatar,jdbcType=VARCHAR},
+      cgender = #{cgender,jdbcType=BIT},
+      cstatus = #{cstatus,jdbcType=BIT},
+      add_time = #{addTime,jdbcType=TIMESTAMP}
+    where cid = #{cid,jdbcType=INTEGER}
+  </update>
+</mapper>

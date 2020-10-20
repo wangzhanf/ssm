@@ -6,11 +6,14 @@ import org.apache.ibatis.session.SqlSessionFactory;
 import org.apache.ibatis.session.SqlSessionFactoryBuilder;
 import org.junit.Before;
 import org.junit.Test;
+import vip.epss.dao.CustomerMapper;
 import vip.epss.dao.UserMapper;
+import vip.epss.domain.Customer;
 import vip.epss.domain.User;
 
 import java.io.IOException;
 import java.io.InputStream;
+import java.util.List;
 
 /**
  * @创建人 epss[wangzhanf]
@@ -34,7 +37,7 @@ public class MyBatisTest {
 
     public void destroy() throws IOException {
         //6 关闭资源
-//        sqlSession1.commit();
+//        sqlSession.commit();
         sqlSession.close();
         resourceAsStream.close();
     }
@@ -43,7 +46,17 @@ public class MyBatisTest {
     @Test
     public void test01(){
         UserMapper userMapper = sqlSession.getMapper(UserMapper.class);
-        User user = userMapper.selectOne(1);
+        User user = userMapper.selectByPrimaryKey(1);
         System.out.println(user);
+    }
+
+    @Test
+    public void test02(){
+        CustomerMapper customerMapper = sqlSession.getMapper(CustomerMapper.class);
+        List<Customer> customers = customerMapper.selectByExample(null);
+        for (Customer customer:customers
+             ) {
+            System.out.println(customer);
+        }
     }
 }

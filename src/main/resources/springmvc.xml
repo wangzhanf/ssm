@@ -21,9 +21,8 @@
         <property name="suffix" value=".jsp"></property>
     </bean>
 
-    <!--    4 配置静态资源过滤-->
+    <!--    4 配置静态资源过滤,如果使用default-servlet-handler的方式,请结合web.xml中的配置-->
     <!--    <mvc:default-servlet-handler />-->
-
     <mvc:resources mapping="/static/**" location="/static/"/>
 
     <!--    5 配置拦截器-->

@@ -44,17 +44,19 @@ public class MessageAndData {
         return this;//返回对象自身,这样就可以链式操作了
     }
 //    提供一个失败和成功的快速方法,避免创建对象
-    public static MessageAndData success(){
+    public static MessageAndData success(String msg){
         MessageAndData messageAndData = new MessageAndData();
         messageAndData.setStatusCode(200);
-        messageAndData.setMessage("成功");
+        msg = "".equals(msg)?"调用成功":msg;
+        messageAndData.setMessage(msg);
         return messageAndData;
     }
 
-    public static MessageAndData error(){
+    public static MessageAndData error(String msg){
         MessageAndData messageAndData = new MessageAndData();
         messageAndData.setStatusCode(400);
-        messageAndData.setMessage("失败");
+        msg = "".equals(msg)?"调用失败":msg;
+        messageAndData.setMessage(msg);
         return messageAndData;
     }
 }

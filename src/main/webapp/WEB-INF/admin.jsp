@@ -31,6 +31,8 @@
     <![endif]-->
 </head>
 <body>
+当前登录用户:${USER_SESSION}
+<a href="${app}/user/logout">退出登录</a>
 
 <!-- jQuery (Bootstrap 的 JavaScript 插件需要引入 jQuery) -->
 <script src="${app}/static/js/jquery-3.3.1.js" ></script>

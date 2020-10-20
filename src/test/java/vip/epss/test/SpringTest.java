@@ -14,7 +14,7 @@ public class SpringTest {
         //获取bean
         UserService userService = context.getBean("userService", UserService.class);
         //调用方法
-        User user = userService.selectOne(1);
+        User user = userService.selectByPrimaryKey(1);
         System.out.println(user);
     }
 }

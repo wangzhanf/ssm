@@ -28,7 +28,6 @@
         </init-param>
     </filter>
 
-
     <!--    3 配置REST风格的转换过滤器-->
     <filter>
         <filter-name>hiddenHttpMethodFilter</filter-name>
@@ -75,7 +74,7 @@
         <!--    所有的请求都交给该dispatcherServlet处理-->
         <url-pattern>/</url-pattern>
     </servlet-mapping>
-    <!--    在springmvc中设置了默认sevlet处理后的设置-->
+    <!--    在springmvc中设置了默认sevlet处理后的设置,请结合springMVC配置文件中的  mvc:default-servlet-handler -->
     <!--    <servlet-mapping>-->
     <!--        <servlet-name>default</servlet-name>-->
     <!--        <url-pattern>*.js</url-pattern>-->
