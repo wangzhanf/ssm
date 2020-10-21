@@ -14,9 +14,9 @@
 <%@ taglib prefix="sf" uri="http://www.springframework.org/tags/form" %>
 <html>
 <head>
-    <title></title>
+    <title>用户管理页面</title>
     <meta charset="UTF-8"/>
-    <base target="_self" />
+    <base target="_self"/>
     <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
     <!-- 引入 Bootstrap -->
     <link href="${app}/static/css/bootstrap.css" rel="stylesheet"/>
@@ -32,9 +32,26 @@
     <![endif]-->
 </head>
 <body>
+<div class="container">
+        <h6>添加新用户</h6>
+        <hr/>
+        <sf:form method="post" action="${app}/user/insert" modelAttribute="user">
+            <div class="form-group">
+                <label for="username">username:</label>
+                <input type="text" name="username" value="${user.username}" class="form-control" id="username">
+                <p class="text-danger"><sf:errors path="username"></sf:errors></p>
+            </div>
+            <div class="form-group">
+                <label for="pwd">Password:</label>
+                <input type="password" name="password" class="form-control" id="pwd">
+                <p class="text-danger"><sf:errors path="password"></sf:errors></p>
+            </div>
+            <button type="submit" class="btn btn-primary">确认添加</button>
+        </sf:form>
+</div>
 
 <!-- jQuery (Bootstrap 的 JavaScript 插件需要引入 jQuery) -->
-<script src="${app}/static/js/jquery-3.3.1.js" ></script>
+<script src="${app}/static/js/jquery-3.3.1.js"></script>
 <!-- 包括所有已编译的插件 -->
 <script src="${app}/static/js/bootstrap.js"></script>
 <script src="${app}/static/js/vue.js"></script>

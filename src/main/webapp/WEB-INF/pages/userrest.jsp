@@ -14,7 +14,7 @@
 <%@ taglib prefix="sf" uri="http://www.springframework.org/tags/form" %>
 <html>
 <head>
-    <title>后台管理</title>
+    <title>用户管理REST风格</title>
     <meta charset="UTF-8"/>
     <base target="_self" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
@@ -32,37 +32,38 @@
     <![endif]-->
 </head>
 <body>
-当前登录用户:${USER_SESSION}
-<a href="${app}/user/logout">退出登录</a>
-<hr />
-<a href="${app}/user/list">用户管理</a>
-<a href="${app}/userrest/list">用户管理REST</a>
-<hr />
+
 <!-- 模态框 -->
 <div class="modal fade" id="addModal">
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
-                <h4 class="modal-title">添加新用户</h4>
+                <h4 class="modal-title">添加新员工</h4>
                 <button type="button" class="close" data-dismiss="modal">&times;</button>
             </div>
 
             <!-- 模态框主体 -->
             <div class="modal-body">
-                <form method="post" action="${app}/userrest/opt" class="form-horizontal" role="form">
+                <form method="post" action="${appContext}/employREST/opt" class="form-horizontal" role="form">
                     <%--input type="hidden" name="_method" value="POST" /--%>
                     <div class="form-group">
-                        <label for="usernameAddInput">username:</label>
-                        <input type="text" class="form-control" id="usernameAddInput" name="username" placeholder="请输入用户姓名"/>
+                        <label for="enameAddInput">姓名ename:</label>
+                        <input type="text" class="form-control" id="enameAddInput" name="ename" placeholder="请输入员工姓名"/>
                     </div>
                     <div id="usernameTips"></div>
                     <div class="form-group">
-                        <label for="passwordAddInput">password:</label>
-                        <input type="password" class="form-control" id="passwordAddInput" name="password" placeholder="请输入密码">
+                        <label for="indateAddInput">入职时间:</label>
+                        <input type="date" class="form-control" id="indateAddInput" name="indate" placeholder="请输入入职时间">
                     </div>
-                    
+                    <div></div>
                     <div class="form-group">
-                        <button id="addUserBtn" type="button" class="btn btn-block btn-primary">添加</button>
+                        <label for="departList1">所在部门:</label>
+                        <select id="departList1" data-list="departList" name="fdid">
+                        </select>
+                    </div>
+                    <div></div>
+                    <div class="form-group">
+                        <button id="addEmployBtn" type="button" class="btn btn-block btn-primary">添加</button>
                     </div>
                 </form>
             </div>
@@ -84,26 +85,34 @@
 
             <!-- 模态框主体 -->
             <div class="modal-body">
-                <form method="post" action="${app}/userrest/opt" class="form-horizontal" role="form">
+                <form method="post" action="${appContext}/employREST/opt" class="form-horizontal" role="form">
                     <input type="hidden" name="_method" value="PUT" />
                     <div class="form-group">
-                        <label for="uidUpdateInput">uid:</label>
-                        <input type="text" readonly="readonly" class="form-control" id="uidUpdateInput" name="uid"
-                               placeholder="uid"/>
+                        <label for="eidUpdateInput">IDeid:</label>
+                        <input type="text" readonly="readonly" class="form-control" id="eidUpdateInput" name="eid"
+                               placeholder="eid"/>
                     </div>
+                    <div id="usernameTips"></div>
                     <div class="form-group">
-                        <label for="usernameUpdateInput">姓名username:</label>
-                        <input type="text" readonly="readonly" class="form-control" id="usernameUpdateInput" name="username"
-                               placeholder="请输入用户姓名"/>
+                        <label for="enameUpdateInput">姓名ename:</label>
+                        <input type="text" class="form-control" id="enameUpdateInput" name="ename"
+                               placeholder="请输入员工姓名"/>
                     </div>
+                    <div id="usernameTips"></div>
                     <div class="form-group">
-                        <label for="passwordUpdateInput">密码password:</label>
-                        <input type="password" class="form-control" id="passwordUpdateInput" name="password"
-                               placeholder="请输入新密码">
+                        <label for="indateUpdateInput">入职时间:</label>
+                        <input type="date" class="form-control" id="indateUpdateInput" name="indate"
+                               placeholder="请输入入职时间">
                     </div>
-                    
+                    <div></div>
                     <div class="form-group">
-                        <button id="updateUserBtn" type="button" class="btn btn-block btn-primary">修改</button>
+                        <label for="departList2">所在部门:</label>
+                        <select id="departList2" data-list="departList" name="fdid">
+                        </select>
+                    </div>
+                    <div></div>
+                    <div class="form-group">
+                        <button id="updateEmployBtn" type="button" class="btn btn-block btn-primary">修改</button>
                     </div>
                 </form>
             </div>
@@ -115,17 +124,20 @@
     </div>
 </div>
 
-<form id="searchForm" method="get" action="${app}/userrest/list">
-    <select id="ediCList" name="uidCondition">
-        <option selected="selected" value="-1">不限uid</option>
+<form id="searchForm" method="get" action="${appContext}/employREST/list">
+    <select id="ediCList" name="eidCondition">
+        <option selected="selected" value="-1">不限eid</option>
     </select>
 
-    <input name="uid" type="text" value="${userCondition.uid}" placeholder="uid"/>
-    <input type="text" placeholder="用户姓名" name="username" value="${userCondition.username}"/>
+    <input name="eid" type="text" value="${employCondition.eid}" placeholder="eid"/>
+    <input type="text" placeholder="员工姓名" name="ename" value="${employCondition.ename}"/>
     <input type="date" name="startDate"
-           value="<fmt:formatDate value="${userCondition.startDate}" pattern="yyyy-MM-dd"></fmt:formatDate>"/>
+           value="<fmt:formatDate value="${employCondition.startDate}" pattern="yyyy-MM-dd"></fmt:formatDate>"/>
     <input type="date" name="endDate"
-           value="<fmt:formatDate value="${userCondition.endDate}" pattern="yyyy-MM-dd"></fmt:formatDate>"/>
+           value="<fmt:formatDate value="${employCondition.endDate}" pattern="yyyy-MM-dd"></fmt:formatDate>"/>
+    <select data-list="departList" name="fdid">
+        <option value="">不限定部门</option>
+    </select>
     <input class="btn btn-primary" type="button" id="searchBtn" value="查询"/>
 </form>
 <div>
@@ -134,32 +146,63 @@
     </button>
     <input class="btn btn-danger" type="button" id="deletesBtn" value="删除所选"/>
 </div>
-<table id="userTable" class="table table-striped table-bordered table-hover">
+<table id="employTable" class="table table-striped table-bordered table-hover">
     <thead>
-    <tr class="bg-primary text-white">
+    <tr class="bg-secondary">
         <th>
             <input type="checkbox" id="choiceToggle"/>
             <input class="btn btn-sm btn-warning" type="button" id="reverseBtn" value="反选"/>
         </th>
         <th>序号#</th>
-        <th>用户id(uid)</th>
-        <th>姓名(username)</th>
-        <th>密码(password)</th>
-        <th>创建时间(addTime)</th>
+        <th>员工id(eid)</th>
+        <th>姓名(ename)</th>
+        <th>入职时间(indate)</th>
+        <th>所在部门(dname)</th>
         <th>操作(修改)</th>
         <th>操作(删除)</th>
     </tr>
     </thead>
     <tbody>
+    <%--    循环遍历输出数据,使用jstl--%>
+    <%--    <c:forEach items="${pageInfo.list}" var="employ" varStatus="status">--%>
+    <%--        <tr>--%>
+    <%--            <th><input type="checkbox" name="choiceList" value="${employ.eid}"/></th>--%>
+    <%--            <th>${status.count}</th>--%>
+    <%--            <td>${employ.eid}</td>--%>
+    <%--            <td>${employ.ename}</td>--%>
+    <%--            <td><fmt:formatDate value="${employ.indate}" pattern="yyyy/MM/dd"></fmt:formatDate></td>--%>
+    <%--            <td>${employ.depart.dname}</td>--%>
+    <%--            <td><a class="btn btn-info btn-sm" href="${appContext}/employ/updateForm?eid=${employ.eid}">修改</a></td>--%>
+    <%--            <td><a class="btn btn-danger btn-sm" href="${appContext}/employ/delete?eid=${employ.eid}">删除</a></td>--%>
+    <%--        </tr>--%>
+    <%--    </c:forEach>--%>
 
     </tbody>
 </table>
 <div class="row">
     <div id="pageList" class="col-12 col-md-8">
-
+        <%--        <ul class="pagination">--%>
+        <%--            <li class='page-item <c:if test="${pageInfo.isFirstPage}">disabled</c:if>'><a class="page-link"--%>
+        <%--                                                                                          href="${appContext}/employ/list?page=1">首页</a>--%>
+        <%--            </li>--%>
+        <%--            <li class='page-item <c:if test="${not pageInfo.hasPreviousPage}">disabled</c:if>'><a class="page-link"--%>
+        <%--                                                                                                  href="${appContext}/employ/list?page=${pageInfo.pageNum-1}">上一页</a>--%>
+        <%--            </li>--%>
+        <%--            <c:forEach begin="${pageInfo.navigateFirstPage}" end="${pageInfo.navigateLastPage}" var="i">--%>
+        <%--                <li class='page-item <c:if test="${pageInfo.pageNum == i}">active</c:if>'><a class="page-link"--%>
+        <%--                                                                                             href="${appContext}/employ/list?page=${i}">${i}</a>--%>
+        <%--                </li>--%>
+        <%--            </c:forEach>--%>
+        <%--            <li class='page-item <c:if test="${not pageInfo.hasNextPage}">disabled</c:if>'><a class="page-link"--%>
+        <%--                                                                                              href="${appContext}/employ/list?page=${pageInfo.pageNum+1}">下一页</a>--%>
+        <%--            </li>--%>
+        <%--            <li class='page-item <c:if test="${pageInfo.isLastPage}">disabled</c:if>'><a class="page-link"--%>
+        <%--                                                                                         href="${appContext}/employ/list?page=${pageInfo.pages}">尾页</a>--%>
+        <%--            </li>--%>
+        <%--        </ul>--%>
     </div>
     <div id="pageTips" class="col-12 col-md-4">
-
+        <%--        共${pageInfo.total}条记录,${pageInfo.pages}页,每页${pageInfo.pageSize}条--%>
     </div>
 </div>
 
@@ -188,11 +231,11 @@
         //给添加按钮绑定事件
         $("#openAddModalBtn").click(addForm);
         //点击添加按钮将新增数据存放到数据库
-        $("#addUserBtn").click(addUser);
+        $("#addEmployBtn").click(addEmploy);
         //给每条记录的修改按钮添加事件
         $(document).on("click", ".upBtn", updateForm);
-        //给修改用户信息的按钮添加事件
-        $("#updateUserBtn").click(updateUser);
+        //给修改员工信息的按钮添加事件
+        $("#updateEmployBtn").click(updateEmploy);
         //给每条记录的删除按钮添加事件
         $(document).on("click", ".delBtn", deleteSingleRecord);
     });
@@ -208,9 +251,9 @@
             url: ele.target.href,
             type: "GET",
             success: function (result) {
-                $("#uidUpdateInput").val(result.dataZone.user.uid);
-                $("#usernameUpdateInput").val(result.dataZone.user.username);
-                $("#addTimeUpdateInput").val(new Date(result.dataZone.user.addTime).Format("yyyy-MM-dd"));
+                $("#eidUpdateInput").val(result.dataZone.employ.eid);
+                $("#enameUpdateInput").val(result.dataZone.employ.ename);
+                $("#indateUpdateInput").val(new Date(result.dataZone.employ.indate).Format("yyyy-MM-dd"));
 
             },
             error: function () {
@@ -223,7 +266,7 @@
         //修改数据之前先进行数据校验
         //校验通过向服务器发送请求
         $.ajax({
-            url: "${app}/userrest/list",
+            url: "${appContext}/employREST/list",
             type: "GET",
             data: $("#searchForm").serialize(),
             success: function (result) {
@@ -237,11 +280,11 @@
         });
     }
     //提交用户修改的信息
-    function updateUser(){
+    function updateEmploy(){
         //修改数据之前先进行数据校验
         //校验通过向服务器发送请求
         $.ajax({
-            url: "${app}/userrest/opt",
+            url: "${appContext}/employREST/opt",
             type: "PUT",
             data: $("#updateModal form").serialize(),
             success: function (result) {
@@ -263,11 +306,11 @@
         $("#addModal form").get(0).reset();
     }
 
-    function addUser() {
+    function addEmploy() {
         //添加数据之前先进行数据校验
         //校验通过向服务器发送请求
         $.ajax({
-            url: "${app}/userrest/opt",
+            url: "${appContext}/employREST/opt",
             type: "POST",
             data: $("#addModal form").serialize(),
             success: function (result) {
@@ -304,23 +347,23 @@
     function deleteMuliRecord() {
         //点击删除所选按钮时删除多条记录
 
-        var uids = "";//需要传递给服务器的uid列表
-        var usernames = "";//需要显式给操作者看的提示信息列表
+        var eids = "";//需要传递给服务器的eid列表
+        var enames = "";//需要显式给操作者看的提示信息列表
         $("[name=choiceList]:checkbox").each(function () {
             if (this.checked) {
-                uids += $(this).parents("tr").find("td:eq(0)").text() + "-";//通过 - 连接
-                usernames += $(this).parents("tr").find("td:eq(1)").text() + ",";//通过 , 连接
+                eids += $(this).parents("tr").find("td:eq(0)").text() + "-";//通过 - 连接
+                enames += $(this).parents("tr").find("td:eq(1)").text() + ",";//通过 , 连接
             }
         });
-        uids = uids.substr(0, uids.length - 1);//去掉最后的一个 -
-        usernames = usernames.substr(0, usernames.length - 1);//去掉最后的一个 ,
+        eids = eids.substr(0, eids.length - 1);//去掉最后的一个 -
+        enames = enames.substr(0, enames.length - 1);//去掉最后的一个 ,
         //询问用户操作
-        if (confirm("是否删除username为" + uids + "的记录")) {
-            // if(confirm("是否删除uid为"+uids+"的记录")){
+        if (confirm("是否删除ename为" + eids + "的记录")) {
+            // if(confirm("是否删除eid为"+eids+"的记录")){
             //向服务器发送请求,我们已经使用过get和post方法,这次使用最底层的ajax方法
             $.ajax({
                 type: "DELETE",
-                url: "${app}/userrest/opt/" + uids,
+                url: "${appContext}/employREST/opt/" + eids,
                 success: function (result) {
                     alert(result);
                     // $(document).flush();//刷新当前页
@@ -335,12 +378,12 @@
 
     function gotoPage(page, pageSize) {
         var page1 = page == null ? 1 : page;
-        var pageSize1 = pageSize == null ? 10 : page;
+        var pageSize1 = pageSize == null ? 3 : page;
         $.ajax({
             type: "GET",
-            url: "${app}/userrest/list",
+            url: "${appContext}/employREST/list",
             dataType: "json",
-            data: "pageNum=" + page1 + "&pageSize=" + pageSize1,
+            data: "page=" + page1 + "&pageSize=" + pageSize1,
             success: function (result) {
                 // 解析返回的json数据并显示到界面中,封装为函数吧,太多东西了
                 parseDataAndShow(result);
@@ -354,27 +397,27 @@
     }
 
     function parseDataAndShow(result) {
-        $("#userTable tbody").empty();
+        $("#employTable tbody").empty();
         // 获取数据集合
-        let users = result.dataZone.pageInfo.list;
-        $.each(users, function (index, item) {
+        let employs = result.dataZone.pageInfo.list;
+        $.each(employs, function (index, item) {
             //构建行
-            var uTr = $("<tr></tr>");
+            var eTr = $("<tr></tr>");
             //构建多个单元格
-            var checkboxTh = $('<th><input type="checkbox" name="choiceList" value="${item.uid}"/></th>');
+            var checkboxTh = $('<th><input type="checkbox" name="choiceList" value="${item.eid}"/></th>');
             var countTh = $('<th></th>').text(index + 1);
-            var uidTd = $('<td></td>').text(item.uid);
-            var usernameTd = $('<td></td>').text(item.username);
-            var passwordTd = $('<td></td>').text(item.password);
-            var addTimeTd = $('<td></td>').text(new Date(item.addTime).Format("yyyy-MM-dd HH:mm:ss"));
-            var upBtnTd = $('<td></td>').html('<a class="upBtn btn btn-info btn-sm" href="${app}/userrest/opt/' + item.uid + '">修改</a>');
-            var delBtnTd = $('<td></td>').html('<a class="delBtn btn btn-danger btn-sm" href="${app}/userrest/opt/' + item.uid + '">删除</a>');
+            var eidTd = $('<td></td>').text(item.eid);
+            var enameTd = $('<td></td>').text(item.ename);
+            var indateTd = $('<td></td>').text(new Date(item.indate).Format("yyyy-MM-dd"));
+            var dnameTd = $('<td></td>').text(item.depart.dname);
+            var upBtnTd = $('<td></td>').html('<a class="upBtn btn btn-info btn-sm" href="${appContext}/employREST/opt/' + item.eid + '">修改</a>');
+            var delBtnTd = $('<td></td>').html('<a class="delBtn btn btn-danger btn-sm" href="${appContext}/employREST/opt/' + item.eid + '">删除</a>');
             //将单元格追加到行中
-            uTr.append(checkboxTh).append(countTh).append(uidTd)
-                .append(usernameTd).append(passwordTd).append(addTimeTd)
+            eTr.append(checkboxTh).append(countTh).append(eidTd)
+                .append(enameTd).append(indateTd).append(dnameTd)
                 .append(upBtnTd).append(delBtnTd);
             // 将行追加到表体中
-            $("#userTable tbody").append(uTr);
+            $("#employTable tbody").append(eTr);
         });
     }
 
@@ -444,7 +487,7 @@
         });
 
         //选中所有子项全选被选中
-        //因为通过ajax动态生成该复选框组件,所以以前写的绑定代码不能使用
+        //修改代码:20200729  因为通过ajax动态生成该复选框组件,所以以前写的绑定代码不能使用
         //通过dom加载的元素绑定事件使用on方法,不了解看第2天的视频
         $(document).on("click", function () {
             var flag = true;
@@ -474,27 +517,27 @@
 
     //填充查询条件和部门列表的列表值
     function fillSelectList() {
-        //页面加载时获取查询条件中所有的列表并填充到下拉列表中
+        //页面加载时获取查询条件中所有的部门列表并填充到下拉列表中
         $.post(
-            "${app}/userType/getTypes",
-            function (types) {
+            "${appContext}/depart/getDepts",
+            function (departs) {
                 //处理返回的数据
-                for (var i = 0; i < types.length; i++) {
-                    if (types[i].tid == "${userCondition.ftid}")
-                        $("[data-list=typeList]").append("<option selected='selected' value='" + types[i].tid + "'>" + types[i].tname + "</option>");
+                for (var i = 0; i < departs.length; i++) {
+                    if (departs[i].did == "${employCondition.fdid}")
+                        $("[data-list=departList]").append("<option selected='selected' value='" + departs[i].did + "'>" + departs[i].dname + "</option>");
                     else
-                        $("[data-list=typeList]").append("<option  value='" + types[i].tid + "'>" + types[i].tname + "</option>");
+                        $("[data-list=departList]").append("<option  value='" + departs[i].did + "'>" + departs[i].dname + "</option>");
                 }
             }
         );
 
-        //页面加载时获取查询条件中的uid前缀表达式填充到下拉列表中
-        var uidCd = ["大于", "等于", "小于"];
+        //页面加载时获取查询条件中的eid前缀表达式填充到下拉列表中
+        var eidCd = ["大于", "等于", "小于"];
         for (var i = 0; i < 3; i++) {
-            if (i == Number.parseInt("${userCondition.uidCondition}"))
-                $("#udiCList").append("<option selected='selected' value='" + i + "'>" + uidCd[i] + "</option>");
+            if (i == Number.parseInt("${employCondition.eidCondition}"))
+                $("#ediCList").append("<option selected='selected' value='" + i + "'>" + eidCd[i] + "</option>");
             else
-                $("#udiCList").append("<option  value='" + i + "'>" + uidCd[i] + "</option>");
+                $("#ediCList").append("<option  value='" + i + "'>" + eidCd[i] + "</option>");
         }
     }
 

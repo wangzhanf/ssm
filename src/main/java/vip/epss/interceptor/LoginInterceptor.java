@@ -2,7 +2,6 @@ package vip.epss.interceptor;
 
 import org.springframework.web.servlet.HandlerInterceptor;
 import org.springframework.web.servlet.ModelAndView;
-import vip.epss.domain.User;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -23,8 +22,8 @@ public class LoginInterceptor implements HandlerInterceptor {
         }
 
         HttpSession session = request.getSession();
-        User user = (User) session.getAttribute("USER_SESSION");
-        if (user != null) {
+        String username = (String)session.getAttribute("USER_SESSION");
+        if (username != null && username != "") {
             return true;//用户已经登录则放行
         }
         //如果不放行,则跳转到登录页面

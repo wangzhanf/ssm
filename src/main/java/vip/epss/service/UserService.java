@@ -1,6 +1,8 @@
 package vip.epss.service;
 
+import org.apache.ibatis.annotations.Param;
 import vip.epss.domain.User;
+import vip.epss.domain.UserExample;
 
 import java.util.List;
 
@@ -10,12 +12,27 @@ import java.util.List;
  * @描述
  */
 public interface UserService {
-    public abstract User selectByPrimaryKey(Integer key);
-    public abstract List<User> select();
-    public abstract Integer insert(User record);
-    public abstract Integer delete(Integer key);
-    public abstract Integer update(User record);
-    //特定应用
-    public abstract User selectByUser(User record);//用于登录
-    public abstract List<User> selectByUsername(String str);//用于查重
+    long countByExample(UserExample example);
+
+    int deleteByExample(UserExample example);
+
+    int deleteByPrimaryKey(Integer uid);
+
+    int insert(User record);
+
+    int insertSelective(User record);
+
+    List<User> selectByExample(UserExample example);
+
+    User selectByPrimaryKey(Integer uid);
+
+    int updateByExampleSelective(@Param("record") User record, @Param("example") UserExample example);
+
+    int updateByExample(@Param("record") User record, @Param("example") UserExample example);
+
+    int updateByPrimaryKeySelective(User record);
+
+    int updateByPrimaryKey(User record);
+
+
 }

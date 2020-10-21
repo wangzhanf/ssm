@@ -16,6 +16,7 @@
 <head>
     <title>后台登录</title>
     <meta charset="UTF-8"/>
+    <base target="_self" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
     <!-- 引入 Bootstrap -->
     <link href="${app}/static/css/bootstrap.css" rel="stylesheet"/>
