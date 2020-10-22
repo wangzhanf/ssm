@@ -18,15 +18,17 @@ public class StringToDateConvert implements Converter<String, Date> {
         System.out.println("String 转 Date 的方法开始执行了");
 
         if (source == null || "".equals(source)) {
-            throw new RuntimeException("没有传入对应的字符串");
+            return new Date();
+//            throw new RuntimeException("没有传入对应的字符串");
         }
         Date date = null;
         String formatStr = null;
+        System.out.println(source);
         if (Pattern.matches("\\d{4}-\\d{2}-\\d{2}T\\d{2}:\\d{2}",source)) {//匹配2020-10-20T20:56的datetime-local格式
             formatStr = "yyyy-MM-dd HH:mm";
             source = source.replace("T", " ");
         }
-        if (Pattern.matches("\\d{4}-\\d{2}-\\d{2} \\d{2}:\\d{2}\\d{2}",source)) {//匹配2020-10-20 20:56的date格式{
+        if (Pattern.matches("\\d{4}-\\d{2}-\\d{2} \\d{2}:\\d{2}\\d{2}",source)) {//匹配2020-10-20 20:56:45的datetime格式{
             formatStr = "yyyy-MM-dd HH:mm:ss";
         }
         if (Pattern.matches("\\d{4}-\\d{2}-\\d{2}",source)) {//匹配2020-10-20的date格式{

@@ -1,6 +1,9 @@
 package vip.epss.domain;
 
+import lombok.Data;
+
 import java.util.Date;
+@Data
 
 public class User {
     private Integer uid;
@@ -10,6 +13,25 @@ public class User {
     private String password;
 
     private Date addTime;
+
+    public User() {
+    }
+
+    public User(Integer uid, String username, Date addTime){
+        this.uid = uid;
+        this.username = username;
+        this.addTime = addTime;
+    }
+
+    @Override
+    public String toString() {
+        return "User{" +
+                "uid=" + uid +
+                ", username='" + username + '\'' +
+                ", password='" + password + '\'' +
+                ", addTime=" + addTime +
+                '}';
+    }
 
     public Integer getUid() {
         return uid;
