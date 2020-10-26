@@ -47,7 +47,7 @@
         <dependency>
             <groupId>mysql</groupId>
             <artifactId>mysql-connector-java</artifactId>
-            <version>5.1.47</version>
+            <version>8.0.16</version>
         </dependency>
         <!--        数据库连接池-->
         <dependency>
@@ -128,11 +128,11 @@
             <artifactId>hibernate-validator</artifactId>
             <version>5.4.2.Final</version>
         </dependency>
-        <dependency>
-            <groupId>com.alibaba</groupId>
-            <artifactId>fastjson</artifactId>
-            <version>1.2.73</version>
-        </dependency>
+<!--        <dependency>-->
+<!--            <groupId>com.alibaba</groupId>-->
+<!--            <artifactId>fastjson</artifactId>-->
+<!--            <version>1.2.73</version>-->
+<!--        </dependency>-->
         <!--        jstl标签库-->
         <dependency>
             <groupId>jstl</groupId>

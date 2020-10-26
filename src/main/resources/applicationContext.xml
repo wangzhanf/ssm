@@ -81,4 +81,5 @@
         <aop:pointcut id="cudService" expression="execution (* vip.epss.service.impl.*Impl.*(..))"/>
         <aop:advisor advice-ref="advice" pointcut-ref="cudService"/>
     </aop:config>
+
 </beans>

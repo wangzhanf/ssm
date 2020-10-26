@@ -17,6 +17,8 @@
     <title>后台管理</title>
     <meta charset="UTF-8"/>
     <base target="_self"/>
+
+    <meta http-equiv="Content-Type"; content="multipart/form-data; charset=utf-8"/>
     <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
     <!-- 引入 Bootstrap -->
     <link href="${app}/static/css/bootstrap.css" rel="stylesheet"/>
@@ -40,24 +42,38 @@
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
-                <h4 class="modal-title">添加新用户</h4>
+                <h4 class="modal-title">添加新商品</h4>
                 <button type="button" class="close" data-dismiss="modal">&times;</button>
             </div>
 
             <!-- 模态框主体 -->
             <div class="modal-body">
-                <form method="post" action="${app}/goodsrest/opt" class="form-horizontal" role="form">
+                <form method="post" action="${app}/goodsrest/opt" enctype="multipart/form-data" class="form-horizontal" role="form">
                     <%--input type="hidden" name="_method" value="POST" /--%>
                     <div class="form-group">
-                        <label for="usernameAddInput">username:</label>
-                        <input type="text" class="form-control" id="usernameAddInput" name="username"
-                               placeholder="请输入用户姓名"/>
+                        <label>gname:</label><input type="text" class="form-control"  name="gname" placeholder="请输入商品名称"/>
                     </div>
-                    <div id="usernameTips"></div>
                     <div class="form-group">
-                        <label for="passwordAddInput">password:</label>
-                        <input type="password" class="form-control" id="passwordAddInput" name="password"
-                               placeholder="请输入密码">
+                        <label>gdes:</label><textarea class="form-control" name="gdes" placeholder="商品描述"></textarea>
+                    </div>
+                    <div class="form-group">
+                        <label>gprice:</label><input type="text" class="form-control"  name="gprice" placeholder="商品价格"/>
+                    </div>
+                    <div class="form-group">
+                        <label>gavatar:</label>
+                        <img data-my="disAvatar" src="" style="width: 100px;height: 100px;" />
+                        <input type="file" class="form-control" data-my="inputAvatar" name="file" placeholder="avatar">
+                        <input type="text" class="form-control"  name="gavatar" placeholder="商品图片"/>
+                    </div>
+                    <div class="form-group">
+                        <label>fbid:</label><input list="blist" type="text" class="form-control"  name="fbid" placeholder="所属商户"/>
+                        <datalist id="blist">
+                        </datalist>
+                    </div>
+                    <div class="form-group">
+                        <label>ftid:</label><input list="tlist" type="text" class="form-control"  name="ftid" placeholder="所属类别"/>
+                        <datalist id="tlist">
+                        </datalist>
                     </div>
 
                     <div class="form-group">
@@ -83,23 +99,37 @@
 
             <!-- 模态框主体 -->
             <div class="modal-body">
-                <form method="post" action="${app}/userrest/opt" class="form-horizontal" role="form">
-                    <input type="hidden" name="_method" value="PUT"/>
+                <form method="post" action="${app}/userrest/opt" enctype="multipart/form-data" class="form-horizontal" role="form">
                     <div class="form-group">
-                        <label for="uidUpdateInput">uid:</label>
-                        <input type="text" readonly="readonly" class="form-control" id="uidUpdateInput" name="uid"
-                               placeholder="uid"/>
+                        <label>gid:</label><input readonly="readonly" type="text" class="form-control"  name="gid"  placeholder="请输入商品id"/>
                     </div>
                     <div class="form-group">
-                        <label for="usernameUpdateInput">姓名username:</label>
-                        <input type="text" readonly="readonly" class="form-control" id="usernameUpdateInput"
-                               name="username"
-                               placeholder="请输入用户姓名"/>
+                        <label>gname:</label><input type="text" class="form-control"  name="gname"  placeholder="请输入商品名称"/>
                     </div>
                     <div class="form-group">
-                        <label for="passwordUpdateInput">密码password:</label>
-                        <input type="password" class="form-control" id="passwordUpdateInput" name="password"
-                               placeholder="请输入新密码">
+                        <label>gdes:</label><textarea class="form-control" name="gdes" placeholder="商品描述"></textarea>
+                    </div>
+                    <div class="form-group">
+                        <label>gprice:</label><input type="text" class="form-control"  name="gprice" placeholder="商品价格"/>
+                    </div>
+                    <div class="form-group">
+                        <label>addTime:</label><input type="date" class="form-control"  name="addTime" placeholder="添加时间"/>
+                    </div>
+                    <div class="form-group">
+                        <label>gavatar:</label>
+                        <img data-my="disAvatar" src="" style="width: 100px;height: 100px;" />
+                        <input type="file" class="form-control" data-my="inputAvatar" name="file" placeholder="avatar">
+                        <input type="text" class="form-control"  name="gavatar" placeholder="商品图片"/>
+                    </div>
+                    <div class="form-group">
+                        <label>fbid:</label><input list="bulist" type="text" class="form-control"  name="fbid" placeholder="所属商户"/>
+                        <datalist id="bulist">
+                        </datalist>
+                    </div>
+                    <div class="form-group">
+                        <label>ftid:</label><input list="tulist" type="text" class="form-control"  name="ftid" placeholder="所属类别"/>
+                        <datalist id="tulist">
+                        </datalist>
                     </div>
 
                     <div class="form-group">
@@ -203,31 +233,46 @@
         $("#updateObjBtn").click(updateObj);
         //给每条记录的删除按钮添加事件
         $(document).on("click", ".delBtn", deleteSingleRecord);
+        //给需要点击之后上传图片的区域添加点击事件,确保能够调用文件域的点击事件
+        $('[data-my="disAvatar"]').click(function (eve) {$('[data-my="inputAvatar"]').click();});
+        $('[data-my="inputAvatar"]').change(choiceAvatar);
     });
 
-    //修改信息时从远端获取数据并填入表单
-    function updateForm(ele) {
-        //打开模态框
-        $("#updateModal").modal({backdrop: "static"});
-        //将表单中原有数据清空
-        $("#updateModal form").get(0).reset();
-        //从服务器获取信息填入修改表单中
-        $.ajax({
-            url: ele.target.href,
-            type: "GET",
-            success: function (result) {
-                //回填数据
-                $("#uidUpdateInput").val(result.dataZone.user.uid);
-                $("#usernameUpdateInput").val(result.dataZone.user.username);
-                $("#addTimeUpdateInput").val(new Date(result.dataZone.user.addTime).Format("yyyy-MM-dd"));
+    //点击图片能够调用 文件域的点击事件
 
-            },
-            error: function () {
+    //文件域的值发生改变,将图片改变
+    function choiceAvatar(e){
+        var reader = new FileReader();
+        reader.onload = (function () {
+            return function (e) {
+                $('[data-my="disAvatar"]').attr('src',this.result);
+            }
+        })(e.target.files[0]);
+        reader.readAsDataURL(e.target.files[0]);
+    };
+
+    //获取外键对应主键表中的相关字段并填写到下拉列表中
+    function getAndFill(url,comp,valueName,disName,choice){
+        //清空原有列表
+        comp.empty();
+
+        $.ajax({
+            url:url,
+            type:"GET",
+            success:function(res){
+                $.each(res.dataZone.lists,function(index,item){
+                    if(choice==valueName){
+                        comp.append('<option selected="selected" value="'+item[valueName]+'">'+item[disName]+'</option>');
+                    }else{
+                        comp.append('<option value="'+item[valueName]+'">'+item[disName]+'</option>');
+                    }
+
+                });
             }
         });
-
-        return false;//取消超链接的默认跳转
     }
+
+
 
     function search() {
         //修改数据之前先进行数据校验
@@ -247,14 +292,59 @@
         });
     }
 
+    //修改信息时从远端获取数据并填入表单
+    function updateForm(ele) {
+        //声明变量用以接收原始值,主要用于填写下拉列表
+        var choice1;
+        var choice2;
+
+        //打开模态框
+        $("#updateModal").modal({backdrop: "static"});
+
+        //将表单中原有数据清空
+        $("#updateModal form").get(0).reset();
+        //从服务器获取信息填入修改表单中
+        $.ajax({
+            url: ele.target.href,
+            type: "GET",
+            success: function (result) {
+                //回填数据
+                $('#updateModal [name="gid"]').val(result.dataZone.obj.gid);
+                $('#updateModal [name="gname"]').val(result.dataZone.obj.gname);
+                $('#updateModal [name="gdes"]').val(result.dataZone.obj.gdes);
+                $('#updateModal [name="gprice"]').val(result.dataZone.obj.gprice);
+                $('#updateModal [data-my="disAvatar"]').attr('src',result.dataZone.obj.gavatar);
+                $('#updateModal [name="fbid"]').val(result.dataZone.obj.fbid);
+                choice1 = result.dataZone.obj.fbid;
+                $('#updateModal [name="ftid"]').val(result.dataZone.obj.ftid);
+                choice2 = result.dataZone.obj.ftid;
+                $('#updateModal [name="addTime"]').val(new Date(result.dataZone.obj.addTime).Format("yyyy-MM-dd"));
+
+            },
+            error: function () {
+            }
+        });
+
+        //填充列表
+        getAndFill("${app}/business/listJSON",$("#bulist"),"bid","bname",choice1);
+        getAndFill("${app}/types/listJSON",$("#tulist"),"tid","tname",choice2);
+
+        return false;//取消超链接的默认跳转
+    }
+
     //提交用户修改的信息
     function updateObj() {
         //修改数据之前先进行数据校验
         //校验通过向服务器发送请求
+        var formData = new FormData($("#updateModal form").get(0));
+        formData.append("_method", 'put');
         $.ajax({
             url: "${app}/goodsrest/opt",
             type: "PUT",
-            data: $("#updateModal form").serialize(),
+            data: formData,
+            dataType:"json",
+            contentType:'multipart/form-data; charset=utf-8',//此处对应head处的文档声明
+            processData:false,//取消默认的预处理行为
             success: function (result) {
                 $("#updateModal").modal("hide");//关闭模态框
                 gotoPage(currentPage);//回到当前页面
@@ -271,6 +361,9 @@
     function addForm() {
         //打开模态框
         $("#addModal").modal({backdrop: "static"});
+        //填充列表
+        getAndFill("${app}/business/listJSON",$("#blist"),"bid","bname");
+        getAndFill("${app}/types/listJSON",$("#tlist"),"tid","tname");
         //将表单中原有数据清空
         $("#addModal form").get(0).reset();
     }
@@ -278,10 +371,16 @@
     function addObj() {
         //添加数据之前先进行数据校验
         //校验通过向服务器发送请求
+        //如果使用ajax上传文件,需要将数据提前处理一下
+        var formData = new FormData($("#addModal form").get(0));
+
         $.ajax({
             url: "${app}/goodsrest/opt",
             type: "POST",
-            data: $("#addModal form").serialize(),
+            data: formData,
+            dataType:"json",
+            contentType:false,//此处对应head处的文档声明
+            processData:false,//取消默认的预处理行为
             success: function (result) {
                 $("#addModal").modal("hide");//关闭模态框
                 gotoPage(maxPages+1);//到最后一页,想想为什么要加1
@@ -327,7 +426,6 @@
         names = names.substr(0, names.length - 1);//去掉最后的一个 ,
         //询问用户操作
         if (confirm("是否删除" + names + "的记录")) {
-            // if(confirm("是否删除uid为"+uids+"的记录")){
             //向服务器发送请求,我们已经使用过get和post方法,这次使用最底层的ajax方法
             $.ajax({
                 type: "DELETE",

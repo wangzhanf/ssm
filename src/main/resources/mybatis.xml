@@ -7,11 +7,11 @@
     <!--    全局配置-->
     <settings>
         <!--    全局开启二级缓存,也可以在具体的sql片段中关闭二级缓存-->
-<!--        <setting name="cacheEnabled" value="true"/>-->
+        <setting name="cacheEnabled" value="true"/>
         <!--        开启懒加载模式-->
-<!--        <setting name="lazyLoadingEnabled" value="true"/>-->
+        <setting name="lazyLoadingEnabled" value="true"/>
         <!--        关闭实时加载-->
-<!--        <setting name="aggressiveLazyLoading" value="false"/>-->
+        <setting name="aggressiveLazyLoading" value="false"/>
         <!--        配置驼峰映射-->
         <setting name="mapUnderscoreToCamelCase" value="true"/>
     </settings>

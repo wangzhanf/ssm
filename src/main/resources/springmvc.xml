@@ -43,6 +43,7 @@
         <property name="maxUploadSize" value="10000000"></property>
     </bean>
 
+
     <!--    5 解决$.get从控制器返回的中文乱码问题-->
     <mvc:annotation-driven>
         <mvc:message-converters>

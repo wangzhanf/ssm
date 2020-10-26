@@ -1,11 +1,13 @@
 package vip.epss.domain;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.sun.source.doctree.SerialDataTree;
 import lombok.Data;
 
 import java.io.Serializable;
 import java.util.Date;
 @Data
+@JsonIgnoreProperties(value = "handler")
 public class Goods implements Serializable {
     private Integer gid;
 
