@@ -1,0 +1,243 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="vip.epss.dao.OrdersMapper">
+  <resultMap id="BaseResultMap" type="vip.epss.domain.Orders">
+    <id column="oid" jdbcType="INTEGER" property="oid" />
+    <result column="onumber" jdbcType="INTEGER" property="onumber" />
+    <result column="ostatus" jdbcType="INTEGER" property="ostatus" />
+    <result column="fgid" jdbcType="INTEGER" property="fgid" />
+    <result column="fcid" jdbcType="INTEGER" property="fcid" />
+    <result column="fbid" jdbcType="INTEGER" property="fbid" />
+    <result column="add_time" jdbcType="TIMESTAMP" property="addTime" />
+  </resultMap>
+  <sql id="Example_Where_Clause">
+    <where>
+      <foreach collection="oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause">
+    <where>
+      <foreach collection="example.oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List">
+    oid, onumber, ostatus, fgid, fcid, fbid, add_time
+  </sql>
+  <select id="selectByExample" parameterType="vip.epss.domain.OrdersExample" resultMap="BaseResultMap">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from orders
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from orders
+    where oid = #{oid,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from orders
+    where oid = #{oid,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByExample" parameterType="vip.epss.domain.OrdersExample">
+    delete from orders
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="vip.epss.domain.Orders">
+    insert into orders (oid, onumber, ostatus, 
+      fgid, fcid, fbid, add_time
+      )
+    values (#{oid,jdbcType=INTEGER}, #{onumber,jdbcType=INTEGER}, #{ostatus,jdbcType=INTEGER}, 
+      #{fgid,jdbcType=INTEGER}, #{fcid,jdbcType=INTEGER}, #{fbid,jdbcType=INTEGER}, #{addTime,jdbcType=TIMESTAMP}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="vip.epss.domain.Orders">
+    insert into orders
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="oid != null">
+        oid,
+      </if>
+      <if test="onumber != null">
+        onumber,
+      </if>
+      <if test="ostatus != null">
+        ostatus,
+      </if>
+      <if test="fgid != null">
+        fgid,
+      </if>
+      <if test="fcid != null">
+        fcid,
+      </if>
+      <if test="fbid != null">
+        fbid,
+      </if>
+      <if test="addTime != null">
+        add_time,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="oid != null">
+        #{oid,jdbcType=INTEGER},
+      </if>
+      <if test="onumber != null">
+        #{onumber,jdbcType=INTEGER},
+      </if>
+      <if test="ostatus != null">
+        #{ostatus,jdbcType=INTEGER},
+      </if>
+      <if test="fgid != null">
+        #{fgid,jdbcType=INTEGER},
+      </if>
+      <if test="fcid != null">
+        #{fcid,jdbcType=INTEGER},
+      </if>
+      <if test="fbid != null">
+        #{fbid,jdbcType=INTEGER},
+      </if>
+      <if test="addTime != null">
+        #{addTime,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="vip.epss.domain.OrdersExample" resultType="java.lang.Long">
+    select count(*) from orders
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map">
+    update orders
+    <set>
+      <if test="record.oid != null">
+        oid = #{record.oid,jdbcType=INTEGER},
+      </if>
+      <if test="record.onumber != null">
+        onumber = #{record.onumber,jdbcType=INTEGER},
+      </if>
+      <if test="record.ostatus != null">
+        ostatus = #{record.ostatus,jdbcType=INTEGER},
+      </if>
+      <if test="record.fgid != null">
+        fgid = #{record.fgid,jdbcType=INTEGER},
+      </if>
+      <if test="record.fcid != null">
+        fcid = #{record.fcid,jdbcType=INTEGER},
+      </if>
+      <if test="record.fbid != null">
+        fbid = #{record.fbid,jdbcType=INTEGER},
+      </if>
+      <if test="record.addTime != null">
+        add_time = #{record.addTime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map">
+    update orders
+    set oid = #{record.oid,jdbcType=INTEGER},
+      onumber = #{record.onumber,jdbcType=INTEGER},
+      ostatus = #{record.ostatus,jdbcType=INTEGER},
+      fgid = #{record.fgid,jdbcType=INTEGER},
+      fcid = #{record.fcid,jdbcType=INTEGER},
+      fbid = #{record.fbid,jdbcType=INTEGER},
+      add_time = #{record.addTime,jdbcType=TIMESTAMP}
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="vip.epss.domain.Orders">
+    update orders
+    <set>
+      <if test="onumber != null">
+        onumber = #{onumber,jdbcType=INTEGER},
+      </if>
+      <if test="ostatus != null">
+        ostatus = #{ostatus,jdbcType=INTEGER},
+      </if>
+      <if test="fgid != null">
+        fgid = #{fgid,jdbcType=INTEGER},
+      </if>
+      <if test="fcid != null">
+        fcid = #{fcid,jdbcType=INTEGER},
+      </if>
+      <if test="fbid != null">
+        fbid = #{fbid,jdbcType=INTEGER},
+      </if>
+      <if test="addTime != null">
+        add_time = #{addTime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where oid = #{oid,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="vip.epss.domain.Orders">
+    update orders
+    set onumber = #{onumber,jdbcType=INTEGER},
+      ostatus = #{ostatus,jdbcType=INTEGER},
+      fgid = #{fgid,jdbcType=INTEGER},
+      fcid = #{fcid,jdbcType=INTEGER},
+      fbid = #{fbid,jdbcType=INTEGER},
+      add_time = #{addTime,jdbcType=TIMESTAMP}
+    where oid = #{oid,jdbcType=INTEGER}
+  </update>
+</mapper>

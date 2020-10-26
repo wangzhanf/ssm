@@ -1,0 +1,212 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="vip.epss.dao.TypesMapper">
+  <resultMap id="BaseResultMap" type="vip.epss.domain.Types">
+    <id column="tid" jdbcType="INTEGER" property="tid" />
+    <result column="tname" jdbcType="VARCHAR" property="tname" />
+    <result column="tdes" jdbcType="VARCHAR" property="tdes" />
+    <result column="tavatar" jdbcType="VARCHAR" property="tavatar" />
+    <result column="add_time" jdbcType="TIMESTAMP" property="addTime" />
+  </resultMap>
+  <sql id="Example_Where_Clause">
+    <where>
+      <foreach collection="oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause">
+    <where>
+      <foreach collection="example.oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List">
+    tid, tname, tdes, tavatar, add_time
+  </sql>
+  <select id="selectByExample" parameterType="vip.epss.domain.TypesExample" resultMap="BaseResultMap">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from types
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from types
+    where tid = #{tid,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from types
+    where tid = #{tid,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByExample" parameterType="vip.epss.domain.TypesExample">
+    delete from types
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="vip.epss.domain.Types">
+    insert into types (tid, tname, tdes, 
+      tavatar, add_time)
+    values (#{tid,jdbcType=INTEGER}, #{tname,jdbcType=VARCHAR}, #{tdes,jdbcType=VARCHAR}, 
+      #{tavatar,jdbcType=VARCHAR}, #{addTime,jdbcType=TIMESTAMP})
+  </insert>
+  <insert id="insertSelective" parameterType="vip.epss.domain.Types">
+    insert into types
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="tid != null">
+        tid,
+      </if>
+      <if test="tname != null">
+        tname,
+      </if>
+      <if test="tdes != null">
+        tdes,
+      </if>
+      <if test="tavatar != null">
+        tavatar,
+      </if>
+      <if test="addTime != null">
+        add_time,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="tid != null">
+        #{tid,jdbcType=INTEGER},
+      </if>
+      <if test="tname != null">
+        #{tname,jdbcType=VARCHAR},
+      </if>
+      <if test="tdes != null">
+        #{tdes,jdbcType=VARCHAR},
+      </if>
+      <if test="tavatar != null">
+        #{tavatar,jdbcType=VARCHAR},
+      </if>
+      <if test="addTime != null">
+        #{addTime,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="vip.epss.domain.TypesExample" resultType="java.lang.Long">
+    select count(*) from types
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map">
+    update types
+    <set>
+      <if test="record.tid != null">
+        tid = #{record.tid,jdbcType=INTEGER},
+      </if>
+      <if test="record.tname != null">
+        tname = #{record.tname,jdbcType=VARCHAR},
+      </if>
+      <if test="record.tdes != null">
+        tdes = #{record.tdes,jdbcType=VARCHAR},
+      </if>
+      <if test="record.tavatar != null">
+        tavatar = #{record.tavatar,jdbcType=VARCHAR},
+      </if>
+      <if test="record.addTime != null">
+        add_time = #{record.addTime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map">
+    update types
+    set tid = #{record.tid,jdbcType=INTEGER},
+      tname = #{record.tname,jdbcType=VARCHAR},
+      tdes = #{record.tdes,jdbcType=VARCHAR},
+      tavatar = #{record.tavatar,jdbcType=VARCHAR},
+      add_time = #{record.addTime,jdbcType=TIMESTAMP}
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="vip.epss.domain.Types">
+    update types
+    <set>
+      <if test="tname != null">
+        tname = #{tname,jdbcType=VARCHAR},
+      </if>
+      <if test="tdes != null">
+        tdes = #{tdes,jdbcType=VARCHAR},
+      </if>
+      <if test="tavatar != null">
+        tavatar = #{tavatar,jdbcType=VARCHAR},
+      </if>
+      <if test="addTime != null">
+        add_time = #{addTime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where tid = #{tid,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="vip.epss.domain.Types">
+    update types
+    set tname = #{tname,jdbcType=VARCHAR},
+      tdes = #{tdes,jdbcType=VARCHAR},
+      tavatar = #{tavatar,jdbcType=VARCHAR},
+      add_time = #{addTime,jdbcType=TIMESTAMP}
+    where tid = #{tid,jdbcType=INTEGER}
+  </update>
+
+</mapper>

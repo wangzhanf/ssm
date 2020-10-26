@@ -213,7 +213,7 @@ create table if not exists goods(
     gid integer auto_increment comment '商品id',
     gname varchar(20) not null comment '商品名称',
     gdes varchar(20) default null comment '商品介绍',
-    bprice Double comment '商品价格',
+    gprice Double comment '商品价格',
     gavatar varchar(50) default null comment '商品图片',
     fbid integer not null comment '商户信息',
     ftid integer not null comment '所属类别',
@@ -235,8 +235,8 @@ BEGIN
         i INT DEFAULT 1;
     WHILE
             i < 200 DO
-            insert into goods (gname, gdes, bprice, gavatar, fbid, ftid) value
-                (CONCAT('商品',i),CONCAT('商品介绍',i),RAND() * 15 + 5,'/upload/goods.png',FlOOR(RAND() * 99 + 1),FlOOR(RAND() * 9 + 1)) ;
+            insert into goods (gname, gdes, gprice, gavatar, fbid, ftid) value
+                (CONCAT('商品',i),CONCAT('商品介绍',i),RAND() * 15 + 5,'/upload/goods.png',FlOOR(RAND() * 9 + 1),FlOOR(RAND() * 3 + 1)) ;
             SET i = i + 1;
 
         END WHILE;

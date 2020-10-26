@@ -30,6 +30,12 @@ public class UserrestController {
     @Autowired
     private UserService userService;
 
+    @RequestMapping(value = "/index")
+    public String index(){
+//        return "forward:/WEB-INF/user.jsp";
+        return "user";
+    }
+
     @ResponseBody
     @RequestMapping(value = "/list",method = {RequestMethod.GET})
     public MessageAndData list(
