@@ -69,7 +69,7 @@ public class GoodsrestController {
 
         //初始化,约束
         PageHelper.startPage(pageNum, pageSize);
-        List<Goods> lists = goodsService.selectByExample(example);
+        List<Goods> lists = goodsService.selectByExampleWithObject(example);
         //使用pageHelper的方式封装数据,默认的导航列表长度为8
         PageInfo pageInfo = new PageInfo(lists, 8);
         return MessageAndData.success("").add("pageInfo",pageInfo);
@@ -78,7 +78,7 @@ public class GoodsrestController {
     @ResponseBody
     @RequestMapping(value = "/opt/{id}",method = RequestMethod.GET)
     public MessageAndData optSelectPrimaryKey(@PathVariable("id")Integer id){
-        Goods obj = goodsService.selectByPrimaryKey(id);
+        Goods obj = goodsService.selectByPrimaryKeyWithObject(id);
         return MessageAndData.success("查询成功").add("obj",obj);
     }
 

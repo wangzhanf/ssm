@@ -128,6 +128,11 @@
             <artifactId>hibernate-validator</artifactId>
             <version>5.4.2.Final</version>
         </dependency>
+        <dependency>
+            <groupId>com.alibaba</groupId>
+            <artifactId>fastjson</artifactId>
+            <version>1.2.73</version>
+        </dependency>
         <!--        jstl标签库-->
         <dependency>
             <groupId>jstl</groupId>

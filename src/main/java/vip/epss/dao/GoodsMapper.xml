@@ -255,4 +255,44 @@
       add_time = #{addTime,jdbcType=TIMESTAMP}
     where gid = #{gid,jdbcType=INTEGER}
   </update>
+
+
+  <resultMap id="BaseResultMapWithObject" type="vip.epss.domain.Goods">
+    <id column="gid" jdbcType="INTEGER" property="gid" />
+    <result column="gname" jdbcType="VARCHAR" property="gname" />
+    <result column="gdes" jdbcType="VARCHAR" property="gdes" />
+    <result column="gprice" jdbcType="DOUBLE" property="gprice" />
+    <result column="gavatar" jdbcType="VARCHAR" property="gavatar" />
+    <result column="fbid" jdbcType="INTEGER" property="fbid" />
+    <result column="ftid" jdbcType="INTEGER" property="ftid" />
+    <result column="add_time" jdbcType="TIMESTAMP" property="addTime" />
+    <association property="business" javaType="vip.epss.domain.Business" select="vip.epss.dao.BusinessMapper.selectByPrimaryKey" column="fbid">
+      <id property="bid" column="bid"></id>
+      <result property="bname" column="bname"></result>
+    </association>
+    <association property="types" javaType="vip.epss.domain.Types" select="vip.epss.dao.TypesMapper.selectByPrimaryKey" column="ftid">
+      <id property="tid" column="tid"></id>
+      <result property="tname" column="tname"></result>
+    </association>
+  </resultMap>
+  <select id="selectByExampleWithObject" parameterType="vip.epss.domain.GoodsExample" resultMap="BaseResultMapWithObject">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from goods
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKeyWithObject" parameterType="java.lang.Integer" resultMap="BaseResultMapWithObject">
+    select
+    <include refid="Base_Column_List" />
+    from goods
+    where gid = #{gid,jdbcType=INTEGER}
+  </select>
 </mapper>

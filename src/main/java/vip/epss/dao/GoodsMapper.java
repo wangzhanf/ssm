@@ -17,8 +17,10 @@ public interface GoodsMapper {
     int insertSelective(Goods record);
 
     List<Goods> selectByExample(GoodsExample example);
+    List<Goods> selectByExampleWithObject(GoodsExample example);
 
     Goods selectByPrimaryKey(Integer gid);
+    Goods selectByPrimaryKeyWithObject(Integer gid);
 
     int updateByExampleSelective(@Param("record") Goods record, @Param("example") GoodsExample example);
 

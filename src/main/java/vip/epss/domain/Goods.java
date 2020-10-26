@@ -19,21 +19,27 @@ public class Goods implements Serializable {
 
     private Integer fbid;
 
+    private Business business;
+
     private Integer ftid;
+
+    private Types types;
 
     private Date addTime;
 
     public Goods() {
     }
 
-    public Goods(Integer gid, String gname, String gdes, Double gprice, String gavatar, Integer fbid, Integer ftid, Date addTime) {
+    public Goods(Integer gid, String gname, String gdes, Double gprice, String gavatar, Integer fbid, Business business, Integer ftid, Types types, Date addTime) {
         this.gid = gid;
         this.gname = gname;
         this.gdes = gdes;
         this.gprice = gprice;
         this.gavatar = gavatar;
         this.fbid = fbid;
+        this.business = business;
         this.ftid = ftid;
+        this.types = types;
         this.addTime = addTime;
     }
 
@@ -85,12 +91,28 @@ public class Goods implements Serializable {
         this.fbid = fbid;
     }
 
+    public Business getBusiness() {
+        return business;
+    }
+
+    public void setBusiness(Business business) {
+        this.business = business;
+    }
+
     public Integer getFtid() {
         return ftid;
     }
 
     public void setFtid(Integer ftid) {
         this.ftid = ftid;
+    }
+
+    public Types getTypes() {
+        return types;
+    }
+
+    public void setTypes(Types types) {
+        this.types = types;
     }
 
     public Date getAddTime() {

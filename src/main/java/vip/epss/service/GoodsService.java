@@ -21,6 +21,10 @@ public interface GoodsService {
 
     Goods selectByPrimaryKey(Integer gid);
 
+    List<Goods> selectByExampleWithObject(GoodsExample example);
+
+    Goods selectByPrimaryKeyWithObject(Integer gid);
+
     int updateByExampleSelective(@Param("record") Goods record, @Param("example") GoodsExample example);
 
     int updateByExample(@Param("record") Goods record, @Param("example") GoodsExample example);
