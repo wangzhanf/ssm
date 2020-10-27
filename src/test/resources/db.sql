@@ -59,7 +59,7 @@ create table if not exists business
     bdes varchar(20) default null comment '商户介绍',
     bdelivery varchar(64) default null comment '配送标准',
     bmark Double comment '评分',
-    bavatar varchar(50) default null comment '头像',
+    bavatar varchar(150) default null comment '头像',
     baddress varchar(50) default null comment '地址',
     brecommendation integer default 0 comment '推荐指数',
     bstatus boolean default false comment '是否禁用',
@@ -100,7 +100,7 @@ create table if not exists activity
 (
     aid integer auto_increment comment '活动id',
     aname varchar(20) not null comment '活动名称',
-    ades varchar(20) default null comment '活动介绍',
+    ades varchar(120) default null comment '活动介绍',
     atype integer  comment '活动类型',
     add_time timestamp   not null default current_timestamp comment '创建时间',
     up_time  timestamp   not null default current_timestamp on update current_timestamp comment '修改时间',

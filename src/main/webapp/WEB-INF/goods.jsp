@@ -48,7 +48,7 @@
 
             <!-- 模态框主体 -->
             <div class="modal-body">
-                <form method="post" action="${app}/goodsrest/opt" enctype="multipart/form-data" class="form-horizontal" role="form">
+                <form method="post" enctype="multipart/form-data" class="form-horizontal" role="form">
                     <%--input type="hidden" name="_method" value="POST" /--%>
                     <div class="form-group">
                         <label>gname:</label><input type="text" class="form-control"  name="gname" placeholder="请输入商品名称"/>
@@ -62,8 +62,8 @@
                     <div class="form-group">
                         <label>gavatar:</label>
                         <img data-my="disAvatar" src="" style="width: 100px;height: 100px;" />
-                        <input type="file" class="form-control" data-my="inputAvatar" name="file" placeholder="avatar">
-                        <input type="text" class="form-control"  name="gavatar" placeholder="商品图片"/>
+                        <input style="display: none;" type="file" class="form-control" data-my="inputAvatar" name="file" placeholder="avatar">
+<%--                        <input type="text" class="form-control"  name="gavatar" placeholder="商品图片"/>--%>
                     </div>
                     <div class="form-group">
                         <label>fbid:</label><input list="blist" type="text" class="form-control"  name="fbid" placeholder="所属商户"/>
@@ -99,7 +99,7 @@
 
             <!-- 模态框主体 -->
             <div class="modal-body">
-                <form method="post" action="${app}/userrest/opt" enctype="multipart/form-data" class="form-horizontal" role="form">
+                <form method="post"  enctype="multipart/form-data" class="form-horizontal" role="form">
                     <div class="form-group">
                         <label>gid:</label><input readonly="readonly" type="text" class="form-control"  name="gid"  placeholder="请输入商品id"/>
                     </div>
@@ -113,13 +113,13 @@
                         <label>gprice:</label><input type="text" class="form-control"  name="gprice" placeholder="商品价格"/>
                     </div>
                     <div class="form-group">
-                        <label>addTime:</label><input type="date" class="form-control"  name="addTime" placeholder="添加时间"/>
+                        <label>addTime:</label><input type="datetime" class="form-control"  name="addTime" placeholder="添加时间"/>
                     </div>
                     <div class="form-group">
                         <label>gavatar:</label>
-                        <img data-my="disAvatar" src="" style="width: 100px;height: 100px;" />
-                        <input type="file" class="form-control" data-my="inputAvatar" name="file" placeholder="avatar">
-                        <input type="text" class="form-control"  name="gavatar" placeholder="商品图片"/>
+                        <img data-my="disAvataru" src="" style="width: 100px;height: 100px;" />
+                        <input style="display: none;" type="file" class="form-control" data-my="inputAvataru" name="file" placeholder="avatar">
+<%--                        <input type="text" class="form-control"  name="gavatar" placeholder="商品图片"/>--%>
                     </div>
                     <div class="form-group">
                         <label>fbid:</label><input list="bulist" type="text" class="form-control"  name="fbid" placeholder="所属商户"/>
@@ -236,6 +236,9 @@
         //给需要点击之后上传图片的区域添加点击事件,确保能够调用文件域的点击事件
         $('[data-my="disAvatar"]').click(function (eve) {$('[data-my="inputAvatar"]').click();});
         $('[data-my="inputAvatar"]').change(choiceAvatar);
+
+        $('[data-my="disAvataru"]').click(function (eve) {$('[data-my="inputAvataru"]').click();});
+        $('[data-my="inputAvataru"]').change(choiceAvataru);
     });
 
     //点击图片能够调用 文件域的点击事件
@@ -246,6 +249,16 @@
         reader.onload = (function () {
             return function (e) {
                 $('[data-my="disAvatar"]').attr('src',this.result);
+            }
+        })(e.target.files[0]);
+        reader.readAsDataURL(e.target.files[0]);
+    };
+
+    function choiceAvataru(e){
+        var reader = new FileReader();
+        reader.onload = (function () {
+            return function (e) {
+                $('[data-my="disAvataru"]').attr('src',this.result);
             }
         })(e.target.files[0]);
         reader.readAsDataURL(e.target.files[0]);
@@ -313,7 +326,7 @@
                 $('#updateModal [name="gname"]').val(result.dataZone.obj.gname);
                 $('#updateModal [name="gdes"]').val(result.dataZone.obj.gdes);
                 $('#updateModal [name="gprice"]').val(result.dataZone.obj.gprice);
-                $('#updateModal [data-my="disAvatar"]').attr('src',result.dataZone.obj.gavatar);
+                $('#updateModal [data-my="disAvatariu"]').attr('src',result.dataZone.obj.gavatar);
                 $('#updateModal [name="fbid"]').val(result.dataZone.obj.fbid);
                 choice1 = result.dataZone.obj.fbid;
                 $('#updateModal [name="ftid"]').val(result.dataZone.obj.ftid);
@@ -337,13 +350,13 @@
         //修改数据之前先进行数据校验
         //校验通过向服务器发送请求
         var formData = new FormData($("#updateModal form").get(0));
-        formData.append("_method", 'put');
+
         $.ajax({
-            url: "${app}/goodsrest/opt",
-            type: "PUT",
+            url: "${app}/goodsrest/optu",
+            type: "POST",
             data: formData,
             dataType:"json",
-            contentType:'multipart/form-data; charset=utf-8',//此处对应head处的文档声明
+            contentType:false,//此处对应head处的文档声明
             processData:false,//取消默认的预处理行为
             success: function (result) {
                 $("#updateModal").modal("hide");//关闭模态框

@@ -110,7 +110,7 @@ public class GoodsrestController {
         String filename = UUID.randomUUID() + "-" + file.getOriginalFilename();
         File file1 = new File(path, filename);
         if(!file1.exists()){
-            file1.mkdirs();
+            file1.mkdirs();//迭代建立多级目录
         }
         file.transferTo(file1);
         String avatarUrl = "/upload/" + filename;
@@ -150,7 +150,7 @@ public class GoodsrestController {
 
     //    如果使用put方法,记得要在web.xml中添加相应过滤器,对象不能封装
     @ResponseBody
-    @RequestMapping(value = "/opt",method = RequestMethod.PUT)
+    @RequestMapping(value = "/optu",method = RequestMethod.POST)
     public MessageAndData optUpdate(@RequestParam(value = "file")MultipartFile file, HttpServletRequest request,Goods obj) throws IOException {
         String path="c:\\upload";
 //        String path = request.getSession().getServletContext().getRealPath("/images/upload");
