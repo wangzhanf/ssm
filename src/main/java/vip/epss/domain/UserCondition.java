@@ -9,15 +9,15 @@ import java.util.Date;
  * @描述
  */
 public class UserCondition extends User implements Serializable {
-    private Integer uidCondition;
+    private Integer uidCondition;//对于通过指定范围的整数型内容,一般选择此种条件限定方式
     private Date startDate;
     private Date endDate;
 
     public UserCondition() {
     }
 
-    public UserCondition(Integer uid,String username,Date addTime,Integer uidCondition, Date startDate, Date endDate) {
-        super(uid,username,addTime);
+    public UserCondition(Integer uid,String username,String password,Date addTime,Integer uidCondition, Date startDate, Date endDate) {
+        super(uid,username,password,addTime);
         this.uidCondition = uidCondition;
         this.startDate = startDate;
         this.endDate = endDate;

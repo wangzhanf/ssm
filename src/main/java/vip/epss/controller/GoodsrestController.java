@@ -6,9 +6,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
-import vip.epss.domain.*;
+import vip.epss.domain.Goods;
+import vip.epss.domain.GoodsCondition;
+import vip.epss.domain.GoodsExample;
 import vip.epss.service.GoodsService;
-import vip.epss.service.UserService;
 import vip.epss.utils.MessageAndData;
 
 import javax.servlet.http.HttpServletRequest;
@@ -82,9 +83,6 @@ public class GoodsrestController {
         }
 
         criteria.andAddTimeBetween(startDate,endDate);
-
-
-
 
         //初始化,约束
         PageHelper.startPage(pageNum, pageSize);
@@ -171,6 +169,26 @@ public class GoodsrestController {
         }
     }
 
+    @ResponseBody
+    @RequestMapping(value = "/opt",method = RequestMethod.PUT, headers="content-type=multipart/form-data")
+    public MessageAndData optUpdateRest(@RequestParam(value = "file")MultipartFile file, HttpServletRequest request,Goods obj) throws IOException {
+        String path="c:\\upload";
+//        String path = request.getSession().getServletContext().getRealPath("/images/upload");
+        String filename = UUID.randomUUID() + "-" + file.getOriginalFilename();
+        File file1 = new File(path, filename);
+        if(!file1.exists()){
+            file1.mkdirs();
+        }
+        file.transferTo(file1);
+        String avatarUrl = "/upload/" + filename;
+        obj.setGavatar(avatarUrl);
 
+        int i = goodsService.updateByPrimaryKeySelective(obj);
+        if(i>0){
+            return MessageAndData.success("成功修改"+i+"条记录");
+        }else{
+            return MessageAndData.error("修改失败");
+        }
+    }
 
 }

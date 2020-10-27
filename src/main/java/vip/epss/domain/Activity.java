@@ -1,8 +1,13 @@
 package vip.epss.domain;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+
+import java.io.Serializable;
 import java.util.Date;
 
-public class Activity {
+@JsonIgnoreProperties(value = "handler")    //用于解决mybatis关联查询时使用了懒加载方式过程中数据封装引发的问题
+
+public class Activity implements Serializable {
     private Integer aid;
 
     private String aname;
@@ -12,6 +17,17 @@ public class Activity {
     private Integer atype;
 
     private Date addTime;
+
+    public Activity(Integer aid, String aname, String ades, Integer atype, Date addTime) {
+        this.aid = aid;
+        this.aname = aname;
+        this.ades = ades;
+        this.atype = atype;
+        this.addTime = addTime;
+    }
+
+    public Activity() {
+    }
 
     public Integer getAid() {
         return aid;

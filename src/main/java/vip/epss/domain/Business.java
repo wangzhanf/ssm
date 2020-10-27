@@ -1,8 +1,13 @@
 package vip.epss.domain;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+
+import java.io.Serializable;
 import java.util.Date;
 
-public class Business {
+@JsonIgnoreProperties(value = "handler")    //用于解决mybatis关联查询时使用了懒加载方式过程中数据封装引发的问题
+
+public class Business implements Serializable {
     private Integer bid;
 
     private String bname;
@@ -24,6 +29,23 @@ public class Business {
     private Boolean bstatus;
 
     private Date addTime;
+
+    public Business(Integer bid, String bname, String bpass, String bdes, String bdelivery, Double bmark, String bavatar, String baddress, Integer brecommendation, Boolean bstatus, Date addTime) {
+        this.bid = bid;
+        this.bname = bname;
+        this.bpass = bpass;
+        this.bdes = bdes;
+        this.bdelivery = bdelivery;
+        this.bmark = bmark;
+        this.bavatar = bavatar;
+        this.baddress = baddress;
+        this.brecommendation = brecommendation;
+        this.bstatus = bstatus;
+        this.addTime = addTime;
+    }
+
+    public Business() {
+    }
 
     public Integer getBid() {
         return bid;

@@ -17,27 +17,27 @@ public class TypesServiceImpl implements TypesService {
 
     @Override
     public long countByExample(TypesExample example) {
-        return 0;
+        return typesMapper.countByExample(example);
     }
 
     @Override
     public int deleteByExample(TypesExample example) {
-        return 0;
+        return typesMapper.deleteByExample(example);
     }
 
     @Override
     public int deleteByPrimaryKey(Integer tid) {
-        return 0;
+        return typesMapper.deleteByPrimaryKey(tid);
     }
 
     @Override
     public int insert(Types record) {
-        return 0;
+        return typesMapper.insert(record);
     }
 
     @Override
     public int insertSelective(Types record) {
-        return 0;
+        return typesMapper.insertSelective(record);
     }
 
     @Override
@@ -47,26 +47,26 @@ public class TypesServiceImpl implements TypesService {
 
     @Override
     public Types selectByPrimaryKey(Integer tid) {
-        return null;
+        return typesMapper.selectByPrimaryKey(tid);
     }
 
     @Override
     public int updateByExampleSelective(Types record, TypesExample example) {
-        return 0;
+        return typesMapper.updateByExampleSelective(record,example);
     }
 
     @Override
     public int updateByExample(Types record, TypesExample example) {
-        return 0;
+        return typesMapper.updateByExample(record, example);
     }
 
     @Override
     public int updateByPrimaryKeySelective(Types record) {
-        return 0;
+        return typesMapper.updateByPrimaryKeySelective(record);
     }
 
     @Override
     public int updateByPrimaryKey(Types record) {
-        return 0;
+        return typesMapper.updateByPrimaryKey(record);
     }
 }

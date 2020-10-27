@@ -20,6 +20,7 @@ commit;
 # 插入管理用户测试数据
 insert into adminuser (username, password)
 values ('wzf', 'fe8fb64eb34764f9e0a58a32a819dcb2');
+-- 此处是经过md5摘要算法算出的摘要串,原始明文为  111111
 insert into adminuser (uid, username, password)
 values (null, 'admin', 'fe8fb64eb34764f9e0a58a32a819dcb2');
 
@@ -56,10 +57,10 @@ create table if not exists business
     bid integer auto_increment comment '商户id',
     bname varchar(20) not null comment '商户名称',
     bpass varchar(32) not null comment '密码',
-    bdes varchar(20) default null comment '商户介绍',
+    bdes varchar(200) default null comment '商户介绍',
     bdelivery varchar(64) default null comment '配送标准',
     bmark Double comment '评分',
-    bavatar varchar(150) default null comment '头像',
+    bavatar varchar(200) default null comment '头像',
     baddress varchar(50) default null comment '地址',
     brecommendation integer default 0 comment '推荐指数',
     bstatus boolean default false comment '是否禁用',
@@ -100,7 +101,7 @@ create table if not exists activity
 (
     aid integer auto_increment comment '活动id',
     aname varchar(20) not null comment '活动名称',
-    ades varchar(120) default null comment '活动介绍',
+    ades varchar(200) default null comment '活动介绍',
     atype integer  comment '活动类型',
     add_time timestamp   not null default current_timestamp comment '创建时间',
     up_time  timestamp   not null default current_timestamp on update current_timestamp comment '修改时间',
@@ -157,7 +158,7 @@ BEGIN
     WHILE
             i < 100 DO
             insert into business_to_activity (fbid, faid) value
-                (FlOOR(RAND() * 99 + 1),FlOOR(RAND() * 5 + 1)) ;
+                (FlOOR(RAND() * 9 + 1),FlOOR(RAND() * 5 + 1)) ;
             SET i = i + 1;
 
         END WHILE;
@@ -175,8 +176,8 @@ drop table if exists types;
 create table if not exists types(
     tid integer auto_increment comment '类别id',
     tname varchar(20) not null comment '类别名称',
-    tdes varchar(20) default null comment '类别介绍',
-    tavatar varchar(50) default null comment '类别图片',
+    tdes varchar(200) default null comment '类别介绍',
+    tavatar varchar(200) default null comment '类别图片',
     add_time timestamp   not null default current_timestamp comment '创建时间',
     up_time  timestamp   not null default current_timestamp on update current_timestamp comment '修改时间',
     primary key (`tid`)
@@ -212,9 +213,9 @@ drop table if exists goods;
 create table if not exists goods(
     gid integer auto_increment comment '商品id',
     gname varchar(20) not null comment '商品名称',
-    gdes varchar(20) default null comment '商品介绍',
+    gdes varchar(200) default null comment '商品介绍',
     gprice Double comment '商品价格',
-    gavatar varchar(50) default null comment '商品图片',
+    gavatar varchar(200) default null comment '商品图片',
     fbid integer not null comment '商户信息',
     ftid integer not null comment '所属类别',
     add_time timestamp   not null default current_timestamp comment '创建时间',
@@ -259,7 +260,7 @@ create table if not exists customer
     cpass varchar(32) not null comment '密码',
     caddress varchar(64) default null comment '送货地址',
     cbirth date default null comment '生日',
-    cavatar varchar(50) default null comment '头像',
+    cavatar varchar(200) default null comment '头像',
     cgender boolean default false comment '性别',
     cstatus boolean default false comment '是否禁用',
     add_time timestamp   not null default current_timestamp comment '创建时间',
@@ -326,7 +327,7 @@ BEGIN
     WHILE
             i < 200 DO
             insert into orders (onumber, ostatus, fgid, fcid, fbid) value
-                (FlOOR(RAND() * 9 + 1),FlOOR(RAND() * 3 + 1),FlOOR(RAND() * 99 + 1),FlOOR(RAND() * 99 + 1),FlOOR(RAND() * 99 + 1)) ;
+                (FlOOR(RAND() * 9 + 1),FlOOR(RAND() * 3 + 1),FlOOR(RAND() * 9 + 1),FlOOR(RAND() * 9 + 1),FlOOR(RAND() * 9 + 1)) ;
             SET i = i + 1;
 
         END WHILE;

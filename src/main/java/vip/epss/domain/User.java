@@ -1,9 +1,10 @@
 package vip.epss.domain;
 
-import lombok.Data;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 import java.util.Date;
-@Data
+
+@JsonIgnoreProperties(value = "handler")    //用于解决mybatis关联查询时使用了懒加载方式过程中数据封装引发的问题
 
 public class User {
     private Integer uid;
@@ -17,9 +18,10 @@ public class User {
     public User() {
     }
 
-    public User(Integer uid, String username, Date addTime){
+    public User(Integer uid, String username, String password, Date addTime) {
         this.uid = uid;
         this.username = username;
+        this.password = password;
         this.addTime = addTime;
     }
 

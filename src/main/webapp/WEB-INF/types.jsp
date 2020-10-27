@@ -51,30 +51,16 @@
                 <form method="post" enctype="multipart/form-data" class="form-horizontal" role="form">
                     <%--input type="hidden" name="_method" value="POST" /--%>
                     <div class="form-group">
-                        <label>gname:</label><input type="text" class="form-control"  name="gname" placeholder="请输入商品名称"/>
+                        <label>tname:</label><input type="text" class="form-control"  name="tname"/>
                     </div>
                     <div class="form-group">
-                        <label>gdes:</label><textarea class="form-control" name="gdes" placeholder="商品描述"></textarea>
+                        <label>tdes:</label><textarea class="form-control" name="tdes"></textarea>
                     </div>
                     <div class="form-group">
-                        <label>gprice:</label><input type="text" class="form-control"  name="gprice" placeholder="商品价格"/>
-                    </div>
-                    <div class="form-group">
-                        <label>gavatar:</label>
+                        <label>tavatar:</label>
                         <img data-my="disAvatar" src="" style="width: 100px;height: 100px;" />
                         <input style="display: none;" type="file" class="form-control" data-my="inputAvatar" name="file" placeholder="avatar">
                     </div>
-                    <div class="form-group">
-                        <label>fbid:</label><input list="blist" type="text" class="form-control"  name="fbid" placeholder="所属商户"/>
-                        <datalist id="blist">
-                        </datalist>
-                    </div>
-                    <div class="form-group">
-                        <label>ftid:</label><input list="tlist" type="text" class="form-control"  name="ftid" placeholder="所属类别"/>
-                        <datalist id="tlist">
-                        </datalist>
-                    </div>
-
                     <div class="form-group">
                         <button id="addObjBtn" type="button" class="btn btn-block btn-primary">添加</button>
                     </div>
@@ -100,34 +86,21 @@
             <div class="modal-body">
                 <form method="post"  enctype="multipart/form-data" class="form-horizontal" role="form">
                     <div class="form-group">
-                        <label>gid:</label><input readonly="readonly" type="text" class="form-control"  name="gid"  placeholder="请输入商品id"/>
+                        <label>tid:</label><input readonly="readonly" type="text" class="form-control"  name="tid"/>
                     </div>
                     <div class="form-group">
-                        <label>gname:</label><input type="text" class="form-control"  name="gname"  placeholder="请输入商品名称"/>
+                        <label>tname:</label><input type="text" class="form-control"  name="tname"/>
                     </div>
                     <div class="form-group">
-                        <label>gdes:</label><textarea class="form-control" name="gdes" placeholder="商品描述"></textarea>
-                    </div>
-                    <div class="form-group">
-                        <label>gprice:</label><input type="text" class="form-control"  name="gprice" placeholder="商品价格"/>
+                        <label>tdes:</label><textarea class="form-control" name="tdes"></textarea>
                     </div>
                     <div class="form-group">
                         <label>addTime:</label><input type="datetime" class="form-control"  name="addTime" placeholder="添加时间"/>
                     </div>
                     <div class="form-group">
-                        <label>gavatar:</label>
+                        <label>tavatar:</label>
                         <img data-my="disAvatar" src="" style="width: 100px;height: 100px;" />
                         <input style="display: none;" type="file" class="form-control" data-my="inputAvatar" name="file" placeholder="avatar">
-                    </div>
-                    <div class="form-group">
-                        <label>fbid:</label><input list="bulist" type="text" class="form-control"  name="fbid" placeholder="所属商户"/>
-                        <datalist id="bulist">
-                        </datalist>
-                    </div>
-                    <div class="form-group">
-                        <label>ftid:</label><input list="tulist" type="text" class="form-control"  name="ftid" placeholder="所属类别"/>
-                        <datalist id="tulist">
-                        </datalist>
                     </div>
 
                     <div class="form-group">
@@ -145,12 +118,8 @@
 
 
 
-<form id="searchForm" method="get" action="${app}/goodsrest/list">
-
-    <input name="gid" type="text" value="" placeholder="gid"/>
-    <input type="text" placeholder="gname" name="gname" value=""/>
-    <input type="text" name="minPrice" value="0.00"/>
-    <input type="text" name="maxPrice" value="999.99"/>
+<form id="searchForm" method="get" action="${app}/typesrest/list">
+    <input type="text" placeholder="tname" name="tname" value=""/>
     <input type="date" name="startDate" value="2020-10-01"/>
     <input type="date" name="endDate" value="2020-11-12"/>
     <input class="btn btn-primary" type="button" id="searchBtn" value="查询"/>
@@ -169,13 +138,10 @@
             <input class="btn btn-sm btn-warning" type="button" id="reverseBtn" value="反选"/>
         </th>
         <th>序号#</th>
-        <th>商品id(gid)</th>
-        <th>名称(gname)</th>
-        <th>描述(gdes)</th>
-        <th>价格(gprice)</th>
-        <th>照片(gavatar)</th>
-        <th>所属商户(fbid)</th>
-        <th>所属种类(ftid)</th>
+        <th>类别id</th>
+        <th>名称</th>
+        <th>描述</th>
+        <th>照片</th>
         <th>创建时间(addTime)</th>
         <th>操作(修改)</th>
         <th>操作(删除)</th>
@@ -277,7 +243,7 @@
         //校验通过向服务器发送请求
         // alert("search被调用了");
         $.ajax({
-            url: "${app}/goodsrest/list",
+            url: "${app}/typessrest/list",
             type: "GET",
             data: $("#searchForm").serialize(),
             success: function (result) {
@@ -292,10 +258,6 @@
 
     //修改信息时从远端获取数据并填入表单
     function updateForm(ele) {
-        //声明变量用以接收原始值,主要用于填写下拉列表
-        var choice1;
-        var choice2;
-
         //打开模态框
         $("#updateModal").modal({backdrop: "static"});
         //将表单中原有数据清空,包括数据区内容
@@ -306,25 +268,16 @@
             type: "GET",
             success: function (result) {
                 //回填数据
-                $('#updateModal [name="gid"]').val(result.dataZone.obj.gid);
-                $('#updateModal [name="gname"]').val(result.dataZone.obj.gname);
-                $('#updateModal [name="gdes"]').val(result.dataZone.obj.gdes);
-                $('#updateModal [name="gprice"]').val(result.dataZone.obj.gprice);
-                $('#updateModal [data-my="disAvatar"]').attr('src',result.dataZone.obj.gavatar);
-                $('#updateModal [name="fbid"]').val(result.dataZone.obj.fbid);
-                choice1 = result.dataZone.obj.fbid;
-                $('#updateModal [name="ftid"]').val(result.dataZone.obj.ftid);
-                choice2 = result.dataZone.obj.ftid;
+                $('#updateModal [name="tid"]').val(result.dataZone.obj.tid);
+                $('#updateModal [name="tname"]').val(result.dataZone.obj.tname);
+                $('#updateModal [name="tdes"]').val(result.dataZone.obj.tdes);
+                $('#updateModal [data-my="disAvatar"]').attr('src',result.dataZone.obj.tavatar);
                 $('#updateModal [name="addTime"]').val(new Date(result.dataZone.obj.addTime).Format("yyyy-MM-dd"));
 
             },
             error: function () {
             }
         });
-
-        //填充列表
-        getAndFill("${app}/business/listJSON",$("#bulist"),"bid","bname",choice1);
-        getAndFill("${app}/types/listJSON",$("#tulist"),"tid","tname",choice2);
 
         return false;//取消超链接的默认跳转
     }
@@ -336,8 +289,8 @@
         var formData = new FormData($("#updateModal form").get(0));
 
         $.ajax({
-            url: "${app}/goodsrest/opt",
-            type: "PUT",  //已经更改为可以通过post或者put方式更新图片
+            url: "${app}/typesrest/opt",
+            type: "PUT",  //已经更改为可以通过post或者put方式更新图片,保留了通过post的方式更新图片的方法
             data: formData,
             dataType:"json",
             contentType:false,//此处对应head处的文档声明
@@ -359,9 +312,7 @@
     function addForm() {
         //打开模态框
         $("#addModal").modal({backdrop: "static"});
-        //填充列表
-        getAndFill("${app}/business/listJSON",$("#blist"),"bid","bname");
-        getAndFill("${app}/types/listJSON",$("#tlist"),"tid","tname");
+
         //将表单中原有数据清空,包括默认的图片缓存内容
         $('#addModal [data-my="disAvatar"]').attr('src','/upload/null.png');
         $("#addModal form").get(0).reset();
@@ -374,7 +325,7 @@
         var formData = new FormData($("#addModal form").get(0));
 
         $.ajax({
-            url: "${app}/goodsrest/opt",
+            url: "${app}/typessrest/opt",
             type: "POST",
             data: formData,
             dataType:"json",
@@ -430,7 +381,7 @@
             //向服务器发送请求,我们已经使用过get和post方法,这次使用最底层的ajax方法
             $.ajax({
                 type: "DELETE",
-                url: "${app}/goodsrest/opt/" + ids,
+                url: "${app}/typesrest/opt/" + ids,
                 success: function (result) {
                     gotoPage(currentPage);
                     alertTips(result.message,"alert-success");
@@ -447,7 +398,7 @@
         pageSize = pageSize == null ? 10 : pageSize;
         $.ajax({
             type: "GET",
-            url: "${app}/goodsrest/list?pageNum=" + pageNum + "&pageSize=" + pageSize,
+            url: "${app}/typesrest/list?pageNum=" + pageNum + "&pageSize=" + pageSize,
             dataType: "json",
             data: $("#searchForm").serialize(),
             success: function (result) {
@@ -472,21 +423,18 @@
             //构建行
             var uTr = $("<tr></tr>");
             //构建多个单元格
-            var checkboxTh = $('<th><input type="checkbox" name="choiceList" value="${item.gid}"/></th>');
+            var checkboxTh = $('<th><input type="checkbox" name="choiceList" value="${item.tid}"/></th>');
             var countTh = $('<th></th>').text(index + 1);
-            var td1 = $('<td></td>').text(item.gid);
-            var td2 = $('<td></td>').text(item.gname);
-            var td3 = $('<td></td>').text(item.gdes);
-            var td4 = $('<td></td>').text(item.gprice.toFixed(2));
-            var td5 = $('<td></td>').text(item.gavatar);
-            var td6 = $('<td></td>').text(item.business.bname);
-            var td7 = $('<td></td>').text(item.types.tname);
+            var td1 = $('<td></td>').text(item.tid);
+            var td2 = $('<td></td>').text(item.tname);
+            var td3 = $('<td></td>').text(item.tdes);
+            var td5 = $('<td></td>').text(item.tavatar);
             var addTimeTd = $('<td></td>').text(new Date(item.addTime).Format("yyyy-MM-dd HH:mm:ss"));
-            var upBtnTd = $('<td></td>').html('<a class="upBtn btn btn-info btn-sm" href="${app}/goodsrest/opt/' + item.gid + '">修改</a>');
-            var delBtnTd = $('<td></td>').html('<a class="delBtn btn btn-danger btn-sm" href="${app}/goodsrest/opt/' + item.gid + '">删除</a>');
+            var upBtnTd = $('<td></td>').html('<a class="upBtn btn btn-info btn-sm" href="${app}/typesrest/opt/' + item.tid + '">修改</a>');
+            var delBtnTd = $('<td></td>').html('<a class="delBtn btn btn-danger btn-sm" href="${app}/typesrest/opt/' + item.tid + '">删除</a>');
             //将单元格追加到行中
             uTr.append(checkboxTh).append(countTh)
-                .append(td1).append(td2).append(td3).append(td4).append(td5).append(td6).append(td7)
+                .append(td1).append(td2).append(td3).append(td5)
                 .append(addTimeTd)
                 .append(upBtnTd).append(delBtnTd);
             // 将行追加到表体中

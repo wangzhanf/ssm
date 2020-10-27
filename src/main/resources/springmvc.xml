@@ -38,7 +38,10 @@
     </mvc:interceptors>
 
     <!--    上传文件的组件,目前已经转移到spring中进行管理-->
-    <bean id="multipartResolver" class="org.springframework.web.multipart.commons.CommonsMultipartResolver">
+    <!--    默认的解析器可以满足大部分需求,本例想使用put方式上传文件所以使用了自定义的解析器-->
+    <!--    <bean id="multipartResolver" class="org.springframework.web.multipart.commons.CommonsMultipartResolver">-->
+    <!--    使用了自定义的解析器,可以使用put方法上传文件-->
+    <bean id="multipartResolver" class="vip.epss.utils.ExtendMultipartResolver">
         <property name="defaultEncoding" value="utf-8"></property>
         <property name="maxUploadSize" value="10000000"></property>
     </bean>
@@ -93,5 +96,5 @@
                            validator="localValidatorFactoryBean"></mvc:annotation-driven>
 
     <!--    6 全局异常处理器,初期代码调试的阶段请将此关闭,尽量让问题暴露出来-->
-<!--    <bean class="vip.epss.exception.CustomExceptionResolver" id="customExceptionResolver"></bean>-->
+    <!--    <bean class="vip.epss.exception.CustomExceptionResolver" id="customExceptionResolver"></bean>-->
 </beans>
