@@ -7,6 +7,7 @@
     <result column="cphone" jdbcType="VARCHAR" property="cphone" />
     <result column="cemail" jdbcType="VARCHAR" property="cemail" />
     <result column="cpass" jdbcType="VARCHAR" property="cpass" />
+    <result column="caddress" jdbcType="VARCHAR" property="caddress" />
     <result column="cbirth" jdbcType="DATE" property="cbirth" />
     <result column="cavatar" jdbcType="VARCHAR" property="cavatar" />
     <result column="cgender" jdbcType="BIT" property="cgender" />
@@ -72,7 +73,7 @@
     </where>
   </sql>
   <sql id="Base_Column_List">
-    cid, cname, cphone, cemail, cpass, cbirth, cavatar, cgender, cstatus, add_time
+    cid, cname, cphone, cemail, cpass, caddress, cbirth, cavatar, cgender, cstatus, add_time
   </sql>
   <select id="selectByExample" parameterType="vip.epss.domain.CustomerExample" resultMap="BaseResultMap">
     select
@@ -106,11 +107,11 @@
   </delete>
   <insert id="insert" parameterType="vip.epss.domain.Customer">
     insert into customer (cid, cname, cphone, 
-      cemail, cpass, cbirth, 
+      cemail, cpass,caddress, cbirth,
       cavatar, cgender, cstatus, 
       add_time)
     values (#{cid,jdbcType=INTEGER}, #{cname,jdbcType=VARCHAR}, #{cphone,jdbcType=VARCHAR}, 
-      #{cemail,jdbcType=VARCHAR}, #{cpass,jdbcType=VARCHAR}, #{cbirth,jdbcType=DATE}, 
+      #{cemail,jdbcType=VARCHAR}, #{cpass,jdbcType=VARCHAR},#{caddress,jdbcType=VARCHAR}, #{cbirth,jdbcType=DATE},
       #{cavatar,jdbcType=VARCHAR}, #{cgender,jdbcType=BIT}, #{cstatus,jdbcType=BIT}, 
       #{addTime,jdbcType=TIMESTAMP})
   </insert>
@@ -131,6 +132,9 @@
       </if>
       <if test="cpass != null">
         cpass,
+      </if>
+      <if test="caddress != null">
+        caddress,
       </if>
       <if test="cbirth != null">
         cbirth,
@@ -163,6 +167,9 @@
       </if>
       <if test="cpass != null">
         #{cpass,jdbcType=VARCHAR},
+      </if>
+      <if test="caddress != null">
+        #{caddress,jdbcType=VARCHAR},
       </if>
       <if test="cbirth != null">
         #{cbirth,jdbcType=DATE},
@@ -205,6 +212,9 @@
       <if test="record.cpass != null">
         cpass = #{record.cpass,jdbcType=VARCHAR},
       </if>
+      <if test="record.caddress != null">
+        cpass = #{record.caddress,jdbcType=VARCHAR},
+      </if>
       <if test="record.cbirth != null">
         cbirth = #{record.cbirth,jdbcType=DATE},
       </if>
@@ -232,6 +242,7 @@
       cphone = #{record.cphone,jdbcType=VARCHAR},
       cemail = #{record.cemail,jdbcType=VARCHAR},
       cpass = #{record.cpass,jdbcType=VARCHAR},
+      caddress = #{record.caddress,jdbcType=VARCHAR},
       cbirth = #{record.cbirth,jdbcType=DATE},
       cavatar = #{record.cavatar,jdbcType=VARCHAR},
       cgender = #{record.cgender,jdbcType=BIT},
@@ -255,6 +266,9 @@
       </if>
       <if test="cpass != null">
         cpass = #{cpass,jdbcType=VARCHAR},
+      </if>
+      <if test="caddress != null">
+        cpass = #{caddress,jdbcType=VARCHAR},
       </if>
       <if test="cbirth != null">
         cbirth = #{cbirth,jdbcType=DATE},
@@ -280,6 +294,7 @@
       cphone = #{cphone,jdbcType=VARCHAR},
       cemail = #{cemail,jdbcType=VARCHAR},
       cpass = #{cpass,jdbcType=VARCHAR},
+      caddress = #{caddress,jdbcType=VARCHAR},
       cbirth = #{cbirth,jdbcType=DATE},
       cavatar = #{cavatar,jdbcType=VARCHAR},
       cgender = #{cgender,jdbcType=BIT},

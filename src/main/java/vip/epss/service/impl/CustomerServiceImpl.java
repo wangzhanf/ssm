@@ -21,56 +21,56 @@ public class CustomerServiceImpl implements CustomerService {
 
     @Override
     public long countByExample(CustomerExample example) {
-        return 0;
+        return customerMapper.countByExample(example);
     }
 
     @Override
     public int deleteByExample(CustomerExample example) {
-        return 0;
+        return customerMapper.deleteByExample(example);
     }
 
     @Override
     public int deleteByPrimaryKey(Integer cid) {
-        return 0;
+        return customerMapper.deleteByPrimaryKey(cid);
     }
 
     @Override
     public int insert(Customer record) {
-        return 0;
+        return customerMapper.insert(record);
     }
 
     @Override
     public int insertSelective(Customer record) {
-        return 0;
+        return customerMapper.insertSelective(record);
     }
 
     @Override
     public List<Customer> selectByExample(CustomerExample example) {
-        return null;
+        return customerMapper.selectByExample(example);
     }
 
     @Override
     public Customer selectByPrimaryKey(Integer cid) {
-        return null;
+        return customerMapper.selectByPrimaryKey(cid);
     }
 
     @Override
     public int updateByExampleSelective(Customer record, CustomerExample example) {
-        return 0;
+        return customerMapper.updateByExampleSelective(record, example);
     }
 
     @Override
     public int updateByExample(Customer record, CustomerExample example) {
-        return 0;
+        return customerMapper.updateByExample(record, example);
     }
 
     @Override
     public int updateByPrimaryKeySelective(Customer record) {
-        return 0;
+        return customerMapper.updateByPrimaryKeySelective(record);
     }
 
     @Override
     public int updateByPrimaryKey(Customer record) {
-        return 0;
+        return customerMapper.updateByPrimaryKey(record);
     }
 }

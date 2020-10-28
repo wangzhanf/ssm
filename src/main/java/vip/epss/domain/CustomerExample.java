@@ -472,6 +472,76 @@ public class CustomerExample {
             return (Criteria) this;
         }
 
+        public Criteria andCaddressIsNull() {
+            addCriterion("caddress is null");
+            return (Criteria) this;
+        }
+
+        public Criteria andCaddressIsNotNull() {
+            addCriterion("caddress is not null");
+            return (Criteria) this;
+        }
+
+        public Criteria andCaddressEqualTo(String value) {
+            addCriterion("caddress =", value, "caddress");
+            return (Criteria) this;
+        }
+
+        public Criteria andCaddressNotEqualTo(String value) {
+            addCriterion("caddress <>", value, "caddress");
+            return (Criteria) this;
+        }
+
+        public Criteria andCaddressGreaterThan(String value) {
+            addCriterion("caddress >", value, "caddress");
+            return (Criteria) this;
+        }
+
+        public Criteria andCaddressGreaterThanOrEqualTo(String value) {
+            addCriterion("caddress >=", value, "caddress");
+            return (Criteria) this;
+        }
+
+        public Criteria andCaddressLessThan(String value) {
+            addCriterion("caddress <", value, "caddress");
+            return (Criteria) this;
+        }
+
+        public Criteria andCaddressLessThanOrEqualTo(String value) {
+            addCriterion("caddress <=", value, "caddress");
+            return (Criteria) this;
+        }
+
+        public Criteria andCaddressLike(String value) {
+            addCriterion("caddress like", value, "caddress");
+            return (Criteria) this;
+        }
+
+        public Criteria andCaddressNotLike(String value) {
+            addCriterion("caddress not like", value, "caddress");
+            return (Criteria) this;
+        }
+
+        public Criteria andCaddressIn(List<String> values) {
+            addCriterion("caddress in", values, "caddress");
+            return (Criteria) this;
+        }
+
+        public Criteria andCaddressNotIn(List<String> values) {
+            addCriterion("caddress not in", values, "caddress");
+            return (Criteria) this;
+        }
+
+        public Criteria andCaddressBetween(String value1, String value2) {
+            addCriterion("caddress between", value1, value2, "caddress");
+            return (Criteria) this;
+        }
+
+        public Criteria andCaddressNotBetween(String value1, String value2) {
+            addCriterion("caddress not between", value1, value2, "caddress");
+            return (Criteria) this;
+        }
+
         public Criteria andCbirthIsNull() {
             addCriterion("cbirth is null");
             return (Criteria) this;

@@ -17,7 +17,7 @@ public class LoginInterceptor implements HandlerInterceptor {
         //首先应该获取当前的地址
         String uri = request.getRequestURI();
         //如果用户访问的地址是无需验证的页面,则放行
-        if (uri.indexOf("/user/login") >= 0) {
+        if (uri.indexOf("/user/login") >= 0 || uri.indexOf("/user/loginCheck") >= 0) {
             return true;//放行
         }
 

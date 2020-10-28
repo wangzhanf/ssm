@@ -40,16 +40,19 @@
     <div class="collapse navbar-collapse" id="collapsibleNavbar">
         <ul class="navbar-nav">
             <li class="nav-item">
-                <a class="nav-link" target="dataDisplay" href="${app}/user/list">用户管理1</a>
+                <a class="nav-link" target="dataDisplay" href="${app}/user/list">管理员管理1</a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" target="dataDisplay" href="${app}/userrest/index">用户管理2</a>
+                <a class="nav-link" target="dataDisplay" href="${app}/userrest/index">管理员管理2</a>
             </li>
             <li class="nav-item">
                 <a class="nav-link" target="dataDisplay" href="${app}/goodsrest/index">商品管理</a>
             </li>
             <li class="nav-item">
                 <a class="nav-link" target="dataDisplay" href="${app}/typesrest/index">类别管理</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" target="dataDisplay" href="${app}/customerrest/index">客户管理</a>
             </li>
             <li class="nav-item dropdown">
                 <a class="nav-link dropdown-toggle" href="#" id="navbardrop" data-toggle="dropdown">

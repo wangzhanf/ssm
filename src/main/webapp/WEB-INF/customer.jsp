@@ -42,7 +42,7 @@
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
-                <h4 class="modal-title">添加新商品</h4>
+                <h4 class="modal-title">添加新用户</h4>
                 <button type="button" class="close" data-dismiss="modal">&times;</button>
             </div>
 
@@ -51,16 +51,37 @@
                 <form method="post" enctype="multipart/form-data" class="form-horizontal" role="form">
                     <%--input type="hidden" name="_method" value="POST" /--%>
                     <div class="form-group">
-                        <label>tname:</label><input type="text" class="form-control"  name="tname"/>
+                        <label>cname:</label><input type="text" class="form-control"  name="cname"/>
                     </div>
+                        <div class="form-group">
+                            <label>cphone:</label><input type="text" class="form-control"  name="cphone"/>
+                        </div>
+                        <div class="form-group">
+                            <label>cemail:</label><input type="email" class="form-control"  name="cemail"/>
+                        </div>
+                        <div class="form-group">
+                            <label>cpass:</label><input type="text" class="form-control"  name="cpass"/>
+                        </div>
                     <div class="form-group">
-                        <label>tdes:</label><textarea class="form-control" name="tdes"></textarea>
+                        <label>caddress:</label><textarea class="form-control" name="caddress"></textarea>
                     </div>
+                        <div class="form-group">
+                            <label>cbirth:</label><input type="date" class="form-control"  name="cbirth"/>
+                        </div>
                     <div class="form-group">
-                        <label>tavatar:</label>
+                        <label>cavatar:</label>
                         <img data-my="disAvatar" src="" style="width: 100px;height: 100px;" />
-                        <input style="display: none;" type="file" class="form-control" data-my="inputAvatar" name="file" placeholder="avatar">
+                        <input style="display: none;" type="file" class="form-control" data-my="inpucavatar" name="file" placeholder="avatar">
                     </div>
+                        <div class="form-group">
+                            <label>cgender:</label>
+                            <label><input type="radio" class="form-control" value="true"  name="cgender"/>男</label>
+                            <label><input type="radio" class="form-control" value="false"  name="cgender"/>女</label>
+                        </div>
+                        <div class="form-group">
+                            <label>cstatus:</label>
+                            <input type="checkbox" class="form-control" value="true"  name="cstatus"/>是否禁用</label>
+                        </div>
                     <div class="form-group">
                         <button id="addObjBtn" type="button" class="btn btn-block btn-primary">添加</button>
                     </div>
@@ -86,21 +107,36 @@
             <div class="modal-body">
                 <form method="post"  enctype="multipart/form-data" class="form-horizontal" role="form">
                     <div class="form-group">
-                        <label>tid:</label><input readonly="readonly" type="text" class="form-control"  name="tid"/>
+                        <label>cname:</label><input type="text" class="form-control"  name="cname"/>
                     </div>
                     <div class="form-group">
-                        <label>tname:</label><input type="text" class="form-control"  name="tname"/>
+                        <label>cphone:</label><input type="text" class="form-control"  name="cphone"/>
                     </div>
                     <div class="form-group">
-                        <label>tdes:</label><textarea class="form-control" name="tdes"></textarea>
+                        <label>cemail:</label><input type="email" class="form-control"  name="cemail"/>
                     </div>
                     <div class="form-group">
-                        <label>addTime:</label><input type="datetime" class="form-control"  name="addTime" placeholder="添加时间"/>
+                        <label>cpass:</label><input type="text" class="form-control"  name="cpass"/>
                     </div>
                     <div class="form-group">
-                        <label>tavatar:</label>
+                        <label>caddress:</label><textarea class="form-control" name="caddress"></textarea>
+                    </div>
+                    <div class="form-group">
+                        <label>cbirth:</label><input type="date" class="form-control"  name="cbirth"/>
+                    </div>
+                    <div class="form-group">
+                        <label>cavatar:</label>
                         <img data-my="disAvatar" src="" style="width: 100px;height: 100px;" />
-                        <input style="display: none;" type="file" class="form-control" data-my="inputAvatar" name="file" placeholder="avatar">
+                        <input style="display: none;" type="file" class="form-control" data-my="inpucavatar" name="file" placeholder="avatar">
+                    </div>
+                    <div class="form-group">
+                        <label>cgender:</label>
+                        <label><input type="radio" class="form-control" value="true"  name="cgender"/>男</label>
+                        <label><input type="radio" class="form-control" value="false"  name="cgender"/>女</label>
+                    </div>
+                    <div class="form-group">
+                        <label>cstatus:</label>
+                        <input type="checkbox" class="form-control" value="true"  name="cstatus"/>是否禁用</label>
                     </div>
 
                     <div class="form-group">
@@ -118,8 +154,8 @@
 
 
 
-<form id="searchForm" method="get" action="${app}/typesrest/list">
-    <input type="text" placeholder="tname" name="tname" value=""/>
+<form id="searchForm" method="get" action="${app}/customerrest/list">
+    <input type="text" placeholder="cname" name="cname" value=""/>
     <input type="date" name="startDate" value="2020-10-01"/>
     <input type="date" name="endDate" value="2020-11-12"/>
     <input class="btn btn-primary" type="button" id="searchBtn" value="查询"/>
@@ -138,10 +174,15 @@
             <input class="btn btn-sm btn-warning" type="button" id="reverseBtn" value="反选"/>
         </th>
         <th>序号#</th>
-        <th>类别id</th>
-        <th>名称</th>
-        <th>描述</th>
-        <th>照片</th>
+        <th>客户id</th>
+        <th>姓名</th>
+        <th>电话</th>
+        <th>邮箱</th>
+        <th>密码</th>
+        <th>地址</th>
+        <th>生日</th>
+        <th>性别</th>
+        <th>状态</th>
         <th>创建时间(addTime)</th>
         <th>操作(修改)</th>
         <th>操作(删除)</th>
@@ -195,7 +236,7 @@
         $(document).on("click", ".delBtn", deleteSingleRecord);
         //给需要点击之后上传图片的区域添加点击事件,确保能够调用文件域的点击事件
         $('[data-my="disAvatar"]').click(function (eve) {$(eve.target).next('[type="file"]').click();});
-        $('[data-my="inputAvatar"]').change(choiceAvatar);
+        $('[data-my="inpucavatar"]').change(choiceAvatar);
     });
 
     //点击图片能够调用 文件域的点击事件
@@ -243,7 +284,7 @@
         //校验通过向服务器发送请求
         // alert("search被调用了");
         $.ajax({
-            url: "${app}/typesrest/list",
+            url: "${app}/customerrest/list",
             type: "GET",
             data: $("#searchForm").serialize(),
             success: function (result) {
@@ -268,10 +309,16 @@
             type: "GET",
             success: function (result) {
                 //回填数据
-                $('#updateModal [name="tid"]').val(result.dataZone.obj.tid);
-                $('#updateModal [name="tname"]').val(result.dataZone.obj.tname);
-                $('#updateModal [name="tdes"]').val(result.dataZone.obj.tdes);
-                $('#updateModal [data-my="disAvatar"]').attr('src',result.dataZone.obj.tavatar);
+                $('#updateModal [name="cid"]').val(result.dataZone.obj.cid);
+                $('#updateModal [name="cname"]').val(result.dataZone.obj.cname);
+                $('#updateModal [name="cphone"]').val(result.dataZone.obj.cphone);
+                $('#updateModal [name="cemail"]').val(result.dataZone.obj.cemail);
+                $('#updateModal [name="cpass"]').val(result.dataZone.obj.cpass);
+                $('#updateModal [name="caddress"]').val(result.dataZone.obj.caddress);
+                $('#updateModal [name="cbirth"]').val(result.dataZone.obj.cbirth);
+                $('#updateModal [data-my="disAvatar"]').attr('src',result.dataZone.obj.cavatar);
+                $('#updateModal [name="cgender"]').val(result.dataZone.obj.cgender);
+                $('#updateModal [name="cstatus"]').val(result.dataZone.obj.cstatus);
                 $('#updateModal [name="addTime"]').val(new Date(result.dataZone.obj.addTime).Format("yyyy-MM-dd"));
 
             },
@@ -289,7 +336,7 @@
         var formData = new FormData($("#updateModal form").get(0));
 
         $.ajax({
-            url: "${app}/typesrest/opt",
+            url: "${app}/customerrest/opt",
             type: "PUT",  //已经更改为可以通过post或者put方式更新图片,保留了通过post的方式更新图片的方法
             data: formData,
             dataType:"json",
@@ -325,7 +372,7 @@
         var formData = new FormData($("#addModal form").get(0));
 
         $.ajax({
-            url: "${app}/typesrest/opt",
+            url: "${app}/customerrest/opt",
             type: "POST",
             data: formData,
             dataType:"json",
@@ -381,7 +428,7 @@
             //向服务器发送请求,我们已经使用过get和post方法,这次使用最底层的ajax方法
             $.ajax({
                 type: "DELETE",
-                url: "${app}/typesrest/opt/" + ids,
+                url: "${app}/customerrest/opt/" + ids,
                 success: function (result) {
                     gotoPage(currentPage);
                     alertTips(result.message,"alert-success");
@@ -398,7 +445,7 @@
         pageSize = pageSize == null ? 10 : pageSize;
         $.ajax({
             type: "GET",
-            url: "${app}/typesrest/list?pageNum=" + pageNum + "&pageSize=" + pageSize,
+            url: "${app}/customerrest/list?pageNum=" + pageNum + "&pageSize=" + pageSize,
             dataType: "json",
             data: $("#searchForm").serialize(),
             success: function (result) {
@@ -423,18 +470,24 @@
             //构建行
             var uTr = $("<tr></tr>");
             //构建多个单元格
-            var checkboxTh = $('<th><input type="checkbox" name="choiceList" value="${item.tid}"/></th>');
+            var checkboxTh = $('<th><input type="checkbox" name="choiceList" value="${item.cid}"/></th>');
             var countTh = $('<th></th>').text(index + 1);
-            var td1 = $('<td></td>').text(item.tid);
-            var td2 = $('<td></td>').text(item.tname);
-            var td3 = $('<td></td>').text(item.tdes);
-            var td5 = $('<td></td>').text(item.tavatar);
+            var td1 = $('<td></td>').text(item.cid);
+            var td2 = $('<td></td>').text(item.cname);
+            var td3 = $('<td></td>').text(item.cphone);
+            var td4 = $('<td></td>').text(item.cemail);
+            var td5 = $('<td></td>').text(item.cpass);
+            var td6 = $('<td></td>').text(item.caddress);
+            var td7 = $('<td></td>').text(item.cbirth);
+            var td8 = $('<td></td>').text(item.cgender);
+            var td9 = $('<td></td>').text(item.cstatus);
             var addTimeTd = $('<td></td>').text(new Date(item.addTime).Format("yyyy-MM-dd HH:mm:ss"));
-            var upBtnTd = $('<td></td>').html('<a class="upBtn btn btn-info btn-sm" href="${app}/typesrest/opt/' + item.tid + '">修改</a>');
-            var delBtnTd = $('<td></td>').html('<a class="delBtn btn btn-danger btn-sm" href="${app}/typesrest/opt/' + item.tid + '">删除</a>');
+            var upBtnTd = $('<td></td>').html('<a class="upBtn btn btn-info btn-sm" href="${app}/customerrest/opt/' + item.cid + '">修改</a>');
+            var delBtnTd = $('<td></td>').html('<a class="delBtn btn btn-danger btn-sm" href="${app}/customerrest/opt/' + item.cid + '">删除</a>');
             //将单元格追加到行中
             uTr.append(checkboxTh).append(countTh)
-                .append(td1).append(td2).append(td3).append(td5)
+                .append(td1).append(td2).append(td3).append(td4).append(td5)
+                .append(td6).append(td7).append(td8).append(td9)
                 .append(addTimeTd)
                 .append(upBtnTd).append(delBtnTd);
             // 将行追加到表体中
@@ -533,7 +586,7 @@
 
     //完成后弹出消息框
     function alertTips(message,alert_type){
-        $('.alert').html(message).removeAttr("class").addClass(alert_type).show().delay(2000).fadeOut();
+        $('.alert').html(message).removeAttr("class").addClass(alert_type).show().delay(1000).fadeOut();
     }
 
 
