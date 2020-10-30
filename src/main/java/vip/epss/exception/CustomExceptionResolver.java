@@ -15,9 +15,9 @@ public class CustomExceptionResolver implements HandlerExceptionResolver {
     @Override
     public ModelAndView resolveException(HttpServletRequest request, HttpServletResponse response, Object handler, Exception ex) {
         CustomException customException = null;
-        if(ex instanceof CustomException){
-            customException = (CustomException)ex;
-        }else{
+        if (ex instanceof CustomException) {
+            customException = (CustomException) ex;
+        } else {
             customException = new CustomException("未知的错误");
         }
 

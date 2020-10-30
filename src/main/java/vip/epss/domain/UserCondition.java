@@ -16,8 +16,8 @@ public class UserCondition extends User implements Serializable {
     public UserCondition() {
     }
 
-    public UserCondition(Integer uid,String username,String password,Date addTime,Integer uidCondition, Date startDate, Date endDate) {
-        super(uid,username,password,addTime);
+    public UserCondition(Integer uid, String username, String password, Date addTime, Integer uidCondition, Date startDate, Date endDate) {
+        super(uid, username, password, addTime);
         this.uidCondition = uidCondition;
         this.startDate = startDate;
         this.endDate = endDate;

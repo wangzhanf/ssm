@@ -15,9 +15,15 @@ public class Orders {
 
     private Integer fgid;
 
+    private Goods goods;
+
     private Integer fcid;
 
+    private Customer customer;
+
     private Integer fbid;
+
+    private Business business;
 
     private Date addTime;
 
@@ -88,5 +94,29 @@ public class Orders {
 
     public void setAddTime(Date addTime) {
         this.addTime = addTime;
+    }
+
+    public Goods getGoods() {
+        return goods;
+    }
+
+    public void setGoods(Goods goods) {
+        this.goods = goods;
+    }
+
+    public Customer getCustomer() {
+        return customer;
+    }
+
+    public void setCustomer(Customer customer) {
+        this.customer = customer;
+    }
+
+    public Business getBusiness() {
+        return business;
+    }
+
+    public void setBusiness(Business business) {
+        this.business = business;
     }
 }

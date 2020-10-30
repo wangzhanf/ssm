@@ -33,21 +33,21 @@
 </head>
 <body>
 <div class="container">
-        <h6>添加新用户</h6>
-        <hr/>
-        <sf:form method="post" action="${app}/user/insert" modelAttribute="user">
-            <div class="form-group">
-                <label for="username">username:</label>
-                <input type="text" name="username" value="${user.username}" class="form-control" id="username">
-                <p class="text-danger"><sf:errors path="username"></sf:errors></p>
-            </div>
-            <div class="form-group">
-                <label for="pwd">Password:</label>
-                <input type="password" name="password" class="form-control" id="pwd">
-                <p class="text-danger"><sf:errors path="password"></sf:errors></p>
-            </div>
-            <button type="submit" class="btn btn-primary">确认添加</button>
-        </sf:form>
+    <h6>添加新用户</h6>
+    <hr/>
+    <sf:form method="post" action="${app}/user/insert" modelAttribute="user">
+        <div class="form-group">
+            <label for="username">username:</label>
+            <input type="text" name="username" value="${user.username}" class="form-control" id="username">
+            <p class="text-danger"><sf:errors path="username"></sf:errors></p>
+        </div>
+        <div class="form-group">
+            <label for="pwd">Password:</label>
+            <input type="password" name="password" class="form-control" id="pwd">
+            <p class="text-danger"><sf:errors path="password"></sf:errors></p>
+        </div>
+        <button type="submit" class="btn btn-primary">确认添加</button>
+    </sf:form>
 </div>
 
 <!-- jQuery (Bootstrap 的 JavaScript 插件需要引入 jQuery) -->

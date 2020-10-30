@@ -33,13 +33,14 @@
 </head>
 <body>
 <div class="container">
-        <h6>修改用户信息</h6>
-        <hr/>
+    <h6>修改用户信息</h6>
+    <hr/>
     <form method="post" action="${app}/user/update">
         <div class="form-group">
             <label for="username">username:</label>
-            <input type="hidden" name="uid" value="${user.uid}" />
-            <input type="text" readonly="readonly" name="username" value="${user.username}" class="form-control" id="username">
+            <input type="hidden" name="uid" value="${user.uid}"/>
+            <input type="text" readonly="readonly" name="username" value="${user.username}" class="form-control"
+                   id="username">
         </div>
         <div class="form-group">
             <label for="pwd">Password:</label>

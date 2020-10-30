@@ -1,9 +1,10 @@
 package vip.epss.dao;
 
-import java.util.List;
 import org.apache.ibatis.annotations.Param;
 import vip.epss.domain.Customer;
 import vip.epss.domain.CustomerExample;
+
+import java.util.List;
 
 public interface CustomerMapper {
     long countByExample(CustomerExample example);

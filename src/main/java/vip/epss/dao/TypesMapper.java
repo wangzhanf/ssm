@@ -1,9 +1,10 @@
 package vip.epss.dao;
 
-import java.util.List;
 import org.apache.ibatis.annotations.Param;
 import vip.epss.domain.Types;
 import vip.epss.domain.TypesExample;
+
+import java.util.List;
 
 public interface TypesMapper {
     long countByExample(TypesExample example);

@@ -2,6 +2,7 @@ package vip.epss.service.impl;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import vip.epss.dao.ActivityMapper;
 import vip.epss.domain.Activity;
 import vip.epss.domain.ActivityExample;
 import vip.epss.service.ActivityService;
@@ -17,60 +18,60 @@ import java.util.List;
 public class ActivityServiceImpl implements ActivityService {
 
     @Autowired
-    private ActivityService activityService;
+    private ActivityMapper activityMapper;
 
     @Override
     public long countByExample(ActivityExample example) {
-        return activityService.countByExample(example);
+        return activityMapper.countByExample(example);
     }
 
     @Override
     public int deleteByExample(ActivityExample example) {
-        return activityService.deleteByExample(example);
+        return activityMapper.deleteByExample(example);
     }
 
     @Override
     public int deleteByPrimaryKey(Integer aid) {
-        return activityService.deleteByPrimaryKey(aid);
+        return activityMapper.deleteByPrimaryKey(aid);
     }
 
     @Override
     public int insert(Activity record) {
-        return activityService.insert(record);
+        return activityMapper.insert(record);
     }
 
     @Override
     public int insertSelective(Activity record) {
-        return activityService.insertSelective(record);
+        return activityMapper.insertSelective(record);
     }
 
     @Override
     public List<Activity> selectByExample(ActivityExample example) {
-        return activityService.selectByExample(example);
+        return activityMapper.selectByExample(example);
     }
 
     @Override
     public Activity selectByPrimaryKey(Integer aid) {
-        return activityService.selectByPrimaryKey(aid);
+        return activityMapper.selectByPrimaryKey(aid);
     }
 
     @Override
     public int updateByExampleSelective(Activity record, ActivityExample example) {
-        return activityService.updateByExampleSelective(record,example);
+        return activityMapper.updateByExampleSelective(record, example);
     }
 
     @Override
     public int updateByExample(Activity record, ActivityExample example) {
-        return activityService.updateByExample(record,example);
+        return activityMapper.updateByExample(record, example);
     }
 
     @Override
     public int updateByPrimaryKeySelective(Activity record) {
-        return activityService.updateByPrimaryKeySelective(record);
+        return activityMapper.updateByPrimaryKeySelective(record);
     }
 
     @Override
     public int updateByPrimaryKey(Activity record) {
-        return activityService.updateByPrimaryKey(record);
+        return activityMapper.updateByPrimaryKey(record);
     }
 }

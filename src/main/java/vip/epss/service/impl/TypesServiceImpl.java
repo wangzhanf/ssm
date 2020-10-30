@@ -52,7 +52,7 @@ public class TypesServiceImpl implements TypesService {
 
     @Override
     public int updateByExampleSelective(Types record, TypesExample example) {
-        return typesMapper.updateByExampleSelective(record,example);
+        return typesMapper.updateByExampleSelective(record, example);
     }
 
     @Override

@@ -33,4 +33,8 @@ public interface OrdersService {
     int updateByPrimaryKeySelective(Orders record);
 
     int updateByPrimaryKey(Orders record);
+
+    List<Orders> selectByExampleWithObject(OrdersExample example);
+
+    Orders selectByPrimaryKeyWithObject(Integer oid);
 }

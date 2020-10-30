@@ -22,56 +22,66 @@ public class OrdersServiceImpl implements OrdersService {
 
     @Override
     public long countByExample(OrdersExample example) {
-        return 0;
+        return ordersMapper.countByExample(example);
     }
 
     @Override
     public int deleteByExample(OrdersExample example) {
-        return 0;
+        return ordersMapper.deleteByExample(example);
     }
 
     @Override
     public int deleteByPrimaryKey(Integer oid) {
-        return 0;
+        return ordersMapper.deleteByPrimaryKey(oid);
     }
 
     @Override
     public int insert(Orders record) {
-        return 0;
+        return ordersMapper.insert(record);
     }
 
     @Override
     public int insertSelective(Orders record) {
-        return 0;
+        return ordersMapper.insertSelective(record);
     }
 
     @Override
     public List<Orders> selectByExample(OrdersExample example) {
-        return null;
+        return ordersMapper.selectByExample(example);
     }
 
     @Override
     public Orders selectByPrimaryKey(Integer oid) {
-        return null;
+        return ordersMapper.selectByPrimaryKey(oid);
     }
 
     @Override
     public int updateByExampleSelective(Orders record, OrdersExample example) {
-        return 0;
+        return ordersMapper.updateByExampleSelective(record, example);
     }
 
     @Override
     public int updateByExample(Orders record, OrdersExample example) {
-        return 0;
+        return ordersMapper.updateByExample(record, example);
     }
 
     @Override
     public int updateByPrimaryKeySelective(Orders record) {
-        return 0;
+        return ordersMapper.updateByPrimaryKeySelective(record);
     }
 
     @Override
     public int updateByPrimaryKey(Orders record) {
-        return 0;
+        return ordersMapper.updateByPrimaryKey(record);
+    }
+
+    @Override
+    public List<Orders> selectByExampleWithObject(OrdersExample example) {
+        return ordersMapper.selectByExampleWithObject(example);
+    }
+
+    @Override
+    public Orders selectByPrimaryKeyWithObject(Integer oid){
+        return ordersMapper.selectByPrimaryKeyWithObject(oid);
     }
 }

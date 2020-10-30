@@ -14,6 +14,16 @@ import java.util.List;
 
 public class MBGR {
 
+    // 执行main方法以生成代码
+    public static void main(String[] args) throws IOException, XMLParserException {
+        try {
+            MBGR mbgr = new MBGR();
+            mbgr.generator();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
     public void generator() throws Exception {
         List<String> warnings = new ArrayList<String>();
         boolean overwrite = true;
@@ -24,15 +34,5 @@ public class MBGR {
         MyBatisGenerator myBatisGenerator = new MyBatisGenerator(config, callback, warnings);
         myBatisGenerator.generate(null);
 
-    }
-
-    // 执行main方法以生成代码
-    public static void main(String[] args) throws IOException, XMLParserException {
-        try {
-            MBGR mbgr = new MBGR();
-            mbgr.generator();
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
     }
 }

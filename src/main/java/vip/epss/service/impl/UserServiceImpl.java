@@ -64,14 +64,14 @@ public class UserServiceImpl implements UserService {
     public int updateByExampleSelective(User record, UserExample example) {
         //对传递过来的明文密码加密为密文然后比对
         record.setPassword(MD5Util.getMD5(record.getPassword()));
-        return userMapper.updateByExampleSelective(record,example);
+        return userMapper.updateByExampleSelective(record, example);
     }
 
     @Override
     public int updateByExample(User record, UserExample example) {
         //对传递过来的明文密码加密为密文然后比对
         record.setPassword(MD5Util.getMD5(record.getPassword()));
-        return userMapper.updateByExample(record,example);
+        return userMapper.updateByExample(record, example);
     }
 
     @Override

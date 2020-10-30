@@ -1,9 +1,10 @@
 package vip.epss.dao;
 
-import java.util.List;
 import org.apache.ibatis.annotations.Param;
 import vip.epss.domain.Goods;
 import vip.epss.domain.GoodsExample;
+
+import java.util.List;
 
 public interface GoodsMapper {
     long countByExample(GoodsExample example);
@@ -17,9 +18,11 @@ public interface GoodsMapper {
     int insertSelective(Goods record);
 
     List<Goods> selectByExample(GoodsExample example);
+
     List<Goods> selectByExampleWithObject(GoodsExample example);
 
     Goods selectByPrimaryKey(Integer gid);
+
     Goods selectByPrimaryKeyWithObject(Integer gid);
 
     int updateByExampleSelective(@Param("record") Goods record, @Param("example") GoodsExample example);

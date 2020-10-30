@@ -16,7 +16,7 @@
 <head>
     <title>后台登录</title>
     <meta charset="UTF-8"/>
-    <base target="_self" />
+    <base target="_self"/>
     <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
     <!-- 引入 Bootstrap -->
     <link href="${app}/static/css/bootstrap.css" rel="stylesheet"/>
@@ -30,15 +30,19 @@
     <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js" rel="external nofollow"></script>
     <script src="https://oss.maxcdn.com/libs/respond.js/1.3.0/respond.min.js" rel="external nofollow"></script>
     <![endif]-->
+
+
+
 </head>
 <body>
+
 <form action="${app}/user/loginCheck" method="post">
-    <input type="text" name="username" />
-    <input type="password" name="password" />
-    <input type="submit" value="管理登录" />
+    <input type="text" name="username"/>
+    <input type="password" name="password"/>
+    <input type="submit" value="管理登录"/>
 </form>
 <!-- jQuery (Bootstrap 的 JavaScript 插件需要引入 jQuery) -->
-<script src="${app}/static/js/jquery-3.3.1.js" ></script>
+<script src="${app}/static/js/jquery-3.3.1.js"></script>
 <!-- 包括所有已编译的插件 -->
 <script src="${app}/static/js/bootstrap.js"></script>
 <script src="${app}/static/js/vue.js"></script>

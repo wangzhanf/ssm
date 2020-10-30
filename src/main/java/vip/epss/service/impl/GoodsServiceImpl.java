@@ -62,7 +62,7 @@ public class GoodsServiceImpl implements GoodsService {
 
     @Override
     public int updateByExampleSelective(Goods record, GoodsExample example) {
-        return goodsMapper.updateByExampleSelective(record,example);
+        return goodsMapper.updateByExampleSelective(record, example);
     }
 
     @Override

@@ -338,3 +338,70 @@ DELIMITER ;
 CALL orders_insert ();
 
 commit;
+
+
+-- 测试用例
+
+
+# 查询某个订单对应的主表相关字段的样例1
+select o.*,b.bid,b.bname,g.gid,g.gname,c.cid,c.cname
+from orders o,business b,goods g,customer c
+where
+      o.fbid = b.bid and
+      o.fcid = c.cid and
+      o.fgid = g.gid
+
+        and o.oid = 7
+;
+
+# 查询某个订单对应的主表相关字段的样例2
+select o.*,b.bid,b.bname,g.gid,g.gname,c.cid,c.cname
+from orders o
+left join business b on o.fbid = b.bid
+left join customer c on o.fcid = c.cid
+left join goods g on o.fgid = g.gid
+where o.oid = 7
+;
+
+# 查询商品数量在5件以上的商家信息
+select bid,bname
+from business
+where bid in(select fbid from goods as g group by fbid having count(*)>=5)
+;
+
+select b.*,count(g.gid) as nums
+from business b
+    left join goods g on b.bid = g.fbid group  by g.fbid having  nums >=5
+;
+
+# 皮包公司
+select b.*,count(g.gid) as nums
+from business b
+         left join goods g on b.bid = g.fbid group  by g.fbid having  nums =0
+;
+
+# 查询订单数量超过5件的客户信息
+select c.*,count(o.oid) as nums
+from customer c
+    left join orders o on o.fcid = c.cid group by o.fcid having nums >=4
+;
+
+# 潜水买家
+select c.*,count(o.oid) as nums
+from customer c
+         left join orders o on o.fcid = c.cid group by o.fcid having nums = 0
+;
+
+
+# 商家参与了何种活动
+select * from business b
+left join business_to_activity bta on b.bid=bta.fbid
+left join activity a on bta.faid = a.aid
+where b.bid = 7;
+
+# 某种活动有哪些商家参与了
+select * from activity a
+left join business_to_activity bta on a.aid = bta.faid
+left join business b on bta.fbid = b.bid
+where a.aid = 1
+;

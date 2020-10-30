@@ -36,15 +36,15 @@ public class Customer implements Serializable {
         this.addTime = addTime;
     }
 
+    public Customer() {
+    }
+
     public String getCaddress() {
         return caddress;
     }
 
     public void setCaddress(String caddress) {
         this.caddress = caddress;
-    }
-
-    public Customer() {
     }
 
     public Integer getCid() {

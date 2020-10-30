@@ -1,112 +1,114 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="vip.epss.dao.BusinessMapper">
-  <resultMap id="BaseResultMap" type="vip.epss.domain.Business">
-    <id column="bid" jdbcType="INTEGER" property="bid" />
-    <result column="bname" jdbcType="VARCHAR" property="bname" />
-    <result column="bpass" jdbcType="VARCHAR" property="bpass" />
-    <result column="bdes" jdbcType="VARCHAR" property="bdes" />
-    <result column="bdelivery" jdbcType="VARCHAR" property="bdelivery" />
-    <result column="bmark" jdbcType="DOUBLE" property="bmark" />
-    <result column="bavatar" jdbcType="VARCHAR" property="bavatar" />
-    <result column="baddress" jdbcType="VARCHAR" property="baddress" />
-    <result column="brecommendation" jdbcType="INTEGER" property="brecommendation" />
-    <result column="bstatus" jdbcType="BIT" property="bstatus" />
-    <result column="add_time" jdbcType="TIMESTAMP" property="addTime" />
-  </resultMap>
-  <sql id="Example_Where_Clause">
-    <where>
-      <foreach collection="oredCriteria" item="criteria" separator="or">
-        <if test="criteria.valid">
-          <trim prefix="(" prefixOverrides="and" suffix=")">
-            <foreach collection="criteria.criteria" item="criterion">
-              <choose>
-                <when test="criterion.noValue">
-                  and ${criterion.condition}
-                </when>
-                <when test="criterion.singleValue">
-                  and ${criterion.condition} #{criterion.value}
-                </when>
-                <when test="criterion.betweenValue">
-                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
-                </when>
-                <when test="criterion.listValue">
-                  and ${criterion.condition}
-                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
-                    #{listItem}
-                  </foreach>
-                </when>
-              </choose>
+    <resultMap id="BaseResultMap" type="vip.epss.domain.Business">
+        <id column="bid" jdbcType="INTEGER" property="bid"/>
+        <result column="bname" jdbcType="VARCHAR" property="bname"/>
+        <result column="bpass" jdbcType="VARCHAR" property="bpass"/>
+        <result column="bdes" jdbcType="VARCHAR" property="bdes"/>
+        <result column="bdelivery" jdbcType="VARCHAR" property="bdelivery"/>
+        <result column="bmark" jdbcType="DOUBLE" property="bmark"/>
+        <result column="bavatar" jdbcType="VARCHAR" property="bavatar"/>
+        <result column="baddress" jdbcType="VARCHAR" property="baddress"/>
+        <result column="brecommendation" jdbcType="INTEGER" property="brecommendation"/>
+        <result column="bstatus" jdbcType="BIT" property="bstatus"/>
+        <result column="add_time" jdbcType="TIMESTAMP" property="addTime"/>
+    </resultMap>
+    <sql id="Example_Where_Clause">
+        <where>
+            <foreach collection="oredCriteria" item="criteria" separator="or">
+                <if test="criteria.valid">
+                    <trim prefix="(" prefixOverrides="and" suffix=")">
+                        <foreach collection="criteria.criteria" item="criterion">
+                            <choose>
+                                <when test="criterion.noValue">
+                                    and ${criterion.condition}
+                                </when>
+                                <when test="criterion.singleValue">
+                                    and ${criterion.condition} #{criterion.value}
+                                </when>
+                                <when test="criterion.betweenValue">
+                                    and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                                </when>
+                                <when test="criterion.listValue">
+                                    and ${criterion.condition}
+                                    <foreach close=")" collection="criterion.value" item="listItem" open="("
+                                             separator=",">
+                                        #{listItem}
+                                    </foreach>
+                                </when>
+                            </choose>
+                        </foreach>
+                    </trim>
+                </if>
             </foreach>
-          </trim>
-        </if>
-      </foreach>
-    </where>
-  </sql>
-  <sql id="Update_By_Example_Where_Clause">
-    <where>
-      <foreach collection="example.oredCriteria" item="criteria" separator="or">
-        <if test="criteria.valid">
-          <trim prefix="(" prefixOverrides="and" suffix=")">
-            <foreach collection="criteria.criteria" item="criterion">
-              <choose>
-                <when test="criterion.noValue">
-                  and ${criterion.condition}
-                </when>
-                <when test="criterion.singleValue">
-                  and ${criterion.condition} #{criterion.value}
-                </when>
-                <when test="criterion.betweenValue">
-                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
-                </when>
-                <when test="criterion.listValue">
-                  and ${criterion.condition}
-                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
-                    #{listItem}
-                  </foreach>
-                </when>
-              </choose>
+        </where>
+    </sql>
+    <sql id="Update_By_Example_Where_Clause">
+        <where>
+            <foreach collection="example.oredCriteria" item="criteria" separator="or">
+                <if test="criteria.valid">
+                    <trim prefix="(" prefixOverrides="and" suffix=")">
+                        <foreach collection="criteria.criteria" item="criterion">
+                            <choose>
+                                <when test="criterion.noValue">
+                                    and ${criterion.condition}
+                                </when>
+                                <when test="criterion.singleValue">
+                                    and ${criterion.condition} #{criterion.value}
+                                </when>
+                                <when test="criterion.betweenValue">
+                                    and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                                </when>
+                                <when test="criterion.listValue">
+                                    and ${criterion.condition}
+                                    <foreach close=")" collection="criterion.value" item="listItem" open="("
+                                             separator=",">
+                                        #{listItem}
+                                    </foreach>
+                                </when>
+                            </choose>
+                        </foreach>
+                    </trim>
+                </if>
             </foreach>
-          </trim>
-        </if>
-      </foreach>
-    </where>
-  </sql>
-  <sql id="Base_Column_List">
+        </where>
+    </sql>
+    <sql id="Base_Column_List">
     bid, bname, bpass, bdes, bdelivery, bmark, bavatar, baddress, brecommendation, bstatus, 
     add_time
   </sql>
-  <select id="selectByExample" parameterType="vip.epss.domain.BusinessExample" resultMap="BaseResultMap">
-    select
-    <if test="distinct">
-      distinct
-    </if>
-    <include refid="Base_Column_List" />
-    from business
-    <if test="_parameter != null">
-      <include refid="Example_Where_Clause" />
-    </if>
-    <if test="orderByClause != null">
-      order by ${orderByClause}
-    </if>
-  </select>
-  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
-    select 
-    <include refid="Base_Column_List" />
-    from business
-    where bid = #{bid,jdbcType=INTEGER}
-  </select>
-  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    <select id="selectByExample" parameterType="vip.epss.domain.BusinessExample" resultMap="BaseResultMap">
+        select
+        <if test="distinct">
+            distinct
+        </if>
+        <include refid="Base_Column_List"/>
+        from business
+        <if test="_parameter != null">
+            <include refid="Example_Where_Clause"/>
+        </if>
+        <if test="orderByClause != null">
+            order by ${orderByClause}
+        </if>
+    </select>
+    <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List"/>
+        from business
+        where bid = #{bid,jdbcType=INTEGER}
+    </select>
+    <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
     delete from business
     where bid = #{bid,jdbcType=INTEGER}
   </delete>
-  <delete id="deleteByExample" parameterType="vip.epss.domain.BusinessExample">
-    delete from business
-    <if test="_parameter != null">
-      <include refid="Example_Where_Clause" />
-    </if>
-  </delete>
-  <insert id="insert" parameterType="vip.epss.domain.Business">
+    <delete id="deleteByExample" parameterType="vip.epss.domain.BusinessExample">
+        delete from business
+        <if test="_parameter != null">
+            <include refid="Example_Where_Clause"/>
+        </if>
+    </delete>
+    <insert id="insert" parameterType="vip.epss.domain.Business">
     insert into business (bid, bname, bpass, 
       bdes, bdelivery, bmark, 
       bavatar, baddress, brecommendation, 
@@ -116,180 +118,180 @@
       #{bavatar,jdbcType=VARCHAR}, #{baddress,jdbcType=VARCHAR}, #{brecommendation,jdbcType=INTEGER}, 
       #{bstatus,jdbcType=BIT}, #{addTime,jdbcType=TIMESTAMP})
   </insert>
-  <insert id="insertSelective" parameterType="vip.epss.domain.Business">
-    insert into business
-    <trim prefix="(" suffix=")" suffixOverrides=",">
-      <if test="bid != null">
-        bid,
-      </if>
-      <if test="bname != null">
-        bname,
-      </if>
-      <if test="bpass != null">
-        bpass,
-      </if>
-      <if test="bdes != null">
-        bdes,
-      </if>
-      <if test="bdelivery != null">
-        bdelivery,
-      </if>
-      <if test="bmark != null">
-        bmark,
-      </if>
-      <if test="bavatar != null">
-        bavatar,
-      </if>
-      <if test="baddress != null">
-        baddress,
-      </if>
-      <if test="brecommendation != null">
-        brecommendation,
-      </if>
-      <if test="bstatus != null">
-        bstatus,
-      </if>
-      <if test="addTime != null">
-        add_time,
-      </if>
-    </trim>
-    <trim prefix="values (" suffix=")" suffixOverrides=",">
-      <if test="bid != null">
-        #{bid,jdbcType=INTEGER},
-      </if>
-      <if test="bname != null">
-        #{bname,jdbcType=VARCHAR},
-      </if>
-      <if test="bpass != null">
-        #{bpass,jdbcType=VARCHAR},
-      </if>
-      <if test="bdes != null">
-        #{bdes,jdbcType=VARCHAR},
-      </if>
-      <if test="bdelivery != null">
-        #{bdelivery,jdbcType=VARCHAR},
-      </if>
-      <if test="bmark != null">
-        #{bmark,jdbcType=DOUBLE},
-      </if>
-      <if test="bavatar != null">
-        #{bavatar,jdbcType=VARCHAR},
-      </if>
-      <if test="baddress != null">
-        #{baddress,jdbcType=VARCHAR},
-      </if>
-      <if test="brecommendation != null">
-        #{brecommendation,jdbcType=INTEGER},
-      </if>
-      <if test="bstatus != null">
-        #{bstatus,jdbcType=BIT},
-      </if>
-      <if test="addTime != null">
-        #{addTime,jdbcType=TIMESTAMP},
-      </if>
-    </trim>
-  </insert>
-  <select id="countByExample" parameterType="vip.epss.domain.BusinessExample" resultType="java.lang.Long">
-    select count(*) from business
-    <if test="_parameter != null">
-      <include refid="Example_Where_Clause" />
-    </if>
-  </select>
-  <update id="updateByExampleSelective" parameterType="map">
-    update business
-    <set>
-      <if test="record.bid != null">
-        bid = #{record.bid,jdbcType=INTEGER},
-      </if>
-      <if test="record.bname != null">
+    <insert id="insertSelective" parameterType="vip.epss.domain.Business">
+        insert into business
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="bid != null">
+                bid,
+            </if>
+            <if test="bname != null">
+                bname,
+            </if>
+            <if test="bpass != null">
+                bpass,
+            </if>
+            <if test="bdes != null">
+                bdes,
+            </if>
+            <if test="bdelivery != null">
+                bdelivery,
+            </if>
+            <if test="bmark != null">
+                bmark,
+            </if>
+            <if test="bavatar != null">
+                bavatar,
+            </if>
+            <if test="baddress != null">
+                baddress,
+            </if>
+            <if test="brecommendation != null">
+                brecommendation,
+            </if>
+            <if test="bstatus != null">
+                bstatus,
+            </if>
+            <if test="addTime != null">
+                add_time,
+            </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="bid != null">
+                #{bid,jdbcType=INTEGER},
+            </if>
+            <if test="bname != null">
+                #{bname,jdbcType=VARCHAR},
+            </if>
+            <if test="bpass != null">
+                #{bpass,jdbcType=VARCHAR},
+            </if>
+            <if test="bdes != null">
+                #{bdes,jdbcType=VARCHAR},
+            </if>
+            <if test="bdelivery != null">
+                #{bdelivery,jdbcType=VARCHAR},
+            </if>
+            <if test="bmark != null">
+                #{bmark,jdbcType=DOUBLE},
+            </if>
+            <if test="bavatar != null">
+                #{bavatar,jdbcType=VARCHAR},
+            </if>
+            <if test="baddress != null">
+                #{baddress,jdbcType=VARCHAR},
+            </if>
+            <if test="brecommendation != null">
+                #{brecommendation,jdbcType=INTEGER},
+            </if>
+            <if test="bstatus != null">
+                #{bstatus,jdbcType=BIT},
+            </if>
+            <if test="addTime != null">
+                #{addTime,jdbcType=TIMESTAMP},
+            </if>
+        </trim>
+    </insert>
+    <select id="countByExample" parameterType="vip.epss.domain.BusinessExample" resultType="java.lang.Long">
+        select count(*) from business
+        <if test="_parameter != null">
+            <include refid="Example_Where_Clause"/>
+        </if>
+    </select>
+    <update id="updateByExampleSelective" parameterType="map">
+        update business
+        <set>
+            <if test="record.bid != null">
+                bid = #{record.bid,jdbcType=INTEGER},
+            </if>
+            <if test="record.bname != null">
+                bname = #{record.bname,jdbcType=VARCHAR},
+            </if>
+            <if test="record.bpass != null">
+                bpass = #{record.bpass,jdbcType=VARCHAR},
+            </if>
+            <if test="record.bdes != null">
+                bdes = #{record.bdes,jdbcType=VARCHAR},
+            </if>
+            <if test="record.bdelivery != null">
+                bdelivery = #{record.bdelivery,jdbcType=VARCHAR},
+            </if>
+            <if test="record.bmark != null">
+                bmark = #{record.bmark,jdbcType=DOUBLE},
+            </if>
+            <if test="record.bavatar != null">
+                bavatar = #{record.bavatar,jdbcType=VARCHAR},
+            </if>
+            <if test="record.baddress != null">
+                baddress = #{record.baddress,jdbcType=VARCHAR},
+            </if>
+            <if test="record.brecommendation != null">
+                brecommendation = #{record.brecommendation,jdbcType=INTEGER},
+            </if>
+            <if test="record.bstatus != null">
+                bstatus = #{record.bstatus,jdbcType=BIT},
+            </if>
+            <if test="record.addTime != null">
+                add_time = #{record.addTime,jdbcType=TIMESTAMP},
+            </if>
+        </set>
+        <if test="_parameter != null">
+            <include refid="Update_By_Example_Where_Clause"/>
+        </if>
+    </update>
+    <update id="updateByExample" parameterType="map">
+        update business
+        set bid = #{record.bid,jdbcType=INTEGER},
         bname = #{record.bname,jdbcType=VARCHAR},
-      </if>
-      <if test="record.bpass != null">
         bpass = #{record.bpass,jdbcType=VARCHAR},
-      </if>
-      <if test="record.bdes != null">
         bdes = #{record.bdes,jdbcType=VARCHAR},
-      </if>
-      <if test="record.bdelivery != null">
         bdelivery = #{record.bdelivery,jdbcType=VARCHAR},
-      </if>
-      <if test="record.bmark != null">
         bmark = #{record.bmark,jdbcType=DOUBLE},
-      </if>
-      <if test="record.bavatar != null">
         bavatar = #{record.bavatar,jdbcType=VARCHAR},
-      </if>
-      <if test="record.baddress != null">
         baddress = #{record.baddress,jdbcType=VARCHAR},
-      </if>
-      <if test="record.brecommendation != null">
         brecommendation = #{record.brecommendation,jdbcType=INTEGER},
-      </if>
-      <if test="record.bstatus != null">
         bstatus = #{record.bstatus,jdbcType=BIT},
-      </if>
-      <if test="record.addTime != null">
-        add_time = #{record.addTime,jdbcType=TIMESTAMP},
-      </if>
-    </set>
-    <if test="_parameter != null">
-      <include refid="Update_By_Example_Where_Clause" />
-    </if>
-  </update>
-  <update id="updateByExample" parameterType="map">
-    update business
-    set bid = #{record.bid,jdbcType=INTEGER},
-      bname = #{record.bname,jdbcType=VARCHAR},
-      bpass = #{record.bpass,jdbcType=VARCHAR},
-      bdes = #{record.bdes,jdbcType=VARCHAR},
-      bdelivery = #{record.bdelivery,jdbcType=VARCHAR},
-      bmark = #{record.bmark,jdbcType=DOUBLE},
-      bavatar = #{record.bavatar,jdbcType=VARCHAR},
-      baddress = #{record.baddress,jdbcType=VARCHAR},
-      brecommendation = #{record.brecommendation,jdbcType=INTEGER},
-      bstatus = #{record.bstatus,jdbcType=BIT},
-      add_time = #{record.addTime,jdbcType=TIMESTAMP}
-    <if test="_parameter != null">
-      <include refid="Update_By_Example_Where_Clause" />
-    </if>
-  </update>
-  <update id="updateByPrimaryKeySelective" parameterType="vip.epss.domain.Business">
-    update business
-    <set>
-      <if test="bname != null">
-        bname = #{bname,jdbcType=VARCHAR},
-      </if>
-      <if test="bpass != null">
-        bpass = #{bpass,jdbcType=VARCHAR},
-      </if>
-      <if test="bdes != null">
-        bdes = #{bdes,jdbcType=VARCHAR},
-      </if>
-      <if test="bdelivery != null">
-        bdelivery = #{bdelivery,jdbcType=VARCHAR},
-      </if>
-      <if test="bmark != null">
-        bmark = #{bmark,jdbcType=DOUBLE},
-      </if>
-      <if test="bavatar != null">
-        bavatar = #{bavatar,jdbcType=VARCHAR},
-      </if>
-      <if test="baddress != null">
-        baddress = #{baddress,jdbcType=VARCHAR},
-      </if>
-      <if test="brecommendation != null">
-        brecommendation = #{brecommendation,jdbcType=INTEGER},
-      </if>
-      <if test="bstatus != null">
-        bstatus = #{bstatus,jdbcType=BIT},
-      </if>
-      <if test="addTime != null">
-        add_time = #{addTime,jdbcType=TIMESTAMP},
-      </if>
-    </set>
-    where bid = #{bid,jdbcType=INTEGER}
-  </update>
-  <update id="updateByPrimaryKey" parameterType="vip.epss.domain.Business">
+        add_time = #{record.addTime,jdbcType=TIMESTAMP}
+        <if test="_parameter != null">
+            <include refid="Update_By_Example_Where_Clause"/>
+        </if>
+    </update>
+    <update id="updateByPrimaryKeySelective" parameterType="vip.epss.domain.Business">
+        update business
+        <set>
+            <if test="bname != null">
+                bname = #{bname,jdbcType=VARCHAR},
+            </if>
+            <if test="bpass != null">
+                bpass = #{bpass,jdbcType=VARCHAR},
+            </if>
+            <if test="bdes != null">
+                bdes = #{bdes,jdbcType=VARCHAR},
+            </if>
+            <if test="bdelivery != null">
+                bdelivery = #{bdelivery,jdbcType=VARCHAR},
+            </if>
+            <if test="bmark != null">
+                bmark = #{bmark,jdbcType=DOUBLE},
+            </if>
+            <if test="bavatar != null">
+                bavatar = #{bavatar,jdbcType=VARCHAR},
+            </if>
+            <if test="baddress != null">
+                baddress = #{baddress,jdbcType=VARCHAR},
+            </if>
+            <if test="brecommendation != null">
+                brecommendation = #{brecommendation,jdbcType=INTEGER},
+            </if>
+            <if test="bstatus != null">
+                bstatus = #{bstatus,jdbcType=BIT},
+            </if>
+            <if test="addTime != null">
+                add_time = #{addTime,jdbcType=TIMESTAMP},
+            </if>
+        </set>
+        where bid = #{bid,jdbcType=INTEGER}
+    </update>
+    <update id="updateByPrimaryKey" parameterType="vip.epss.domain.Business">
     update business
     set bname = #{bname,jdbcType=VARCHAR},
       bpass = #{bpass,jdbcType=VARCHAR},

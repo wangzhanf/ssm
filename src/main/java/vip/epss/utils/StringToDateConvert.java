@@ -24,14 +24,14 @@ public class StringToDateConvert implements Converter<String, Date> {
         Date date = null;
         String formatStr = null;
         System.out.println(source);
-        if (Pattern.matches("\\d{4}-\\d{2}-\\d{2}T\\d{2}:\\d{2}",source)) {//匹配2020-10-20T20:56的datetime-local格式
+        if (Pattern.matches("\\d{4}-\\d{2}-\\d{2}T\\d{2}:\\d{2}", source)) {//匹配2020-10-20T20:56的datetime-local格式
             formatStr = "yyyy-MM-dd HH:mm";
             source = source.replace("T", " ");
         }
-        if (Pattern.matches("\\d{4}-\\d{2}-\\d{2} \\d{2}:\\d{2}\\d{2}",source)) {//匹配2020-10-20 20:56:45的datetime格式{
+        if (Pattern.matches("\\d{4}-\\d{2}-\\d{2} \\d{2}:\\d{2}\\d{2}", source)) {//匹配2020-10-20 20:56:45的datetime格式{
             formatStr = "yyyy-MM-dd HH:mm:ss";
         }
-        if (Pattern.matches("\\d{4}-\\d{2}-\\d{2}",source)) {//匹配2020-10-20的date格式{
+        if (Pattern.matches("\\d{4}-\\d{2}-\\d{2}", source)) {//匹配2020-10-20的date格式{
             formatStr = "yyyy-MM-dd";
         }
         SimpleDateFormat simpleDateFormat = new SimpleDateFormat(formatStr);

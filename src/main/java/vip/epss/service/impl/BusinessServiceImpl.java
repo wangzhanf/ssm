@@ -2,7 +2,6 @@ package vip.epss.service.impl;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import org.springframework.validation.annotation.Validated;
 import vip.epss.dao.BusinessMapper;
 import vip.epss.domain.Business;
 import vip.epss.domain.BusinessExample;
@@ -23,27 +22,27 @@ public class BusinessServiceImpl implements BusinessService {
 
     @Override
     public long countByExample(BusinessExample example) {
-        return 0;
+        return businessMapper.countByExample(example);
     }
 
     @Override
     public int deleteByExample(BusinessExample example) {
-        return 0;
+        return businessMapper.deleteByExample(example);
     }
 
     @Override
     public int deleteByPrimaryKey(Integer bid) {
-        return 0;
+        return businessMapper.deleteByPrimaryKey(bid);
     }
 
     @Override
     public int insert(Business record) {
-        return 0;
+        return businessMapper.insert(record);
     }
 
     @Override
     public int insertSelective(Business record) {
-        return 0;
+        return businessMapper.insertSelective(record);
     }
 
     @Override
@@ -53,26 +52,26 @@ public class BusinessServiceImpl implements BusinessService {
 
     @Override
     public Business selectByPrimaryKey(Integer bid) {
-        return null;
+        return businessMapper.selectByPrimaryKey(bid);
     }
 
     @Override
     public int updateByExampleSelective(Business record, BusinessExample example) {
-        return 0;
+        return businessMapper.updateByExampleSelective(record, example);
     }
 
     @Override
     public int updateByExample(Business record, BusinessExample example) {
-        return 0;
+        return businessMapper.updateByExample(record, example);
     }
 
     @Override
     public int updateByPrimaryKeySelective(Business record) {
-        return 0;
+        return businessMapper.updateByPrimaryKeySelective(record);
     }
 
     @Override
     public int updateByPrimaryKey(Business record) {
-        return 0;
+        return businessMapper.updateByPrimaryKey(record);
     }
 }

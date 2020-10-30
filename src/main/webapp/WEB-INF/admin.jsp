@@ -46,13 +46,22 @@
                 <a class="nav-link" target="dataDisplay" href="${app}/userrest/index">管理员管理2</a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" target="dataDisplay" href="${app}/goodsrest/index">商品管理</a>
+                <a class="nav-link" target="dataDisplay" href="${app}/businessrest/index">商家管理</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" target="dataDisplay" href="${app}/activityrest/index">活动管理</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" target="dataDisplay" href="${app}/customerrest/index">客户管理</a>
             </li>
             <li class="nav-item">
                 <a class="nav-link" target="dataDisplay" href="${app}/typesrest/index">类别管理</a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" target="dataDisplay" href="${app}/customerrest/index">客户管理</a>
+                <a class="nav-link" target="dataDisplay" href="${app}/goodsrest/index">商品管理</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" target="dataDisplay" href="${app}/ordersrest/index">订单管理</a>
             </li>
             <li class="nav-item dropdown">
                 <a class="nav-link dropdown-toggle" href="#" id="navbardrop" data-toggle="dropdown">
@@ -67,7 +76,9 @@
     </div>
 </nav>
 
-<iframe style="margin: 60px 2px 0px 2px" scrolling="no" frameborder="0" name="dataDisplay"  width="99%" height="1000" src="${app}/userrest/index">您的浏览器不支持内部框架,请升级</iframe>
+<iframe style="margin: 60px 2px 0px 2px" scrolling="no" frameborder="0" name="dataDisplay" width="99%" height="1000"
+        src="${app}/userrest/index">您的浏览器不支持内部框架,请升级
+</iframe>
 
 <!-- jQuery (Bootstrap 的 JavaScript 插件需要引入 jQuery) -->
 <script src="${app}/static/js/jquery-3.3.1.js"></script>

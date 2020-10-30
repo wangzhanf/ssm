@@ -44,18 +44,18 @@ public class MyBatisTest {
 
 
     @Test
-    public void test01(){
+    public void test01() {
         UserMapper userMapper = sqlSession.getMapper(UserMapper.class);
         User user = userMapper.selectByPrimaryKey(1);
         System.out.println(user);
     }
 
     @Test
-    public void test02(){
+    public void test02() {
         CustomerMapper customerMapper = sqlSession.getMapper(CustomerMapper.class);
         List<Customer> customers = customerMapper.selectByExample(null);
-        for (Customer customer:customers
-             ) {
+        for (Customer customer : customers
+        ) {
             System.out.println(customer);
         }
     }

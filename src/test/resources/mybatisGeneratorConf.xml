@@ -36,17 +36,17 @@
             <property name="enableSubPackages" value="true"/>
         </javaClientGenerator>
         <!--        6 指定数据表的生成策略-->
-<!--        <table tableName="adminuser" domainObjectName="User">-->
-<!--            <ignoreColumn column="up_time"></ignoreColumn>-->
-<!--        </table>-->
-<!--        <table tableName="customer" domainObjectName="Customer">-->
-<!--            &lt;!&ndash;            忽略部分字段的生成&ndash;&gt;-->
-<!--            <ignoreColumn column="up_time"></ignoreColumn>-->
-<!--        </table>-->
-<!--        <table tableName="types" domainObjectName="Types">-->
-<!--            &lt;!&ndash;            忽略部分字段的生成&ndash;&gt;-->
-<!--            <ignoreColumn column="up_time"></ignoreColumn>-->
-<!--        </table>-->
+        <!--        <table tableName="adminuser" domainObjectName="User">-->
+        <!--            <ignoreColumn column="up_time"></ignoreColumn>-->
+        <!--        </table>-->
+        <!--        <table tableName="customer" domainObjectName="Customer">-->
+        <!--            &lt;!&ndash;            忽略部分字段的生成&ndash;&gt;-->
+        <!--            <ignoreColumn column="up_time"></ignoreColumn>-->
+        <!--        </table>-->
+        <!--        <table tableName="types" domainObjectName="Types">-->
+        <!--            &lt;!&ndash;            忽略部分字段的生成&ndash;&gt;-->
+        <!--            <ignoreColumn column="up_time"></ignoreColumn>-->
+        <!--        </table>-->
         <table tableName="activity" domainObjectName="Activity">
             <!--            忽略部分字段的生成-->
             <ignoreColumn column="up_time"></ignoreColumn>

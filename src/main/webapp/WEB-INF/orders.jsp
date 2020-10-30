@@ -17,6 +17,7 @@
     <title>后台管理</title>
     <meta charset="UTF-8"/>
     <base target="_self"/>
+
     <meta http-equiv="Content-Type" ; content="multipart/form-data; charset=utf-8"/>
     <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
     <!-- 引入 Bootstrap -->
@@ -47,18 +48,24 @@
 
             <!-- 模态框主体 -->
             <div class="modal-body">
-                <form action="${app}/userrest/opt" class="form-horizontal" role="form">
-                    <%--input type="hidden" name="_method" value="POST" /--%>
+                <form action="${app}/ordersrest/opt" enctype="multipart/form-data" class="form-horizontal"
+                      role="form">
                     <div class="form-group">
-                        <label>username:</label>
-                        <input type="text" class="form-control" name="username"
-                               placeholder="请输入用户姓名"/>
+                        <label>onumber:</label><input type="text" class="form-control" name="onumber"/>
                     </div>
-                    <div id="usernameTips"></div>
                     <div class="form-group">
-                        <label>password:</label>
-                        <input type="password" class="form-control" name="password"
-                               placeholder="请输入密码">
+                        <label>ostatus:</label><input type="text" class="form-control" name="ostatus"/>
+                    </div>
+                    <div class="form-group">
+                        <label>fgid:</label><input list="blist" type="text" class="form-control" name="fgid"/>
+                        <datalist id="blist" class="custom-select-sm">
+                        </datalist>
+                    </div>
+                    <div class="form-group">
+                        <label>fcid:</label><input type="text" class="form-control" name="fcid"/>
+                    </div>
+                    <div class="form-group">
+                        <label>fbid:</label><input type="text" class="form-control" name="fbid"/>
                     </div>
 
                     <div class="form-group">
@@ -84,23 +91,27 @@
 
             <!-- 模态框主体 -->
             <div class="modal-body">
-                <form action="${app}/userrest/opt" class="form-horizontal" role="form">
-                    <input type="hidden" name="_method" value="PUT"/>
+                <form action="${app}/ordersrest/opt" enctype="multipart/form-data" class="form-horizontal"
+                      role="form">
                     <div class="form-group">
-                        <label>uid:</label>
-                        <input type="text" readonly="readonly" class="form-control" name="uid"
-                               placeholder="uid"/>
+                        <label>oid:</label><input readonly="readonly" type="text" class="form-control" name="oid"/>
                     </div>
                     <div class="form-group">
-                        <label>姓名username:</label>
-                        <input type="text" readonly="readonly" class="form-control"
-                               name="username"
-                               placeholder="请输入用户姓名"/>
+                        <label>onumber:</label><input type="text" class="form-control" name="onumber"/>
                     </div>
                     <div class="form-group">
-                        <label>密码password:</label>
-                        <input type="password" class="form-control" name="password"
-                               placeholder="请输入新密码">
+                        <label>ostatus:</label><input type="text" class="form-control" name="ostatus"/>
+                    </div>
+                    <div class="form-group">
+                        <label>fgid:</label><input type="text" class="form-control" name="fgid"/>
+                    </div>
+                    <div class="form-group">
+                        <label>fcid:</label><input type="text" class="form-control" name="fcid"/>
+                    </div>
+                    <div class="form-group">
+                        <label>fbid:</label><input list="ublist" type="text" class="form-control" name="fbid"/>
+                        <datalist id="ublist" class="custom-select-sm">
+                        </datalist>
                     </div>
 
                     <div class="form-group">
@@ -117,16 +128,8 @@
 </div>
 
 
-<form id="searchForm" method="get" action="${app}/userrest/list">
-    <select id="uidList" name="uidCondition">
-        <option selected="selected" value="-1">不限uid</option>
-        <option value="0">uid大于</option>
-        <option value="1">uid等于</option>
-        <option value="2">uid小于</option>
-    </select>
-
-    <input name="uid" type="text" value="" placeholder="uid"/>
-    <input type="text" placeholder="username" name="username" value=""/>
+<form id="searchForm" method="get" action="${app}/ordersrest/list">
+    <input type="text" placeholder="onumber" name="onumber" value=""/>
     <input type="date" name="startDate" value="2020-10-01"/>
     <input type="date" name="endDate" value="2020-11-12"/>
     <input class="btn btn-secondary" type="button" id="searchCleanBtn" value="清除条件"/>
@@ -136,7 +139,7 @@
     <!-- 按钮：用于打开模态框 -->
     <button id="openAddModalBtn" type="button" class="btn btn-primary" data-toggle="modal" data-target="#addModal">新增
     </button>
-    <input class="btn btn-danger" type="button" action="${app}/userrest/opt" id="deletesBtn" value="删除所选"/>
+    <input class="btn btn-danger" type="button" action="${app}/ordersrest/opt" id="deletesBtn" value="删除所选"/>
 </div>
 <table id="objTable" class="table table-striped table-bordered table-hover">
     <thead>
@@ -146,9 +149,12 @@
             <input class="btn btn-sm btn-warning" type="button" id="reverseBtn" value="反选"/>
         </th>
         <th>序号#</th>
-        <th>用户id(uid)</th>
-        <th>姓名(username)</th>
-        <th>密码(password)</th>
+        <th>订单id</th>
+        <th>数量</th>
+        <th>状态</th>
+        <th>商品信息</th>
+        <th>客户信息</th>
+        <th>商户信息</th>
         <th>创建时间(addTime)</th>
         <th>操作(修改)</th>
         <th>操作(删除)</th>
@@ -209,11 +215,19 @@
         $('[data-my="inputAvatar"]').change(choiceAvatar);
     });
 
+
+    //页面专用的代码从这里开始
+
+    $("#openAddModalBtn").click(function () {
+        getAndFill("${app}/businessrest/listJSON", $('#addModal [id="blist"]'), "bid", "bname");
+    });
+
     //修改信息时从远端获取数据并填入表单
     function updateForm(eve) {
+        var choice1;
         //打开模态框
         $("#updateModal").modal({backdrop: "static"});
-        //将表单中原有数据清空
+        //将表单中原有数据清空,包括数据区内容
         $("#updateModal form").get(0).reset();
         //从服务器获取信息填入修改表单中
         $.ajax({
@@ -221,14 +235,20 @@
             type: "GET",
             success: function (result) {
                 //回填数据
-                $('#updateModal [name="uid"]').val(result.dataZone.obj.uid);
-                $('#updateModal [name="username"]').val(result.dataZone.obj.username);
-                $('#updateModal [name="addTime"]').val(new Date(result.dataZone.obj.addTime).Format("yyyy-MM-dd"));
-
+                $('#updateModal [name="oid"]').val(result.dataZone.obj.oid);
+                $('#updateModal [name="onumber"]').val(result.dataZone.obj.onumber);
+                $('#updateModal [name="ostatus"]').val(result.dataZone.obj.ostatus);
+                $('#updateModal [name="fgid"]').val(result.dataZone.obj.fgid);
+                $('#updateModal [name="fcid"]').val(result.dataZone.obj.fcid);
+                $('#updateModal [name="fbid"]').val(result.dataZone.obj.fbid);
+                choice1 = result.dataZone.obj.fbid;
+                $('#updateModal [name="addTime"]').val(new Date(result.dataZone.obj.addTime).Format("yyyy-MM-dd HH:mm:ss"));
             },
             error: function () {
             }
         });
+        //填充列表
+        getAndFill("${app}/businessrest/listJSON", $('#updateModal [id="ublist"]'), "bid", "bname", choice1);
 
         return false;//取消超链接的默认跳转
     }
@@ -237,22 +257,27 @@
     function parseDataAndShow(result) {
         $("#objTable tbody").empty();
         // 获取数据集合
-        let users = result.dataZone.pageInfo.list;
-        $.each(users, function (index, item) {
+        let lists = result.dataZone.pageInfo.list;
+        $.each(lists, function (index, item) {
             //构建行
             var uTr = $("<tr></tr>");
             //构建多个单元格
-            var checkboxTh = $('<th><input type="checkbox" name="choiceList" value="${item.uid}"/></th>');
+            var checkboxTh = $('<th><input type="checkbox" name="choiceList" value="${item.oid}"/></th>');
             var countTh = $('<th></th>').text(index + 1);
-            var uidTd = $('<td></td>').text(item.uid);
-            var usernameTd = $('<td></td>').text(item.username);
-            var passwordTd = $('<td></td>').text(item.password);
+            var td1 = $('<td></td>').text(item.oid);
+            var td2 = $('<td></td>').text(item.onumber);
+            var td3 = $('<td></td>').text(item.ostatus);
+            var td4 = $('<td></td>').text(item.goods.gname);
+            var td5 = $('<td></td>').text(item.customer.cname);
+            var td6 = $('<td></td>').text(item.business.bname);
             var addTimeTd = $('<td></td>').text(new Date(item.addTime).Format("yyyy-MM-dd HH:mm:ss"));
-            var upBtnTd = $('<td></td>').html('<a class="upBtn btn btn-info btn-sm" href="${app}/userrest/opt/' + item.uid + '">修改</a>');
-            var delBtnTd = $('<td></td>').html('<a class="delBtn btn btn-danger btn-sm" href="${app}/userrest/opt/' + item.uid + '">删除</a>');
+            var upBtnTd = $('<td></td>').html('<a class="upBtn btn btn-info btn-sm" href="${app}/ordersrest/opt/' + item.oid + '">修改</a>');
+            var delBtnTd = $('<td></td>').html('<a class="delBtn btn btn-danger btn-sm" href="${app}/ordersrest/opt/' + item.oid + '">删除</a>');
             //将单元格追加到行中
-            uTr.append(checkboxTh).append(countTh).append(uidTd)
-                .append(usernameTd).append(passwordTd).append(addTimeTd)
+            uTr.append(checkboxTh).append(countTh)
+                .append(td1).append(td2).append(td3).append(td4).append(td5)
+                .append(td6)
+                .append(addTimeTd)
                 .append(upBtnTd).append(delBtnTd);
             // 将行追加到表体中
             $("#objTable tbody").append(uTr);

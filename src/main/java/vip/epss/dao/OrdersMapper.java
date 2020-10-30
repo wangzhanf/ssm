@@ -1,9 +1,10 @@
 package vip.epss.dao;
 
-import java.util.List;
 import org.apache.ibatis.annotations.Param;
 import vip.epss.domain.Orders;
 import vip.epss.domain.OrdersExample;
+
+import java.util.List;
 
 public interface OrdersMapper {
     long countByExample(OrdersExample example);
@@ -27,4 +28,8 @@ public interface OrdersMapper {
     int updateByPrimaryKeySelective(Orders record);
 
     int updateByPrimaryKey(Orders record);
+
+    List<Orders> selectByExampleWithObject(OrdersExample example);
+
+    Orders selectByPrimaryKeyWithObject(Integer oid);
 }
