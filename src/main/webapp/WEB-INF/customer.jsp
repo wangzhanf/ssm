@@ -333,7 +333,9 @@
             var checkboxTh = $('<th><input type="checkbox" name="choiceList" value="${item.cid}"/></th>');
             var countTh = $('<th></th>').text(index + 1);
             var td1 = $('<td></td>').text(item.cid);
-            var td2 = $('<td></td>').text(item.cname);
+            var td2 = $('<td></td>').text(`
+                <a href="${app}/ordersrest/cusorders/${item.cid}">${item.cname}</a>
+            `);
             var td3 = $('<td></td>').text(item.cphone);
             var td4 = $('<td></td>').text(item.cemail);
             var td5 = $('<td></td>').text(item.cpass);

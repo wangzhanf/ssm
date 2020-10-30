@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
+import vip.epss.domain.Business;
 import vip.epss.domain.Customer;
 import vip.epss.domain.CustomerCondition;
 import vip.epss.domain.CustomerExample;
@@ -36,6 +37,13 @@ public class CustomerrestController {
     @RequestMapping(value = "/index")
     public String index() {
         return "forward:/WEB-INF/customer.jsp";
+    }
+
+    @ResponseBody
+    @RequestMapping(value = "/listJSON")
+    public MessageAndData listJSON() {
+        List<Customer> lists = customerService.selectByExample(null);
+        return MessageAndData.success("").add("lists", lists);
     }
 
     @ResponseBody
@@ -117,7 +125,7 @@ public class CustomerrestController {
         if (iIds.size() > 1) {//删除多条记录
             CustomerExample example = new CustomerExample();
             example.createCriteria().andCidIn(iIds);
-            i = customerService.deleteByExample(example);
+            i = customerService.deleteByExample(example,iIds);
         } else {//删除一条记录
             i = customerService.deleteByPrimaryKey(iIds.get(0));
         }

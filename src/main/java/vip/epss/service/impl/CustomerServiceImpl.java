@@ -3,11 +3,14 @@ package vip.epss.service.impl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import vip.epss.dao.CustomerMapper;
+import vip.epss.dao.OrdersMapper;
 import vip.epss.domain.Customer;
 import vip.epss.domain.CustomerExample;
+import vip.epss.domain.OrdersExample;
 import vip.epss.service.CustomerService;
 import vip.epss.utils.MD5Util;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -19,6 +22,8 @@ import java.util.List;
 public class CustomerServiceImpl implements CustomerService {
     @Autowired
     private CustomerMapper customerMapper;
+    @Autowired
+    private OrdersMapper ordersMapper;
 
     @Override
     public long countByExample(CustomerExample example) {
@@ -31,7 +36,21 @@ public class CustomerServiceImpl implements CustomerService {
     }
 
     @Override
+    public int deleteByExample(CustomerExample example, List<Integer> ids) {
+        OrdersExample ordersExample = new OrdersExample();
+        OrdersExample.Criteria criteria = ordersExample.createCriteria();
+        criteria.andFcidIn(ids);
+        ordersMapper.deleteByExample(ordersExample);
+        return customerMapper.deleteByExample(example);
+    }
+
+    @Override
     public int deleteByPrimaryKey(Integer cid) {
+        //如果删除用户，首先应该删除该用户的所有订单
+        OrdersExample example = new OrdersExample();
+        OrdersExample.Criteria criteria = example.createCriteria();
+        criteria.andFcidEqualTo(cid);
+        ordersMapper.deleteByExample(example);
         return customerMapper.deleteByPrimaryKey(cid);
     }
 

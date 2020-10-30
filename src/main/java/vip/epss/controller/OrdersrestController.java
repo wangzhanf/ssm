@@ -30,6 +30,16 @@ public class OrdersrestController {
     @Autowired
     private OrdersService ordersService;
 
+    @ResponseBody
+    @RequestMapping(value = "/cusorders/{id}")
+    public MessageAndData getCustomerWithOrder(@PathVariable("id")Integer id){
+        OrdersExample example = new OrdersExample();
+        OrdersExample.Criteria criteria = example.createCriteria();
+        criteria.andFcidEqualTo(id);
+        List<Orders> lists = ordersService.selectByExampleWithObject(example);
+        return MessageAndData.success("").add("lists",lists);
+    }
+
     @RequestMapping(value = "/index")
     public String index() {
         return "forward:/WEB-INF/orders.jsp";

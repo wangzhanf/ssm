@@ -16,6 +16,8 @@ public interface CustomerService {
 
     int deleteByExample(CustomerExample example);
 
+    int deleteByExample(CustomerExample example,List<Integer> ids);
+
     int deleteByPrimaryKey(Integer cid);
 
     int insert(Customer record);

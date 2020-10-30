@@ -57,16 +57,20 @@
                         <label>ostatus:</label><input type="text" class="form-control" name="ostatus"/>
                     </div>
                     <div class="form-group">
-                        <label>fgid:</label><input list="blist" type="text" class="form-control" name="fgid"/>
-                        <datalist id="blist" class="custom-select-sm">
+                        <label>fgid:</label><input list="glist" type="text" class="form-control" name="fgid"/>
+                        <datalist id="glist" class="custom-select-sm">
                         </datalist>
                     </div>
                     <div class="form-group">
-                        <label>fcid:</label><input type="text" class="form-control" name="fcid"/>
+                        <label>fcid:</label><input list="clist" type="text" class="form-control" name="fcid"/>
                     </div>
+                    <datalist id="clist" class="custom-select-sm">
+                    </datalist>
                     <div class="form-group">
-                        <label>fbid:</label><input type="text" class="form-control" name="fbid"/>
+                        <label>fbid:</label><input list="blist" type="text" class="form-control" name="fbid"/>
                     </div>
+                    <datalist id="blist" class="custom-select-sm">
+                    </datalist>
 
                     <div class="form-group">
                         <button id="addObjBtn" type="button" class="btn btn-block btn-primary">添加</button>
@@ -103,10 +107,14 @@
                         <label>ostatus:</label><input type="text" class="form-control" name="ostatus"/>
                     </div>
                     <div class="form-group">
-                        <label>fgid:</label><input type="text" class="form-control" name="fgid"/>
+                        <label>fgid:</label><input list="uglist" type="text" class="form-control" name="fgid"/>
                     </div>
+                    <datalist id="uglist" class="custom-select-sm">
+                    </datalist>
                     <div class="form-group">
-                        <label>fcid:</label><input type="text" class="form-control" name="fcid"/>
+                        <label>fcid:</label><input list="uclist" type="text" class="form-control" name="fcid"/>
+                        <datalist id="uclist" class="custom-select-sm">
+                        </datalist>
                     </div>
                     <div class="form-group">
                         <label>fbid:</label><input list="ublist" type="text" class="form-control" name="fbid"/>
@@ -220,11 +228,15 @@
 
     $("#openAddModalBtn").click(function () {
         getAndFill("${app}/businessrest/listJSON", $('#addModal [id="blist"]'), "bid", "bname");
+        getAndFill("${app}/customerrest/listJSON", $('#addModal [id="clist"]'), "cid", "cname");
+        getAndFill("${app}/goodsrest/listJSON", $('#addModal [id="glist"]'), "gid", "gname");
     });
 
     //修改信息时从远端获取数据并填入表单
     function updateForm(eve) {
         var choice1;
+        var choice2;
+        var choice3;
         //打开模态框
         $("#updateModal").modal({backdrop: "static"});
         //将表单中原有数据清空,包括数据区内容
@@ -242,6 +254,8 @@
                 $('#updateModal [name="fcid"]').val(result.dataZone.obj.fcid);
                 $('#updateModal [name="fbid"]').val(result.dataZone.obj.fbid);
                 choice1 = result.dataZone.obj.fbid;
+                choice2 = result.dataZone.obj.fcid;
+                choice3 = result.dataZone.obj.fgid;
                 $('#updateModal [name="addTime"]').val(new Date(result.dataZone.obj.addTime).Format("yyyy-MM-dd HH:mm:ss"));
             },
             error: function () {
@@ -249,6 +263,8 @@
         });
         //填充列表
         getAndFill("${app}/businessrest/listJSON", $('#updateModal [id="ublist"]'), "bid", "bname", choice1);
+        getAndFill("${app}/customerrest/listJSON", $('#updateModal [id="uclist"]'), "cid", "cname", choice2);
+        getAndFill("${app}/goodsrest/listJSON", $('#updateModal [id="uglist"]'), "gid", "gname", choice3);
 
         return false;//取消超链接的默认跳转
     }

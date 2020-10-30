@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
+import vip.epss.domain.Business;
 import vip.epss.domain.Goods;
 import vip.epss.domain.GoodsCondition;
 import vip.epss.domain.GoodsExample;
@@ -35,6 +36,14 @@ public class GoodsrestController {
     @RequestMapping(value = "/index")
     public String index() {
         return "forward:/WEB-INF/goods.jsp";
+    }
+
+
+    @ResponseBody
+    @RequestMapping(value = "/listJSON")
+    public MessageAndData listJSON() {
+        List<Goods> lists = goodsService.selectByExample(null);
+        return MessageAndData.success("").add("lists", lists);
     }
 
     @ResponseBody

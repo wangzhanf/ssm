@@ -27,6 +27,9 @@ public class OrdersServiceImpl implements OrdersService {
 
     @Override
     public int deleteByExample(OrdersExample example) {
+
+
+
         return ordersMapper.deleteByExample(example);
     }
 
