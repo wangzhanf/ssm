@@ -305,4 +305,51 @@
       add_time = #{addTime,jdbcType=TIMESTAMP}
     where bid = #{bid,jdbcType=INTEGER}
   </update>
+
+    <!--    商家参与活动-->
+    <sql id="Extend_Column_List">
+    b.bid, b.bname, b.bpass, b.bdes, b.bdelivery, b.bmark, b.bavatar, b.baddress, b.brecommendation, b.bstatus,      b.add_time as badd_time
+   ,a.aid,a.aname,a.add_time as aadd_time,bta.add_time as btaadd_time
+  </sql>
+    <resultMap id="BaseResultMapWithObject" type="vip.epss.domain.Business">
+        <id column="bid" jdbcType="INTEGER" property="bid"/>
+        <result column="bname" jdbcType="VARCHAR" property="bname"/>
+        <result column="bpass" jdbcType="VARCHAR" property="bpass"/>
+        <result column="bdes" jdbcType="VARCHAR" property="bdes"/>
+        <result column="bdelivery" jdbcType="VARCHAR" property="bdelivery"/>
+        <result column="bmark" jdbcType="DOUBLE" property="bmark"/>
+        <result column="bavatar" jdbcType="VARCHAR" property="bavatar"/>
+        <result column="baddress" jdbcType="VARCHAR" property="baddress"/>
+        <result column="brecommendation" jdbcType="INTEGER" property="brecommendation"/>
+        <result column="bstatus" jdbcType="BIT" property="bstatus"/>
+        <result column="add_time" jdbcType="TIMESTAMP" property="addTime"/>
+        <collection property="activities" ofType="vip.epss.domain.Activity">
+            <id property="aid" column="aid"></id>
+            <result property="aname" column="aname"></result>
+        </collection>
+    </resultMap>
+    <select id="selectByExampleWithObject" parameterType="vip.epss.domain.BusinessExample"
+            resultMap="BaseResultMapWithObject">
+        select
+        <if test="distinct">
+            distinct
+        </if>
+        <include refid="Extend_Column_List"/>
+        from business b
+        left join business_to_activity bta on b.bid=bta.fbid
+        left join activity a on bta.faid = a.aid
+        <if test="_parameter != null">
+            <include refid="Example_Where_Clause"/>
+        </if>
+        <if test="orderByClause != null">
+            order by ${orderByClause}
+        </if>
+    </select>
+    <select id="selectByPrimaryKeyWithObject" parameterType="java.lang.Integer" resultMap="BaseResultMapWithObject">
+        select
+        <include refid="Extend_Column_List"/>
+        from business b
+        where bid = #{bid,jdbcType=INTEGER}
+    </select>
+
 </mapper>

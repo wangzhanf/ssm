@@ -50,42 +50,44 @@
             <div class="modal-body">
                 <form action="${app}/businessrest/opt" enctype="multipart/form-data" class="form-horizontal"
                       role="form">
-                        <div class="form-group">
-                            <label>bname:</label><input type="text" class="form-control" name="bname"/>
+                    <div class="form-group">
+                        <label>bname:</label><input type="text" class="form-control" name="bname"/>
+                    </div>
+                    <div class="form-group">
+                        <label>bpass:</label><input type="text" class="form-control" name="bpass"/>
+                    </div>
+                    <div class="form-group">
+                        <label>bdes:</label><textarea type="text" class="form-control" name="bdes"></textarea>
+                    </div>
+                    <div class="form-group">
+                        <label>bdelivery:</label><input type="text" class="form-control" name="bdelivery"/>
+                    </div>
+                    <div class="form-group">
+                        <label>bmark:</label><input type="range" min="0" max="5" step="1" class="form-control"
+                                                    name="bmark"/>
+                    </div>
+                    <div class="form-group">
+                        <label>bavatar:</label>
+                        <img data-my="disAvatar" src="" style="width: 100px;height: 100px;"/>
+                        <input style="display: none;" type="file" class="form-control" data-my="inputAvatar"
+                               name="file"/>
+                    </div>
+                    <div class="form-group">
+                        <label>baddress:</label><textarea class="form-control" name="baddress"></textarea>
+                    </div>
+                    <div class="form-group">
+                        <label>brecommendation:</label><input type="range" min="0" max="100" step="1"
+                                                              class="form-control" name="brecommendation"/>
+                    </div>
+                    <div class="form-group">
+                        <label>bstatus: </label>
+                        <div class="form-check form-check-inline">
+                            <label class="form-check-label">
+                                <input class="form-check-input" type="checkbox" class="form-control" value="1"
+                                       name="bstatus"/>是否禁用该商户
+                            </label>
                         </div>
-                        <div class="form-group">
-                            <label>bpass:</label><input type="text" class="form-control" name="bpass"/>
-                        </div>
-                        <div class="form-group">
-                            <label>bdes:</label><textarea type="text" class="form-control" name="bdes"></textarea>
-                        </div>
-                        <div class="form-group">
-                            <label>bdelivery:</label><input type="text" class="form-control" name="bdelivery"/>
-                        </div>
-                        <div class="form-group">
-                            <label>bmark:</label><input type="range" min="0" max="5" step="1" class="form-control" name="bmark"/>
-                        </div>
-                        <div class="form-group">
-                            <label>bavatar:</label>
-                            <img data-my="disAvatar" src="" style="width: 100px;height: 100px;"/>
-                            <input style="display: none;" type="file" class="form-control" data-my="inputAvatar"
-                                   name="file"/>
-                        </div>
-                        <div class="form-group">
-                            <label>baddress:</label><textarea class="form-control" name="baddress"></textarea>
-                        </div>
-                        <div class="form-group">
-                            <label>brecommendation:</label><input type="range" min="0" max="100" step="1" class="form-control" name="brecommendation"/>
-                        </div>
-                        <div class="form-group">
-                            <label>bstatus: </label>
-                            <div class="form-check form-check-inline">
-                                <label class="form-check-label">
-                                    <input class="form-check-input" type="checkbox" class="form-control" value="1"
-                                           name="bstatus"/>是否禁用该商户
-                                </label>
-                            </div>
-                        </div>
+                    </div>
                     <div class="form-group">
                         <button id="addObjBtn" type="button" class="btn btn-block btn-primary">添加</button>
                     </div>
@@ -127,7 +129,8 @@
                         <label>bdelivery:</label><input type="text" class="form-control" name="bdelivery"/>
                     </div>
                     <div class="form-group">
-                        <label>bmark:</label><input type="range" min="0" max="5" step="1" class="form-control" name="bmark"/>
+                        <label>bmark:</label><input type="range" min="0" max="5" step="1" class="form-control"
+                                                    name="bmark"/>
                     </div>
                     <div class="form-group">
                         <label>bavatar:</label>
@@ -139,7 +142,8 @@
                         <label>baddress:</label><textarea class="form-control" name="baddress"></textarea>
                     </div>
                     <div class="form-group">
-                        <label>brecommendation:</label><input type="range" min="0" max="100" step="1" class="form-control" name="brecommendation"/>
+                        <label>brecommendation:</label><input type="range" min="0" max="100" step="1"
+                                                              class="form-control" name="brecommendation"/>
                     </div>
                     <div class="form-group">
                         <label>bstatus: </label>
@@ -192,6 +196,7 @@
         <th>描述</th>
         <th>配送标准</th>
         <th>评分</th>
+        <th>参与活动</th>
         <th>头像</th>
         <th>地址</th>
         <th>推荐指数</th>
@@ -254,6 +259,10 @@
             $(eve.target).next('[type="file"]').click();
         });
         $('[data-my="inputAvatar"]').change(choiceAvatar);
+        //给点击获取相关信息的链接打开模态框
+        $(document).on("click", ".disBtn", displayInfo);
+        //给点击切换状态的连接添加事件
+        $(document).on("click",".changeBtn",changeStatus);
     });
 
     //修改信息时从远端获取数据并填入表单
@@ -275,6 +284,7 @@
                 $('#updateModal [name="bdelivery"]').val(result.dataZone.obj.bdelivery);
                 $('#updateModal [name="baddress"]').val(result.dataZone.obj.baddress);
                 $('#updateModal [name="bmark"]').val(result.dataZone.obj.bmark);
+                $('#updateModal [name="activities"]').val(result.dataZone.obj.activities);
                 $('#updateModal [data-my="disAvatar"]').attr('src', result.dataZone.obj.bavatar == '' ? '/upload/null.png' : result.dataZone.obj.bavatar);
                 $('#updateModal [name="brecommendation"]').val(result.dataZone.obj.brecommendation);
                 // 复选框的处理方式
@@ -306,18 +316,34 @@
             var td4 = $('<td></td>').text(item.bdes);
             var td5 = $('<td></td>').text(item.bdelivery);
             var td6 = $('<td></td>').text(item.bmark);
-            var td7 = $('<td></td>').text(item.bavatar);
-            var td8 = $('<td></td>').text(item.baddress);
-            var td9 = $('<td></td>').text(item.brecommendation);
+            //处理带列表的输出
+            let tempStr = '';
+            for (let j = 0; j < result.dataZone.activities.length; j++) {
+                let flag = false;
+                for (let i = 0; i < item.activities.length; i++) {
+                    if (item.activities[i].aid == result.dataZone.activities[j].aid) {
+                        flag = true;
+                        tempStr += `<a class='changeBtn btn btn-block btn-success' href='${app}/businessrest/opt/${"${item.bid}"}/${"${result.dataZone.activities[j].aid}"}/${"${flag}"}'>${"${result.dataZone.activities[j].aname}"}</a>`;
+                        break;
+                    }
+                }
+                if (!flag) {
+                    tempStr += `<a class='changeBtn btn btn-block btn-danger' href='${app}/businessrest/opt/${"${item.bid}"}/${"${result.dataZone.activities[j].aid}"}/${"${flag}"}'>${"${result.dataZone.activities[j].aname}"}</a>`;
+                }
+            }
+            var td7 = $('<td></td>').html(tempStr);
+            var td8 = $('<td></td>').text(item.bavatar);
+            var td9 = $('<td></td>').text(item.baddress);
+            var td10 = $('<td></td>').text(item.brecommendation);
             //如果显示布尔值,建议使用三元表达式快速处理
-            var td10 = $('<td></td>').text(item.bstatus == true ? '禁用' : '启用');
+            var td11 = $('<td></td>').text(item.bstatus == true ? '禁用' : '启用');
             var addTimeTd = $('<td></td>').text(new Date(item.addTime).Format("yyyy-MM-dd HH:mm:ss"));
             var upBtnTd = $('<td></td>').html('<a class="upBtn btn btn-info btn-sm" href="${app}/businessrest/opt/' + item.bid + '">修改</a>');
             var delBtnTd = $('<td></td>').html('<a class="delBtn btn btn-danger btn-sm" href="${app}/businessrest/opt/' + item.bid + '">删除</a>');
             //将单元格追加到行中
             uTr.append(checkboxTh).append(countTh)
                 .append(td1).append(td2).append(td3).append(td4).append(td5)
-                .append(td6).append(td7).append(td8).append(td9).append(td10)
+                .append(td6).append(td7).append(td8).append(td9).append(td10).append(td11)
                 .append(addTimeTd)
                 .append(upBtnTd).append(delBtnTd);
             // 将行追加到表体中

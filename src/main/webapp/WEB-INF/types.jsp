@@ -203,6 +203,10 @@
             $(eve.target).next('[type="file"]').click();
         });
         $('[data-my="inputAvatar"]').change(choiceAvatar);
+        //给点击获取相关信息的链接打开模态框
+        $(document).on("click", ".disBtn", displayInfo);
+        //给点击切换状态的连接添加事件
+        $(document).on("click",".changeBtn",changeStatus);
     });
 
     //修改信息时从远端获取数据并填入表单

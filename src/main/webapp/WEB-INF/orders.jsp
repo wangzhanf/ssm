@@ -221,6 +221,10 @@
             $(eve.target).next('[type="file"]').click();
         });
         $('[data-my="inputAvatar"]').change(choiceAvatar);
+        //给点击获取相关信息的链接打开模态框
+        $(document).on("click", ".disBtn", displayInfo);
+        //给点击切换状态的连接添加事件
+        $(document).on("click",".changeBtn",changeStatus);
     });
 
 
@@ -257,14 +261,15 @@
                 choice2 = result.dataZone.obj.fcid;
                 choice3 = result.dataZone.obj.fgid;
                 $('#updateModal [name="addTime"]').val(new Date(result.dataZone.obj.addTime).Format("yyyy-MM-dd HH:mm:ss"));
+                //填充列表
+                getAndFill("${app}/businessrest/listJSON", $('#updateModal [id="ublist"]'), "bid", "bname", choice1);
+                getAndFill("${app}/customerrest/listJSON", $('#updateModal [id="uclist"]'), "cid", "cname", choice2);
+                getAndFill("${app}/goodsrest/listJSON", $('#updateModal [id="uglist"]'), "gid", "gname", choice3);
             },
             error: function () {
             }
         });
-        //填充列表
-        getAndFill("${app}/businessrest/listJSON", $('#updateModal [id="ublist"]'), "bid", "bname", choice1);
-        getAndFill("${app}/customerrest/listJSON", $('#updateModal [id="uclist"]'), "cid", "cname", choice2);
-        getAndFill("${app}/goodsrest/listJSON", $('#updateModal [id="uglist"]'), "gid", "gname", choice3);
+
 
         return false;//取消超链接的默认跳转
     }

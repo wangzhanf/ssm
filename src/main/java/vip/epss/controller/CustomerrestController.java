@@ -122,6 +122,8 @@ public class CustomerrestController {
         for (String sId : sIds) {
             iIds.add(Integer.parseInt(sId));
         }
+        /*由于删除多条记录需要重载方法,临时的解决方案的缺陷在于需要在service重载一个方法,本案例此业务暂时使用这种方式
+        * 另外一种解决方式参考business业务线*/
         if (iIds.size() > 1) {//删除多条记录
             CustomerExample example = new CustomerExample();
             example.createCriteria().andCidIn(iIds);

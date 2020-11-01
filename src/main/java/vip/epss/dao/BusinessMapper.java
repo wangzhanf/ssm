@@ -21,6 +21,10 @@ public interface BusinessMapper {
 
     Business selectByPrimaryKey(Integer bid);
 
+    List<Business> selectByExampleWithObject(BusinessExample example);
+
+    Business selectByPrimaryKeyWithObject(Integer bid);
+
     int updateByExampleSelective(@Param("record") Business record, @Param("example") BusinessExample example);
 
     int updateByExample(@Param("record") Business record, @Param("example") BusinessExample example);

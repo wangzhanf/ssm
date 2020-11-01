@@ -186,6 +186,25 @@
         </div>
     </div>
 </div>
+<div class="modal fade" id="displayInfo">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title">显示相关信息</h4>
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+            </div>
+
+            <!-- 模态框主体 -->
+            <div class="modal-body">
+                显示信息
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">关闭</button>
+            </div>
+
+        </div>
+    </div>
+</div>
 
 
 <form id="searchForm" method="get" action="${app}/customerrest/list">
@@ -277,6 +296,10 @@
             $(eve.target).next('[type="file"]').click();
         });
         $('[data-my="inputAvatar"]').change(choiceAvatar);
+        //给点击获取相关信息的链接打开模态框
+        $(document).on("click", ".disBtn", displayInfo);
+        //给点击切换状态的连接添加事件
+        $(document).on("click",".changeBtn",changeStatus);
     });
 
     //修改信息时从远端获取数据并填入表单
@@ -333,9 +356,7 @@
             var checkboxTh = $('<th><input type="checkbox" name="choiceList" value="${item.cid}"/></th>');
             var countTh = $('<th></th>').text(index + 1);
             var td1 = $('<td></td>').text(item.cid);
-            var td2 = $('<td></td>').text(`
-                <a href="${app}/ordersrest/cusorders/${item.cid}">${item.cname}</a>
-            `);
+            var td2 = $('<td></td>').html(`<a class="disBtn"  href="${app}/ordersrest/cusorders/${"${item.cid}"}">${"${item.cname}"}</a>`);
             var td3 = $('<td></td>').text(item.cphone);
             var td4 = $('<td></td>').text(item.cemail);
             var td5 = $('<td></td>').text(item.cpass);

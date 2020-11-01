@@ -88,6 +88,42 @@ function updateObj() {
         }
     });
 }
+//打开显示信息模态框
+function displayInfo(eve) {
+    //打开模态框
+    $("#displayInfo").modal({backdrop: "static"});
+    $("#displayInfo .modal-body").empty();
+    let url = eve.target.href;
+    $.ajax({
+        url: url,
+        type: "GET",
+        success: function (result) {
+            for (let i = 0; i < result.dataZone.lists.length; i++) {
+                $("#displayInfo .modal-body").append(JSON.stringify(result.dataZone.lists[i]));
+            }
+        },
+        error: function (result) {
+            alertTips(result.message, "alert-danger");
+            return false;
+        }
+    });
+
+    return false;
+}
+
+//改变状态的操作
+function changeStatus(eve){
+    let url = eve.target.href;
+    $.ajax({
+        url: url,
+        type: "GET",
+        success: function (result) {
+            alertTips(result.message, "alert-success");
+            gotoPage(currentPage);
+        }
+    });
+    return false;
+}
 
 //打开添加的模态框并清空原有数据
 function addForm() {
@@ -299,6 +335,8 @@ function mulCheck() {
 function alertTips(message, alert_type) {
     $('.alert').html(message).removeAttr("class").addClass('alert').addClass(alert_type).show().delay(2000).fadeOut();
 }
+
+
 
 
 //日期转换,基于原型的设计方式,可以确保按照自己定义的类型方式进行展示

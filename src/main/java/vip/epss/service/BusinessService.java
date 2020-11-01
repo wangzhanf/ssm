@@ -26,6 +26,10 @@ public interface BusinessService {
 
     Business selectByPrimaryKey(Integer bid);
 
+    List<Business> selectByExampleWithObject(BusinessExample example);
+
+    Business selectByPrimaryKeyWithObject(Integer bid);
+
     int updateByExampleSelective(@Param("record") Business record, @Param("example") BusinessExample example);
 
     int updateByExample(@Param("record") Business record, @Param("example") BusinessExample example);
@@ -33,4 +37,6 @@ public interface BusinessService {
     int updateByPrimaryKeySelective(Business record);
 
     int updateByPrimaryKey(Business record);
+
+    int updateStatus(Integer bid,Integer aid,Boolean status);
 }

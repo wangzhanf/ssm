@@ -47,23 +47,29 @@
         <!--            &lt;!&ndash;            忽略部分字段的生成&ndash;&gt;-->
         <!--            <ignoreColumn column="up_time"></ignoreColumn>-->
         <!--        </table>-->
-        <table tableName="activity" domainObjectName="Activity">
-            <!--            忽略部分字段的生成-->
-            <ignoreColumn column="up_time"></ignoreColumn>
-        </table>
-        <table tableName="types" domainObjectName="Types">
-            <!--            忽略部分字段的生成-->
-            <ignoreColumn column="up_time"></ignoreColumn>
-        </table>
-        <table tableName="business" domainObjectName="Business">
-            <!--            忽略部分字段的生成-->
-            <ignoreColumn column="up_time"></ignoreColumn>
-        </table>
-        <table tableName="goods" domainObjectName="Goods">
-            <!--            忽略部分字段的生成-->
-            <ignoreColumn column="up_time"></ignoreColumn>
-        </table>
-        <table tableName="orders" domainObjectName="Orders">
+<!--        <table tableName="activity" domainObjectName="Activity">-->
+<!--            &lt;!&ndash;            忽略部分字段的生成&ndash;&gt;-->
+<!--            <ignoreColumn column="up_time"></ignoreColumn>-->
+<!--        </table>-->
+<!--        <table tableName="types" domainObjectName="Types">-->
+<!--            &lt;!&ndash;            忽略部分字段的生成&ndash;&gt;-->
+<!--            <ignoreColumn column="up_time"></ignoreColumn>-->
+<!--        </table>-->
+<!--        <table tableName="business" domainObjectName="Business">-->
+<!--            &lt;!&ndash;            忽略部分字段的生成&ndash;&gt;-->
+<!--            <ignoreColumn column="up_time"></ignoreColumn>-->
+<!--        </table>-->
+<!--        <table tableName="goods" domainObjectName="Goods">-->
+<!--            &lt;!&ndash;            忽略部分字段的生成&ndash;&gt;-->
+<!--            <ignoreColumn column="up_time"></ignoreColumn>-->
+<!--        </table>-->
+<!--        <table tableName="orders" domainObjectName="Orders">-->
+<!--            &lt;!&ndash;            忽略部分字段的生成&ndash;&gt;-->
+<!--            <ignoreColumn column="up_time"></ignoreColumn>-->
+<!--        </table>-->
+
+<!--        多对多的中间表查询一般无需生成mapper和实体类,如果需要删除则需要对应的mapper-->
+        <table tableName="business_to_activity" domainObjectName="BusinessToActivity">
             <!--            忽略部分字段的生成-->
             <ignoreColumn column="up_time"></ignoreColumn>
         </table>

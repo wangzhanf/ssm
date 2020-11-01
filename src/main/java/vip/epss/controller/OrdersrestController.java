@@ -30,6 +30,7 @@ public class OrdersrestController {
     @Autowired
     private OrdersService ordersService;
 
+    //用以查阅指定客户的所有订单
     @ResponseBody
     @RequestMapping(value = "/cusorders/{id}")
     public MessageAndData getCustomerWithOrder(@PathVariable("id")Integer id){
@@ -56,7 +57,7 @@ public class OrdersrestController {
         OrdersExample example = new OrdersExample();
         OrdersExample.Criteria criteria = example.createCriteria();
 
-
+        //由于统计时不能出现模糊的字段,所以临时封存以下代码
 //        SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
 //        Date startDate = dateFormat.parse("1970-01-01");
 //        Date endDate = dateFormat.parse("2999-12-31");
@@ -70,6 +71,7 @@ public class OrdersrestController {
 //        }
 //
 //        criteria.andAddTimeBetween(startDate, endDate);
+
 
         //初始化,约束
         PageHelper.startPage(pageNum, pageSize);

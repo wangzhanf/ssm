@@ -244,6 +244,10 @@
             $(eve.target).next('[type="file"]').click();
         });
         $('[data-my="inputAvatar"]').change(choiceAvatar);
+        //给点击获取相关信息的链接打开模态框
+        $(document).on("click", ".disBtn", displayInfo);
+        //给点击切换状态的连接添加事件
+        $(document).on("click",".changeBtn",changeStatus);
     });
 
     //页面专用的代码从这里开始

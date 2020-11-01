@@ -76,7 +76,7 @@
     </div>
 </nav>
 
-<iframe style="margin: 60px 2px 0px 2px" scrolling="no" frameborder="0" name="dataDisplay" width="99%" height="1000"
+<iframe style="margin: 60px 2px 0px 2px" scrolling="auto" frameborder="0" name="dataDisplay" width="99%" height="1000"
         src="${app}/userrest/index">您的浏览器不支持内部框架,请升级
 </iframe>
 
